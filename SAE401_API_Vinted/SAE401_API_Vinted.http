@@ -1,0 +1,6 @@
+@SAE401_API_Vinted_HostAddress = http://localhost:5047
+
+GET {{SAE401_API_Vinted_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
