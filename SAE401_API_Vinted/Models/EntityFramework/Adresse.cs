@@ -1,0 +1,26 @@
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SAE401_API_Vinted.Models.EntityFramework
+{
+    [Table("t_e_adresse_adr")]
+    public class Adresse
+    {
+        [Key]
+        [Column("adr_id")]
+        public int AdresseID { get; set; }
+
+        [Column("adr_villeid")]
+        [ForeignKey(nameof(Ville.VilleID))]
+        public int VilleID { get; set; }
+
+        [Required]
+        [Column("adr_libelle")]
+        [StringLength(200)]
+        public string Libelle { get; set; } = null!;
+
+        [InverseProperty(nameof(Ville.AdressesVilles))]
+        public virtual Ville VilleAdresse { get; set; } = null!;
+    }
+}
