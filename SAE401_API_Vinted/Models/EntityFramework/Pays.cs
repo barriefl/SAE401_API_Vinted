@@ -1,0 +1,22 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SAE401_API_Vinted.Models.EntityFramework
+{
+    [Table("t_e_pays_pay")]
+    public class Pays
+    {
+        [Key]
+        [Column("pay_id")]
+        public int PaysID { get; set; }
+
+        [Required]
+        [Column("pay_libelle")]
+        [StringLength(100)]
+        public string Libelle { get; set; } = null!;
+
+
+        [InverseProperty(nameof(Ville.PaysVille))]
+        public virtual ICollection<Pays> VillesPays { get; set; } = new List<Pays>();
+    }
+}
