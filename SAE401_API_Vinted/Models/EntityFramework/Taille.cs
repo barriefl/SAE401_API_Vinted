@@ -24,11 +24,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Caracteristique.TaillesCaracteristique))]
         public virtual Caracteristique CaracteristiqueIdNavigation { get; set; } = null!;
 
+        [ForeignKey(nameof(TypeTailleId))]
+        [InverseProperty(nameof(TypeTaille.TaillesTypeTaille))]
+        public virtual Caracteristique TypeTailleIdNavigation { get; set; } = null!;
+
         [InverseProperty(nameof(Reside.ResideVintie))]
         public virtual ICollection<Reside> VintiesResides { get; set; } = new List<Reside>();
-
-        [InverseProperty(nameof(Article.VendeurDeArticle))]
-        public virtual ICollection<Article> ArticlesDuVendeur { get; set; } = new List<Article>();
-
     }
 }
