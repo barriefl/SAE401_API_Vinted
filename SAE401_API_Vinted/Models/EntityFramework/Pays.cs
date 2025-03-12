@@ -15,7 +15,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(100)]
         public string Libelle { get; set; } = null!;
 
-
         [InverseProperty(nameof(Ville.PaysVille))]
         public virtual ICollection<Ville> VillesPays { get; set; } = new List<Ville>();
     }

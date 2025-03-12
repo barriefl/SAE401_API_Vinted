@@ -5,22 +5,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_j_pointrelaisfavoris_prf")]
-    [PrimaryKey(nameof(VintieId), nameof(PointRelaisID))]    
+    [PrimaryKey(nameof(VintieId), nameof(PointRelaisId))]    
     public class PointRelaisFavoris
     {
         [Key]
-        [Column("prf_vintieid")]
-        [ForeignKey(nameof(Vintie.VintieId))]
+        [Column("vnt_id")]
         public int VintieId { get; set; }
 
         [Key]
-        [Column("prf_pointrelaisid")]
-        [ForeignKey(nameof(PointRelais.PointRelaisID))]
-        public int PointRelaisID { get; set; }
+        [Column("ptr_id")]
+        public int PointRelaisId { get; set; }
 
+        [ForeignKey(nameof(VintieId))]
         [InverseProperty(nameof(Vintie.PointRelaisFavorisVintie))]
         public virtual Vintie VintiePointRelais { get; set; } = null!;
 
+        [ForeignKey(nameof(PointRelaisId))]
         [InverseProperty(nameof(PointRelais.PointsRelaisEnFavoris))]
         public virtual PointRelais FavPointRelais { get; set; } = null!;
     }
