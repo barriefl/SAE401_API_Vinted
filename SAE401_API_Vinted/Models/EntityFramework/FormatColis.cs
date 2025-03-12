@@ -3,21 +3,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
-    [Table("t_e_typeadresse_tad")]
-
-    public class TypeAdresse
+    [Table("t_e_formatcolis_fmc")]
+    public class FormatColis
     {
         [Key]
-        [Column("tad_id")]
+        [Column("fmc_id")]
         public int Code { get; set; }
 
         [Required]
-        [Column("tad_libelle")]
+        [Column("fmc_id")]
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
-
-        [InverseProperty(nameof(Possede.APourType))]
-        public virtual ICollection<Possede> PossedesType { get; set; } = new List<Possede>();
+        [Column("fmc_fraissupplementaire")]
+        public decimal FraisSupplementaire { get; set; }
     }
 }
