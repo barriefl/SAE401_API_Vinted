@@ -53,5 +53,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Article.CommandesArticles))]
         public virtual Article ArticleCommande { get; set; } = null!;
+
+
+        [InverseProperty(nameof(Transaction.CommandeTransaction))]
+        public virtual ICollection<Transaction> TransactionsCommandes { get; set; } = new List<Transaction>();
     }
 }

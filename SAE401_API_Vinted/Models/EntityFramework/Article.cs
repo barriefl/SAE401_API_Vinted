@@ -68,5 +68,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Commande.ArticleCommande))]
         public virtual ICollection<Favoris> CommandesArticles { get; set; } = new List<Favoris>();
+
     }
 }
