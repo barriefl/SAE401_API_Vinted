@@ -13,7 +13,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("tad_libelle")]
-        public string LibelleType { get; set; } = null!;
+        public string Libelle { get; set; } = null!;
 
 
         [InverseProperty(nameof(Possede.APourType))]
