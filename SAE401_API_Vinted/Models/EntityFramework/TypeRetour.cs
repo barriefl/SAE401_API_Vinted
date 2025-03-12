@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
@@ -17,6 +18,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(50)]
         public string Libelle { get; set; } = null!;
 
-
+        [InverseProperty(nameof(Retour.TypeDuRetour))]
+        public virtual ICollection<Retour> TypesDesRetours { get; set; } = new List<Retour>();
     }
 }

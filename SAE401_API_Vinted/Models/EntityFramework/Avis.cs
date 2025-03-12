@@ -31,6 +31,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(TypeAvis.PossedesTypeAvis))]
         public virtual TypeAvis APourTypeAvis { get; set; } = null!;
 
+        [InverseProperty(nameof(Vintie.ADesAvis))]
+        public virtual Vintie ApourVendeur { get; set; } = null!;
 
+        [InverseProperty(nameof(Vintie.ADesAvis))]
+        public virtual Vintie APourAcheteur { get; set; } = null!;
     }
 }
