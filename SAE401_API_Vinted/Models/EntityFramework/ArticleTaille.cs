@@ -19,7 +19,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Article.TaillesArticle))]
         public virtual Article ArticleIdNavigation { get; set; } = null!;
 
-        [InverseProperty(nameof(TypeTaillesCategorie))]
+        [InverseProperty(nameof(Taille.ArticlesTaille))]
         public virtual Taille TailleIdNavigation { get; set; }
     }
 }
