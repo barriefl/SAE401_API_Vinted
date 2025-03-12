@@ -15,7 +15,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public string Nom { get; set; }
 
         [InverseProperty(nameof(Preference.ExpediteurIdNavigation))]
-        public virtual ICollection<Preference> PreferenceExpediteur { get; set; } = new List<Preference>();
+        public virtual ICollection<Preference> PreferencesExpediteur { get; set; } = new List<Preference>();
         /*
         [InverseProperty(nameof(Appartient.VintieIdNavigation))]
         public virtual ICollection<Commande> AppartienentVintie { get; set; } = new List<Appartient>();*/
