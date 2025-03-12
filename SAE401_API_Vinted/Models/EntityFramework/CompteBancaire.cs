@@ -11,17 +11,20 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("cob_id")]
         public int CompteId { get; set; }
 
+        [Required]
         [Column("cob_iban")]
         [StringLength(34)]
-        public string Iban { get; set; }
+        public string Iban { get; set; } = null!;
 
+        [Required]
         [Column("cob_nomtitulaire")]
         [StringLength(50)]
-        public string NomTitulaire { get; set; }
+        public string NomTitulaire { get; set; } = null!;
 
+        [Required]
         [Column("cob_prenomtitulaire")]
         [StringLength(50)]
-        public string PrenomTitulaire { get; set; }
+        public string PrenomTitulaire { get; set; } = null!;
 
         [InverseProperty("CompteIdNavigation")]
         public virtual ICollection<CarteBancaire> CartesCompte { get; set; } = new List<CarteBancaire>();

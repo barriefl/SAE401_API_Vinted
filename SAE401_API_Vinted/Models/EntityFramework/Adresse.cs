@@ -11,6 +11,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("adr_id")]
         public int AdresseID { get; set; }
 
+        [Required]
         [Column("vil_id")]
         public int VilleID { get; set; }
 

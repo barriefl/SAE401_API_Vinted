@@ -12,23 +12,26 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("art_id")]
         public int ArticleId { get; set; }
 
+        [Required]
         [Column("cat_id")]
         public int CategorieId { get; set; }
 
-        [Column("eta_id")]
-        public int EtatArticleId { get; set; }
-
+        [Required]
         [Column("vnt_vendeurid")]
         public int VendeurId { get; set; }
 
-        [Column("mrq_id")]
-        public int MarqueId { get; set; }
-
-        [Column("mat_id")]
-        public int MatiereId { get; set; }
-
+        [Required]
         [Column("eva_id")]
         public int EtatVenteArticleId { get; set; }
+
+        [Column("eta_id")]
+        public int? EtatArticleId { get; set; }
+
+        [Column("mrq_id")]
+        public int? MarqueId { get; set; }
+
+        [Column("mat_id")]
+        public int? MatiereId { get; set; }
 
         [Required]
         [Column("art_titre")]

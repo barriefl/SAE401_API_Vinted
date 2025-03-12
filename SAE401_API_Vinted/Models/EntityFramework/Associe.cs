@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_j_associe_ass")]
+    [PrimaryKey(nameof(AdresseID), nameof(VintieId))]
     public class Associe
     {
         [Key]
