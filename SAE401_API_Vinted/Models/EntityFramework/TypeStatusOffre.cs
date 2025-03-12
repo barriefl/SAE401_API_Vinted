@@ -10,6 +10,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("tso_id")]
         public int TypeStatusOffreId { get; set; }
 
+        [Required]
         [Column("tso_libelle")]
         [StringLength(20)]
         public string TypeStatusOffreLibelle { get; set; } = null!;

@@ -11,9 +11,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("tyc_id")]
         public int Code { get; set; }
 
+        [Required]
         [Column("tyc_libelle")]
         [StringLength(40)]
-        public string Libelle { get; set; }
+        public string Libelle { get; set; } = null!;
 
         [InverseProperty("VintieCodeNavigation")]
         public virtual ICollection<Vintie> VintiesType { get; set; } = new List<Vintie>();
