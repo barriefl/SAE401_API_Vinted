@@ -10,17 +10,19 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("fav_idarticle")]
-        [ForeignKey(nameof(Article.ArticleId))]
         public int ArticleId { get; set; }
 
         [Key]
         [Column("fav_idvintie")]
-        [ForeignKey(nameof(Vintie.VintieId))]
         public int VintieId { get; set; }
 
+
+        [ForeignKey(nameof(ArticleId))]
         [InverseProperty(nameof(Article.FavorisArticle))]
         public virtual Article EstFavoris { get; set; } = null!;
 
+
+        [ForeignKey(nameof(VintieId))]
         [InverseProperty(nameof(Vintie.FavorisDeVintie))]
         public virtual Vintie FavorisVintie { get; set; } = null!;
     }

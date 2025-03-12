@@ -8,20 +8,25 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("avs_id")]
-        public int AvisID { get; set; }
+        public int AvisId { get; set; }
 
+        [Required]
         [Column("vnt_acheteurid")]
-        public int AcheteurID { get; set; }
+        public int AcheteurId { get; set; }
 
+        [Required]
         [Column("vnt_vendeurid")]
-        public int VendeurID { get; set; }
+        public int VendeurId { get; set; }
 
+        [Required]
         [Column("avs_codetypeavis")]
         public int CodeTypeAvis { get; set; }
 
+        [Required]
         [Column("avs_commentaire")]
         public string? Commentaire { get; set; }
 
+        [Required]
         [Column("avs_note")]
         public decimal Note { get; set; }
 
@@ -29,11 +34,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(TypeAvis.PossedesTypeAvis))]
         public virtual TypeAvis APourTypeAvis { get; set; } = null!;
 
-        [ForeignKey(nameof(VendeurID))]
+        [ForeignKey(nameof(VendeurId))]
         [InverseProperty(nameof(Vintie.ADesAvis))]
         public virtual Vintie ApourVendeur { get; set; } = null!;
 
-        [ForeignKey(nameof(AcheteurID))]
+        [ForeignKey(nameof(AcheteurId))]
         [InverseProperty(nameof(Vintie.ADesAvis))]
         public virtual Vintie APourAcheteur { get; set; } = null!;
     }

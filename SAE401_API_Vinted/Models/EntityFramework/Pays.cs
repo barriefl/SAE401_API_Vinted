@@ -8,7 +8,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("pay_id")]
-        public int PaysID { get; set; }
+        public int PaysId { get; set; }
 
         [Required]
         [Column("pay_libelle")]

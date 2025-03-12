@@ -11,19 +11,20 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("tsc_id")]
         public int TransactionID { get; set; }
 
+        [Required]
         [Column("tsc_idcommande")]
         public int CommandeID { get; set; }
 
+        [Required]
         [Column("tsc_statustransaction")]
         [StringLength(30)]
         public string StatusTransaction { get; set; }
 
+        [Required]
         [Column("tsc_datetransaction")]
         public DateTime DateTransaction { get; set; }
 
         [InverseProperty(nameof(Commande.TransactionsCommandes))]
-        public virtual Commande CommandeTransaction { get; set; } = null!;
-
-        
+        public virtual Commande CommandeTransaction { get; set; } = null!;        
     }
 }

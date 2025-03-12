@@ -10,12 +10,13 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("cat_id")]
         public int CategorieId { get; set; }
 
-        [Column("cat_nom")]
+        [Required]
+        [Column("cat_libelle")]
         [StringLength(40)]
-        public string CategorieNom { get; set; }
+        public string Libelle { get; set; }
 
         [Column("cat_idparent")]
-        public int IdParent { get; set; }
+        public int? IdParent { get; set; }
 
         [ForeignKey(nameof(CategorieId))]
         [InverseProperty(nameof(CategoriesParent))]

@@ -10,25 +10,31 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("cmd_id")]
         public int CommandeID { get; set; }
 
-        [Column("ptr_id")]
-        public int PointRelaisID { get; set; }
-
+        [Required]
         [Column("vnt_id")]
         public int VintieId { get; set; }
 
+        [Required]
         [Column("exp_id")]
         public int ExpediteurId { get; set; }
 
+        [Required]
         [Column("fmc_id")]
         public int CodeFormat { get; set; }
 
+        [Required]
         [Column("art_id")]
         public int ArticleId { get; set; }
 
+        [Column("ptr_id")]
+        public int? PointRelaisID { get; set; }
+
+        [Required]
         [Column("cmd_typeenvoi")]
         [StringLength(20)]
-        public string? TypeEnvoi { get; set; }
+        public string TypeEnvoi { get; set; }
 
+        [Required]
         [Column("cmd_montant_total")]
         public decimal MontantTotal { get; set; }
 
