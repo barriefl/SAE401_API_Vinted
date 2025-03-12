@@ -3,18 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
-    [Table("t_j_correspond_crd")]
-    public class Correspond
+    public class Associe
     {
         [Key]
-        [Column("crd_articleid")]
-        [ForeignKey(nameof(Article.ArticleId))]
-        public int ArticleId { get; set; }
+        [Column("rsd_adresseid")]
+        [ForeignKey(nameof(Adresse.AdresseID))]
+        public int AdresseID { get; set; }
 
         [Key]
-        [Column("crd_categorieid")]
-        [ForeignKey(nameof(Categorie.CategorieId))]
-        public int CategorieId { get; set; }
+        [Column("rsd_vintieid")]
+        [ForeignKey(nameof(Vintie.VintieId))]
+        public int VintieID { get; set; }
 
 
         [InverseProperty(nameof(Adresse.AResidents))]

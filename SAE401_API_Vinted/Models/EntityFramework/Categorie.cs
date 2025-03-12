@@ -26,5 +26,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Taille.TypeTailleIdNavigation))]
         public virtual ICollection<Taille> TaillesTypeTaille { get; set; } = new List<Taille>();
+
+        [InverseProperty(nameof(Taille.TypeTailleIdNavigation))]
+        public virtual ICollection<Taille> TaillesTypeTaille { get; set; } = new List<Taille>();
     }
 }
