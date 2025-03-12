@@ -84,5 +84,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Preference.VintieIdNavigation))]
         public virtual ICollection<Preference> PreferencesVintie { get; set; } = new List<Preference>();
+
+        [InverseProperty(nameof(Signalement.VintieSignalant))]
+        public virtual ICollection<Signalement> SignalementsDeArticle { get; set; } = new List<Signalement>();
     }
 }
