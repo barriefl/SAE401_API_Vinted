@@ -9,18 +9,18 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     public class Appartient
     {
         [Key]
-        [Column("app_comptebancaireid")]
-        [ForeignKey(nameof(CompteBancaire.CompteId))]
+        [Column("cob_id")]
         public int CompteId { get; set; }
 
         [Key]
-        [Column("app_vintieid")]
-        [ForeignKey(nameof(Vintie.VintieId))]
+        [Column("vnt_id")]
         public int VintieId { get; set; }
 
+        [ForeignKey(nameof(CompteId))]
         [InverseProperty(nameof(CompteBancaire.AppartientCompte))]
         public virtual CompteBancaire CompteIdNavigation { get; set; } = null!;
 
+        [ForeignKey(nameof(VintieId))]
         [InverseProperty(nameof(Vintie.AppartienentVintie))]
         public virtual Vintie VintieIdNavigation { get; set; } = null!;
     }
