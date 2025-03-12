@@ -13,7 +13,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Required]
         [Column("tta_libelle")]
         [StringLength(40)]
-        public string Libelle { get; set; }
+        public string Libelle { get; set; } = null!;
 
         [InverseProperty(nameof(Taille.TypeTailleIdNavigation))]
         public virtual ICollection<Taille> TaillesTypeTaille { get; set; } = new List<Taille>();

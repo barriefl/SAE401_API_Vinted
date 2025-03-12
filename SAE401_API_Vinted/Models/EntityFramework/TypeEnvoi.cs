@@ -14,7 +14,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(15)]
         public int Libelle { get; set; }
 
-        [InverseProperty(nameof(Commande.))]
+        [InverseProperty(nameof(Commande.TypeEnvoiDeCommande))]
         public virtual ICollection<Commande> TypeEnvoiCommandes { get; set; } = new List<Commande>();
     }
 }
