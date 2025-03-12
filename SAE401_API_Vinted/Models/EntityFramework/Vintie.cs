@@ -72,5 +72,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Reside.ResideVintie))]
         public virtual ICollection<Reside> VintiesResides { get; set; } = new List<Reside>();
+
+        [InverseProperty(nameof(Appartient.VintieIdNavigation))]
+        public virtual ICollection<Appartient> AppartienentVintie { get; set; } = new List<Appartient>();
     }
 }
