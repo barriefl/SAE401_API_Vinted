@@ -5,23 +5,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_j_reside_rsd")]
-    [PrimaryKey(nameof(AdresseID), nameof(VintieID))]
+    [PrimaryKey(nameof(AdresseId), nameof(VintieId))]
     public class Reside
     {
         [Key]
-        [Column("rsd_adresseid")]
-        [ForeignKey(nameof(Adresse.AdresseID))]
-        public int AdresseID { get; set; }
+        [Column("adr_id")]
+        public int AdresseId { get; set; }
 
         [Key]
-        [Column("rsd_vintieid")]
-        [ForeignKey(nameof(Vintie.VintieId))]
-        public int VintieID { get; set; }
+        [Column("vnt_id")]
+        public int VintieId { get; set; }
 
-
+        [ForeignKey(nameof(AdresseId))]
         [InverseProperty(nameof(Adresse.AResidents))]
         public virtual Adresse ResideA { get; set; } = null!;
 
+        [ForeignKey(nameof(VintieId))]
         [InverseProperty(nameof(Vintie.VintiesResides))]
         public virtual Vintie ResideVintie { get; set; } = null!;
     }
