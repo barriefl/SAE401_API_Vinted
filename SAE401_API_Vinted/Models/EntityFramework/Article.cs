@@ -10,7 +10,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("art_id")]
-        public int ArticelId { get; set; }
+        public int ArticleId { get; set; }
 
         [ForeignKey(nameof(EtatArticle.EtatArticleId))]
         [Column("art_marqueid")]
@@ -54,5 +54,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Marque.MarquesDesArticles))]
         public virtual Marque MarqueDeArticle { get; set; } = null!;
+
+        [InverseProperty(nameof(Image.ArticleDeImage))]
+        public virtual ICollection<Image> ImagesDeArticle { get; set; } = new List<Image>();
     }
 }
