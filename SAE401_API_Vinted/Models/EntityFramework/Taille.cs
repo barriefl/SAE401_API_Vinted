@@ -20,9 +20,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(50)]
         public string Libelle { get; set; }
 
-        [ForeignKey(nameof(CodeTypeCompte))]
-        [InverseProperty(nameof(TypeCompte.VintiesType))]
-        public virtual TypeCompte VintieCodeNavigation { get; set; } = null!;
+        [ForeignKey(nameof(CaracteristiqueId))]
+        [InverseProperty(nameof(Caracteristique.TaillesCaracteristique))]
+        public virtual Caracteristique CaracteristiqueIdNavigation { get; set; } = null!;
 
         [InverseProperty(nameof(Reside.ResideVintie))]
         public virtual ICollection<Reside> VintiesResides { get; set; } = new List<Reside>();

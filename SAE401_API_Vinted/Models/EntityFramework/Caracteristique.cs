@@ -15,7 +15,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(40)]
         public string Nom { get; set; }
 
-        [InverseProperty(nameof())]
-        public virtual ICollection<Article> ArticlesDuVendeur { get; set; } = new List<Article>();
+        [InverseProperty(nameof(Taille.CaracteristiqueIdNavigation))]
+        public virtual ICollection<Taille> TaillesCaracteristique { get; set; } = new List<Taille>();
     }
 }

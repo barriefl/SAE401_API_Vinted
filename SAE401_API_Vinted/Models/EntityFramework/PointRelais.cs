@@ -25,5 +25,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Adresse.ADesPointRelais))]
         public virtual Adresse AdressePointRelais { get; set; } = null!;
+
+        [InverseProperty(nameof(Horaire.ACommeHoraire))]
+        public virtual ICollection<Horaire> HorairesPointRelais { get; set; } = new List<Horaire>();
     }
 }
