@@ -10,9 +10,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("tal_id")]
         public int TailleId { get; set; }
 
-        [Column("car_id")]
-        public int CaracteristiqueId { get; set; }
-
         [Column("tta_id")]
         public int TypeTailleId { get; set; }
 
@@ -20,15 +17,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(50)]
         public string Libelle { get; set; }
 
-        [ForeignKey(nameof(CaracteristiqueId))]
-        [InverseProperty(nameof(Caracteristique.TaillesCaracteristique))]
-        public virtual Caracteristique CaracteristiqueIdNavigation { get; set; } = null!;
-
         [ForeignKey(nameof(TypeTailleId))]
         [InverseProperty(nameof(TypeTaille.TaillesTypeTaille))]
-        public virtual Caracteristique TypeTailleIdNavigation { get; set; } = null!;
+        public virtual TypeTaille TypeTailleIdNavigation { get; set; } = null!;
 
-        [InverseProperty(nameof(Reside.ResideVintie))]
-        public virtual ICollection<Reside> VintiesResides { get; set; } = new List<Reside>();
+        [InverseProperty(nameof(ArticleTaille.TailleIdNavigation))]
+        public virtual ICollection<ArticleTaille> ArticlesTaille { get; set; } = new List<ArticleTaille>();
     }
 }
