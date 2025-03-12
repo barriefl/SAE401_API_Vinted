@@ -21,7 +21,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Vintie.PointRelaisFavorisVintie))]
         public virtual Vintie VintiePointRelais { get; set; } = null!;
 
-        [InverseProperty(nameof(PointRelais.))]
+        [InverseProperty(nameof(PointRelais.PointsRelaisEnFavoris))]
         public virtual PointRelais FavPointRelais { get; set; } = null!;
     }
 }

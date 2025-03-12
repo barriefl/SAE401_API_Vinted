@@ -17,5 +17,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Taille.CaracteristiqueIdNavigation))]
         public virtual ICollection<Taille> TaillesCaracteristique { get; set; } = new List<Taille>();
+
+        [InverseProperty(nameof(Matiere.CaracteristiqueDeMatiere))]
+        public virtual Matiere CaracteristiqueMatiere { get; set; } = null!;
     }
 }
