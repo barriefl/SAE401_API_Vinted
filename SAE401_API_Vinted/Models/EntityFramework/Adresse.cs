@@ -22,5 +22,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Ville.AdressesVilles))]
         public virtual Ville VilleAdresse { get; set; } = null!;
+
+        [InverseProperty(nameof(Possede.APourAdresse))]
+        public virtual ICollection<Possede> PossedesAdresse { get; set; } = new List<Possede>();
+
+        [InverseProperty(nameof(Reside.ResideA))]
+        public virtual ICollection<Possede> AResidents { get; set; } = new List<Possede>();
     }
 }

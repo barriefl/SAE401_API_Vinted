@@ -25,7 +25,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("vnt_prenom")]
         public string Prenom { get; set; }
 
-        [Column("vnt_civilite")]
+        [Column("vnt_civilite", TypeName="Char(1)")]
         public string Civilite { get; set; }
 
         [Column("vnt_mail")]
@@ -38,33 +38,39 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un carac spécial (#?!@$%^&*-)")]
         public string Pwd { get; set; }
 
-        [Column("vnt_telephone")]
+        [Column("vnt_telephone", TypeName ="Char(14)")]
         [RegularExpression(@"[0-9]{10}$", ErrorMessage = "Le numéro de tel doit contenir 10 chiffres")]
         public string Telephone { get; set; }
 
-        [Column("vnt_datenaissance")]
-        public DateTime DateNaissance { get; set; }
+        [Column("vnt_datenaissance", TypeName ="date")]
+        public DateTime? DateNaissance { get; set; }
 
         [Column("vnt_urlphoto")]
-        public string URLPhoto { get; set; }
+        [StringLength(500)]
+        public string? URLPhoto { get; set; }
 
-        [Column("vnt_dateinscription")]
+        [Column("vnt_dateinscription", TypeName ="date")]
         public DateTime DateInscription { get; set; }
 
-        [Column("vnt_montantcompte")]
+        [Column("vnt_montantcompte", TypeName = "numeric")]
         public double MontantCompte { get; set; }
 
         [Column("vnt_statut")]
+        [StringLength(15)]
         public string Statut { get; set; }
 
         [Column("vnt_consentement")]
         public bool Consentement { get; set; }
 
         [Column("vnt_siret")]
-        public string Siret { get; set; }
+        [StringLength (18)]
+        public string? Siret { get; set; }
 
-        [ForeignKey(nameof(FilmId))]
-        [InverseProperty(nameof(Film.NotesFilm))]
-        public virtual Film FilmIdNavigation { get; set; } = null!;
+        [ForeignKey(nameof(CodeTypeCompte))]
+        [InverseProperty(nameof(TypeCompte.VintiesType))]
+        public virtual TypeCompte VintieCodeNavigation { get; set; } = null!;
+
+        [InverseProperty(nameof(Reside.ResideVintie))]
+        public virtual ICollection<Reside> VintiesResides { get; set; } = new List<Reside>();
     }
 }
