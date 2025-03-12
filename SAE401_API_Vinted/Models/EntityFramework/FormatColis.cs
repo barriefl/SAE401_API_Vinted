@@ -17,5 +17,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Column("fmc_fraissupplementaire")]
         public decimal FraisSupplementaire { get; set; }
+
+
+        [InverseProperty(nameof(Commande.ACommeFormat))]
+        public virtual ICollection<Commande> ADesCommandes { get; set; } = new List<Commande>();
     }
 }

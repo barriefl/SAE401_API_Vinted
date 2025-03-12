@@ -11,7 +11,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int CommandeID { get; set; }
 
         [Column("cmd_idpointrelais")]
-        [ForeignKey(nameof(PointRelais.VilleID))]
+        [ForeignKey(nameof(PointRelais.PointRelaisID))]
         public int PointRelaisID { get; set; }
 
         [Column("cmd_idvintie")]
@@ -19,22 +19,30 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int VintieID { get; set; }
 
         [Column("cmd_codeexpediteur")]
-        [ForeignKey(nameof(Expediteur.VilleID))]
+        [ForeignKey(nameof(Expediteur.ExpediteurId))]
         public int CodeExpediteur { get; set; }
 
         [Column("cmd_codeformat")]
-        [ForeignKey(nameof(FormatColis.VilleID))]
+        [ForeignKey(nameof(FormatColis.Code))]
         public int CodeFormat { get; set; }
 
         [Column("cmd_idarticle")]
-        [ForeignKey(nameof(Article.ArticelId))]
+        [ForeignKey(nameof(Article.ArticleId))]
         public int ArticleID { get; set; }
 
         [Column("cmd_typeenvoi")]
+        [StringLength(20)]
         public string? TypeEnvoi { get; set; }
 
         [Column("cmd_montant_total")]
         public decimal MontantTotal { get; set; }
 
+
+        [InverseProperty(nameof(FormatColis.ADesCommandes))]
+        public virtual FormatColis ACommeFormat { get; set; } = null!;
+        
+
+        [InverseProperty(nameof(PointRelais.ADesCommandes))]
+        public virtual PointRelais ACommePointRelais { get; set; } = null!;
     }
 }
