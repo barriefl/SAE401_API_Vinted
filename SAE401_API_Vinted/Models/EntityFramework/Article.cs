@@ -62,5 +62,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Signalement.ArticleDuSignalement))]
         public virtual ICollection<Signalement> SignalementsDeArticle { get; set; } = new List<Signalement>();
+
+        [InverseProperty(nameof(Favoris.EstFavoris))]
+        public virtual ICollection<Favoris> FavorisArticle { get; set; } = new List<Favoris>();
     }
 }
