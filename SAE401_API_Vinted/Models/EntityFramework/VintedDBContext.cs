@@ -82,7 +82,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         public virtual DbSet<TypeRetour> TypesRetours { get; set; }
 
-        public virtual DbSet<TypeStatusOffre> TypesStatusOffres { get; set; }
+        public virtual DbSet<StatusOffre> TypesStatusOffres { get; set; }
 
         public virtual DbSet<TypeTaille> TypeTailles { get; set; }
                                                                                                                  

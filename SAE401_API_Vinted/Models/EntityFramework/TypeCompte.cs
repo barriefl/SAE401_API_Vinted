@@ -9,7 +9,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("tyc_id")]
-        public int Code { get; set; }
+        public int TypeCompteId { get; set; }
 
         [Required]
         [Column("tyc_libelle")]

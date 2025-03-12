@@ -12,7 +12,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("mos_libelle")]
-        [StringLength(500)]
+        [StringLength(50)]
         public string Libelle { get; set; } = null!;
 
         [InverseProperty(nameof(Signalement.MotifDuSignalement))]

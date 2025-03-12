@@ -12,28 +12,27 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("art_id")]
-        public int ConversationIdArticle { get; set; }
+        public int ArticleId { get; set; }
 
         [Required]
         [Column("vnt_idacheteur")]
-        public int ConversationIdAcheteur { get; set; }
+        public int AcheteurId { get; set; }
 
         [Required]
         [Column("vnt_idvendeur")]
-        public int ConversationIdVendeur { get; set; }
+        public int VendeurId { get; set; }
 
-        [ForeignKey(nameof(ConversationIdArticle))]
+        [ForeignKey(nameof(ArticleId))]
         [InverseProperty(nameof(Article.ConversationsArticle))]
         public virtual Article ArticleIdNavigation { get; set; } = null!;
 
-        [ForeignKey(nameof(ConversationIdAcheteur))]
+        [ForeignKey(nameof(AcheteurId))]
         [InverseProperty(nameof(Vintie.ConversationsVinties))]
         public virtual Vintie AcheteurIdNavigation { get; set; } = null!;
 
-        [ForeignKey(nameof(ConversationIdVendeur))]
+        [ForeignKey(nameof(VendeurId))]
         [InverseProperty(nameof(Vintie.ConversationsVinties))]
         public virtual Vintie VendeurIdNavigation { get; set; } = null!;
-
 
         [InverseProperty(nameof(Message.Conversation))]
         public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
