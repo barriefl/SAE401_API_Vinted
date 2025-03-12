@@ -10,8 +10,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("mat_id")]
         public int MatiereId { get; set; }
 
-        [Column("mat_articleid")]
-        [ForeignKey(nameof(Article.ArticleId))]
+        [Required]
+        [Column("art_id")]
         public int ArticleId { get; set; }
 
         [Required]
@@ -19,6 +19,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
+        [ForeignKey(nameof(ArticleId))]
         [InverseProperty(nameof(Article.MatiereDeArticle))]
         public virtual ICollection<Article> MatieresDesArticles { get; set; } = new List<Article>();
     }

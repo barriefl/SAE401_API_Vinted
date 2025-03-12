@@ -10,10 +10,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("msg_id")]
         public int MessageId { get; set; }
 
-        [ForeignKey(nameof(Conversation.ConversationId))]
         [Required]
-        [Column("msg_idconversation")]
-        public int MessageIdConversation { get; set; }
+        [Column("cnv_id")]
+        public int ConversationId { get; set; }
 
         [Required]
         [Column("msg_idexpediteur")]
@@ -24,9 +23,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(300)]
         public string MessageContenu { get; set; } = null!;
 
+        [Required]
         [Column("msg_dateenvoi", TypeName = "date")]
         public DateTime? MessageDateEnvoi { get; set; }
 
+        [ForeignKey(nameof(ConversationId))]
         [InverseProperty(nameof(Conversation.Messages))]
         public virtual Conversation Conversation { get; set; } = null!;
     }

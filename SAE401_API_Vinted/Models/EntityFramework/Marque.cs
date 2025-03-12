@@ -14,7 +14,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("mrq_libelle")]
-        [StringLength(150)]
+        [StringLength(100)]
         public string Libelle { get; set; } = null!;
 
         [InverseProperty(nameof(Article.MarqueDeArticle))]
