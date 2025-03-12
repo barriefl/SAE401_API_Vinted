@@ -11,11 +11,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("ofr_montant", TypeName = "numeric(6,2)")]
         public double OffreMontant { get; set; }
 
-        [ForeignKey(nameof(TypeStatusOffre.TypeStatusOffreId))]
         [Required]
-        [Column("ofr_idtypestatusoffre")]
-        public int OffreIdTypeStatusOffre { get; set; }
+        [Column("tso_id")]
+        public int TypeStatusOffreId { get; set; }
 
+        [ForeignKey(nameof(TypeStatusOffreId))]
         [InverseProperty(nameof(TypeStatusOffre.TypesOffres))]
         public virtual TypeStatusOffre EstTypeOffre { get; set; } = null!;
     }

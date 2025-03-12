@@ -96,5 +96,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Commande.VintieCommande))]
         public virtual ICollection<Commande> CommandesVinties { get; set; } = new List<Commande>();
+
+        [InverseProperty(nameof(Conversation.AcheteurIdNavigation))]
+        public virtual ICollection<Conversation> ConversationsVinties { get; set; } = new List<Conversation>(); 
+        
+
     }
 }

@@ -10,8 +10,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("img_id")]
         public int ImageId { get; set; }
 
-        [ForeignKey(nameof(Article.ArticleId))]
-        [Column("img_articleid")]
+        [Required]
+        [Column("art_id")]
         public int ArticleId { get; set; }
 
         [Required]
@@ -19,6 +19,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(500)]
         public string Url { get; set; } = null!;
 
+        [ForeignKey(nameof(ArticleId))]
         [InverseProperty(nameof(Article.ImagesDeArticle))]
         public virtual Article ArticleDeImage { get; set; } = null!;
     }
