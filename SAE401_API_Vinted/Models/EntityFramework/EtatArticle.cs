@@ -5,19 +5,19 @@ using System.ComponentModel;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
-    [Table("t_e_statusretour_str")]
-    public class StatusRetour
+    [Table("t_e_etatarticle_eta")]
+    public class EtatArticle
     {
         [Key]
-        [Column("str_id")]
-        public int StatusRetourId { get; set; }
+        [Column("eta_id")]
+        public int EtatArticleId { get; set; }
 
         [Required]
-        [Column("str_libelle")]
+        [Column("eta_libelle")]
         [StringLength(50)]
         public string Libelle { get; set; } = null!;
 
-        [InverseProperty(nameof(Retour.StatusDuRetour))]
-        public virtual ICollection<Retour> StatusDesRetours { get; set; } = new List<Retour>();
+        [InverseProperty(nameof(Article.EtatDeArticle))]
+        public virtual ICollection<Article> EtatsDesArticles { get; set; } = new List<Article>();
     }
 }

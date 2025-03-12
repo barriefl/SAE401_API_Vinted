@@ -12,6 +12,18 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("art_id")]
         public int ArticelId { get; set; }
 
+        [ForeignKey(nameof(EtatArticle.EtatArticleId))]
+        [Column("art_marqueid")]
+        public int EtatArticleId { get; set; }
+
+        [ForeignKey(nameof(Vintie.VintieId))]
+        [Column("art_vendeurid")]
+        public int VendeurId { get; set; }
+
+        [ForeignKey(nameof(Marque.MarqueId))]
+        [Column("art_marqueid")]
+        public int MarqueId { get; set; }
+
         [Required]
         [Column("art_titre")]
         [StringLength(100)]
@@ -33,5 +45,14 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Required]
         [Column("art_compteurlike")]
         public int CompteurLike { get; set; }
+
+        [InverseProperty(nameof(EtatArticle.EtatsDesArticles))]
+        public virtual EtatArticle EtatDeArticle { get; set; } = null!;
+
+        [InverseProperty(nameof(Vintie.ArticlesDuVendeur))]
+        public virtual Vintie VendeurDeArticle { get; set; } = null!;
+
+        [InverseProperty(nameof(Marque.MarquesDesArticles))]
+        public virtual Marque MarqueDeArticle { get; set; } = null!;
     }
 }

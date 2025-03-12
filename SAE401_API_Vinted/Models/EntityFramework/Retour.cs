@@ -12,6 +12,14 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("ret_id")]
         public int RetourId { get; set; }
 
+        [ForeignKey(nameof(TypeRetour.TypeRetourId))]
+        [Column("ret_idtyperetour")]
+        public int TypeRetourId { get; set; }
+
+        [ForeignKey(nameof(StatusRetour.StatusRetourId))]
+        [Column("ret_idstatusretour")]
+        public int StatusRetourId { get; set; }
+
         [Required]
         [Column("ret_frais", TypeName = "numeric(6,2)")]
         public double Frais { get; set; }
@@ -30,5 +38,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("ret_motif")]
         [StringLength(500)]
         public string Motif { get; set; } = null!;
+
+        [InverseProperty(nameof(TypeRetour.TypesDesRetours))]
+        public virtual TypeRetour TypeDuRetour { get; set; } = null!;
+
+        [InverseProperty(nameof(StatusRetour.StatusDesRetours))]
+        public virtual StatusRetour StatusDuRetour { get; set; } = null!;
     }
 }
