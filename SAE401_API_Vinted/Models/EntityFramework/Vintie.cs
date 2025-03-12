@@ -81,5 +81,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Avis.ApourVendeur))]
         public virtual ICollection<Avis> ADesAvis { get; set; } = new List<Avis>();
+
+        [InverseProperty(nameof(Preference.VintieIdNavigation))]
+        public virtual ICollection<Preference> PreferencesVintie { get; set; } = new List<Preference>();
     }
 }
