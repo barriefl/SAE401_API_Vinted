@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
-    [Table("t_e_reside_rsd")]
+    [Table("t_j_reside_rsd")]
     [PrimaryKey(nameof(AdresseID), nameof(VintieID))]
     public class Reside
     {

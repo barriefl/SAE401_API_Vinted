@@ -44,5 +44,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(PointRelais.ADesCommandes))]
         public virtual PointRelais ACommePointRelais { get; set; } = null!;
+
+        [InverseProperty(nameof(Expediteur.CommandesExpediteurs))]
+        public virtual Expediteur ExpediteurCommande { get; set; } = null!;
     }
 }

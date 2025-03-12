@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
-    [Table("t_e_possede_psd")]
-    [PrimaryKey(nameof(CodePays), nameof(AdresseId))]
+    [Table("t_j_possede_psd")]
+    [PrimaryKey(nameof(CodeType), nameof(AdresseId))]
     public class Possede
     {
         [Key]
         [Column("psd_codetype")]
         [ForeignKey(nameof(TypeAdresse.Code))]
-        public int CodePays { get; set; }
+        public int CodeType { get; set; }
 
         [Key]
         [Column("psd_adresseid")]
