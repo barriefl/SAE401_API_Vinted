@@ -13,5 +13,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Required]
         [Column("ofr_idtypestatusoffre")]
         public int OffreIdTypeStatusOffre { get; set; }
+
+        [InverseProperty(nameof(TypeStatusOffre.TypesOffres))]
+        public virtual TypeStatusOffre EstTypeOffre { get; set; } = null!;
     }
 }

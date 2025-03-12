@@ -1,0 +1,25 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SAE401_API_Vinted.Models.EntityFramework
+{
+    [Table("t_j_preference_pre")]
+    public class Preference
+    {
+        [Key]
+        [Column("vnt_id")]
+        public int VintieId { get; set; }
+
+        [Key]
+        [Column("exp_id")]
+        public int ExpediteurId { get; set; }
+
+        [ForeignKey(nameof(VintieId))]
+        [InverseProperty(nameof(Vintie.))]
+        public virtual CompteBancaire VintieIdNavigation { get; set; } = null!;
+
+        [ForeignKey(nameof(ExpediteurId))]
+        [InverseProperty(nameof(Expediteur.))]
+        public virtual CompteBancaire ExpediteurIdNavigation { get; set; } = null!;
+    }
+}

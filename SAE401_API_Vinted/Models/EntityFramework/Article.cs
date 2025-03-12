@@ -46,16 +46,25 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("art_compteurlike")]
         public int CompteurLike { get; set; }
 
+=======
+=======
+=======
         [InverseProperty(nameof(EtatArticle.EtatsDesArticles))]
         public virtual EtatArticle EtatDeArticle { get; set; } = null!;
 
         [InverseProperty(nameof(Vintie.ArticlesDuVendeur))]
         public virtual Vintie VendeurDeArticle { get; set; } = null!;
 
+        [InverseProperty(nameof(Conversation.ConversationIdArticle))]
+        public virtual ICollection<Conversation> ListeConversation { get; set; } = new List<Conversation>();
         [InverseProperty(nameof(Marque.MarquesDesArticles))]
         public virtual Marque MarqueDeArticle { get; set; } = null!;
+<<<<<<< HEAD
 
         [InverseProperty(nameof(Image.ArticleDeImage))]
         public virtual ICollection<Image> ImagesDeArticle { get; set; } = new List<Image>();
+=======
+>>>>>>> e9db82f8623cd204e10f4c8d011153cd92dff540
+>>>>>>> bfc90972f10343e31a8229142006c98ab004dd14
     }
 }
