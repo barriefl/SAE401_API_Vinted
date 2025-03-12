@@ -13,5 +13,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("tso_libelle")]
         [StringLength(20)]
         public string TypeStatusOffreLibelle { get; set; } = null!;
+
+        [InverseProperty(nameof(Offre.EstTypeOffre))]
+        public virtual ICollection<Offre> TypesOffres { get; set; } = new List<Offre>();
     }
 }

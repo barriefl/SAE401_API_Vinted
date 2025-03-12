@@ -10,7 +10,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("art_id")]
-        public int ArticelId { get; set; }
+        public int ArticleId { get; set; }
 
         [Required]
         [Column("art_titre")]
@@ -33,5 +33,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Required]
         [Column("art_compteurlike")]
         public int CompteurLike { get; set; }
+
+        [InverseProperty(nameof(Conversation.ConversationIdArticle))]
+        public virtual ICollection<Conversation> ListeConversation { get; set; } = new List<Conversation>();
     }
 }
