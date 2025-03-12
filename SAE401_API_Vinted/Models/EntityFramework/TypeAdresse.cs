@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_e_typeadresse_tad")]
+
     public class TypeAdresse
     {
         [Key]
@@ -11,7 +12,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int Code { get; set; }
 
         [Required]
-        [Key]
         [Column("tad_libelle")]
         public string LibelleType { get; set; } = null!;
 

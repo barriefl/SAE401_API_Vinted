@@ -1,15 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_e_possede_psd")]
+    [PrimaryKey(nameof(CodePays), nameof(AdresseId))]
     public class Possede
     {
         [Key]
         [Column("psd_codetype")]
         [ForeignKey(nameof(TypeAdresse.Code))]
-        public int Code { get; set; }
+        public int CodePays { get; set; }
 
         [Key]
         [Column("psd_adresseid")]
