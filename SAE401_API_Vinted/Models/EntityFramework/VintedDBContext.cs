@@ -92,7 +92,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=SAE401_API_Vinted;Username=postgres;Password=");
+            optionsBuilder.UseNpgsql("Host=localhost; Database=VintedDB; Username=postgres; Password=postgres");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
