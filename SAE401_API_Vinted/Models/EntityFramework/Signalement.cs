@@ -39,13 +39,18 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(300)]
         public string Commentaire { get; set; } = null!;
 
+        [InverseProperty(nameof(Vintie.SignalementsDeArticle))]
+        public virtual Vintie VintieSignalant { get; set; } = null!;
+
+        [InverseProperty(nameof(Article.SignalementsDeArticle))]
+        public virtual Article ArticleDuSignalement { get; set; } = null!;
+
         [InverseProperty(nameof(StatusSignalement.StatusDesSignalements))]
         public virtual StatusSignalement StatusDuSignalement { get; set; } = null!;
 
         [InverseProperty(nameof(MotifSignalement.MotifsDesSignalement))]
         public virtual MotifSignalement MotifDuSignalement { get; set; } = null!;
 
-        [InverseProperty(nameof(Vintie.SignalementsDeArticle))]
-        public virtual Vintie VintieSignalant { get; set; } = null!;
+        
     }
 }
