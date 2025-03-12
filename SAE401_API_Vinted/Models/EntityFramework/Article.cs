@@ -72,6 +72,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(EtatVenteArticle.EtatsVenteDesArticles))]
         public virtual EtatVenteArticle EtatVenteDeArticle { get; set; } = null!;
 
+        [InverseProperty(nameof(Categorie.CategoriesArticles))]
+        public virtual Categorie CategorieDeArticle { get; set; } = null!;
+
         [InverseProperty(nameof(Image.ArticleDeImage))]
         public virtual ICollection<Image> ImagesDeArticle { get; set; } = new List<Image>();
 
@@ -81,10 +84,14 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Favoris.EstFavoris))]
         public virtual ICollection<Favoris> FavorisArticle { get; set; } = new List<Favoris>();
 
-        [InverseProperty(nameof(ArticleTaille.ArticleIdNavigation))]
-        public virtual ICollection<ArticleTaille> TaillesArticle { get; set; } = new List<ArticleTaille>();
+        [InverseProperty(nameof(TailleArticle.ArticleIdNavigation))]
+        public virtual ICollection<TailleArticle> TaillesArticle { get; set; } = new List<TailleArticle>();
 
         [InverseProperty(nameof(CouleurArticle.ArticleConcerne))]
         public virtual ICollection<CouleurArticle> CouleursArticle { get; set; } = new List<CouleurArticle>();
+        
+
+        [InverseProperty(nameof(Commande.ArticleCommande))]
+        public virtual ICollection<Commande> CommandesArticles { get; set; } = new List<Commande>();
     }
 }

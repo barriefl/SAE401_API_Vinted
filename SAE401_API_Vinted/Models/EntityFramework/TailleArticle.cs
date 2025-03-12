@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
-    [Table("t_j_articletaille_tar")]
-    public class ArticleTaille
+    [Table("t_j_taillearticle_tar")]
+    [PrimaryKey(nameof(ArticleId), nameof(TailleId))]
+    public class TailleArticle
     {
         [Key]
         [Column("tar_articleid")]
