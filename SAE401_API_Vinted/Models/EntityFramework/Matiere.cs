@@ -10,16 +10,16 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("mat_id")]
         public int MatiereId { get; set; }
 
-        [Column("mat_caracteristique")]
-        [ForeignKey(nameof(Vintie.VintieId))]
-        public int VintieID { get; set; }
+        [Column("mat_articleid")]
+        [ForeignKey(nameof(Article.ArticleId))]
+        public int ArticleId { get; set; }
 
         [Required]
         [Column("mat_libelle")]
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
-        [InverseProperty(nameof(Caracteristique.CaracteristiqueMatiere))]
-        public virtual Caracteristique CaracteristiqueDeMatiere { get; set; } = null!;
+        [InverseProperty(nameof(Article.))]
+        public virtual ICollection<Article> MatieresDesArticles { get; set; } = new List<Article>();
     }
 }

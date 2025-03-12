@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
@@ -21,7 +22,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual DbSet<CompteBancaire> ComptesBancaires { get; set; }
 
         public virtual DbSet<Conversation> Conversations { get; set; }
-        
+
+        public virtual DbSet<EtatArticle> EtatsArticles { get; set; }
+
         public virtual DbSet<Marque> Marques { get; set; }
 
         public virtual DbSet<Message> Messages { get; set; }
@@ -51,5 +54,57 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual DbSet<Ville> Villes { get; set; }
 
         public virtual DbSet<Vintie> Vinties { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql("Host=localhost;Database=SAE401_API_Vinted;Username=postgres;Password=postgres");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.HasDefaultSchema("td4");
+
+            //modelBuilder.Entity<Adresse>(entity =>
+            //{
+            //    entity.HasKey(e => e.AdresseID)
+            //    .HasName("pk_adresse");
+
+            //    entity.HasOne(d => d.VilleAdresse)
+            //    .WithMany(p => p.AdressesVilles)
+            //    .HasForeignKey(d => d.VilleID)
+            //    .OnDelete(DeleteBehavior.Restrict)
+            //    .HasConstraintName("fk_adresse_ville");
+            //});
+
+            //modelBuilder.Entity<Appartient>(entity =>
+            //{
+            //    entity.HasKey(e => new { e.CompteId, e.VintieId})
+            //        .HasName("pk_app");
+
+            //    entity.HasOne(d => d.CompteIdNavigation)
+            //        .WithMany(p => p.AppartientCompte)
+            //        .HasForeignKey(d => d.FilmId)
+            //        .OnDelete(DeleteBehavior.Restrict)
+            //        .HasConstraintName("fk_notation_film");
+
+            //    entity.HasOne(d => d.UtilisateurNotant)
+            //        .WithMany(p => p.NotesUtilisateur)
+            //        .HasForeignKey(d => d.UtilisateurId)
+            //        .OnDelete(DeleteBehavior.Restrict)
+            //        .HasConstraintName("fk_notation_utilisateur");
+
+            //});
+
+            modelBuilder.Entity<Vintie>(entity =>
+            {
+
+                entity.Property(e => e.DateInscription).HasDefaultValueSql("now()");
+
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

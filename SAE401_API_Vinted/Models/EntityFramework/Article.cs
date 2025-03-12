@@ -69,5 +69,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(ArticleTaille.ArticleIdNavigation))]
         public virtual ICollection<ArticleTaille> TaillesArticle { get; set; } = new List<ArticleTaille>();
 
+        [InverseProperty(nameof(CouleurArticle.ArticleConcerne))]
+        public virtual ICollection<CouleurArticle> CouleursArticle { get; set; } = new List<CouleurArticle>();
     }
 }
