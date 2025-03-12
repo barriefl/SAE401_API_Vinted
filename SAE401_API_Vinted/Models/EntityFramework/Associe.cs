@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
+    [Table("t_j_associe_ass")]
     public class Associe
     {
         [Key]

@@ -15,7 +15,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         public virtual DbSet<Article> Articles { get; set; }
 
-        public virtual DbSet<ArticleTaille> ArticlesTailles { get; set; }
+        public virtual DbSet<TailleArticle> TaillesArticles { get; set; }
 
         public virtual DbSet<Avis> Avis { get; set; }
 

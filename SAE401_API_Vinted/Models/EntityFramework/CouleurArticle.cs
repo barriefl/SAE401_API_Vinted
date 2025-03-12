@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_j_couleurarticle_cla")]
+    [PrimaryKey(nameof(ArticleId), nameof(CouleurId))]
     public class CouleurArticle
     {
         [Key]

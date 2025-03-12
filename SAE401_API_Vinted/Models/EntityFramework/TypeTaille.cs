@@ -14,15 +14,15 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(40)]
         public string Libelle { get; set; }
 
-        [Column("tta_codecategorie")]
         [ForeignKey(nameof(TypeTailleId))]
-        public int CodeCategorie { get; set; }
+        [Column("tta_codecategorie")]
+        public int TypeTailleParentId { get; set; }
 
-        [InverseProperty(nameof(TypeTaillesCategorie))]
-        public virtual TypeTaille CaracteristiqueIdNavigation { get; set; } = null!;
+        [InverseProperty(nameof(TypeTaillesEnfants))]
+        public virtual TypeTaille TypeTailleParent { get; set; } = null!;
 
-        [InverseProperty(nameof(CaracteristiqueIdNavigation))]
-        public virtual ICollection<TypeTaille> TypeTaillesCategorie { get; set; } = new List<TypeTaille>();
+        [InverseProperty(nameof(TypeTailleParent))]
+        public virtual ICollection<TypeTaille> TypeTaillesEnfants { get; set; } = new List<TypeTaille>();
 
         [InverseProperty(nameof(Taille.TypeTailleIdNavigation))]
         public virtual ICollection<Taille> TaillesTypeTaille { get; set; } = new List<Taille>();

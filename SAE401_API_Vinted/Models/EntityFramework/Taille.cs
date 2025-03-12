@@ -10,18 +10,18 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("tal_id")]
         public int TailleId { get; set; }
 
-        [Column("tta_id")]
+        [ForeignKey(nameof(TypeTaille.TypeTailleId))]
+        [Column("tal_typetailleid")]
         public int TypeTailleId { get; set; }
 
         [Column("tal_libelle")]
         [StringLength(50)]
         public string Libelle { get; set; }
 
-        [ForeignKey(nameof(TypeTailleId))]
         [InverseProperty(nameof(TypeTaille.TaillesTypeTaille))]
         public virtual TypeTaille TypeTailleIdNavigation { get; set; } = null!;
 
-        [InverseProperty(nameof(ArticleTaille.TailleIdNavigation))]
-        public virtual ICollection<ArticleTaille> ArticlesTaille { get; set; } = new List<ArticleTaille>();
+        [InverseProperty(nameof(TailleArticle.TailleIdNavigation))]
+        public virtual ICollection<TailleArticle> ArticlesTaille { get; set; } = new List<TailleArticle>();
     }
 }
