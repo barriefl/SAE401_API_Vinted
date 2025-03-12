@@ -12,6 +12,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("tas_id")]
+        [StringLength(40)]
         public int Libelle { get; set; }
 
 

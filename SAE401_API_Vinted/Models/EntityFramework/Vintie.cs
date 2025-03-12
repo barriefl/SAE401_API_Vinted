@@ -80,6 +80,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual ICollection<Appartient> AppartienentVintie { get; set; } = new List<Appartient>();
 
         [InverseProperty(nameof(Avis.ApourVendeur))]
-        public virtual ICollection<Article> ArticlesDuVendeur { get; set; } = new List<Article>();
+        public virtual ICollection<Avis> ADesAvis { get; set; } = new List<Avis>();
     }
 }

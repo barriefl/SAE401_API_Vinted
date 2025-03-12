@@ -13,6 +13,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("tad_libelle")]
+        [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
 
