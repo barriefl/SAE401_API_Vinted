@@ -22,9 +22,17 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("vnt_idvendeur")]
         public int ConversationIdVendeur { get; set; }
 
-        [ForeignKey(nameof(Article.ArticleId))]
-        [ForeignKey(nameof(Article.ArticleId))]
-        [ForeignKey(nameof(Article.ArticleId))]
+        [ForeignKey(nameof(ConversationIdArticle))]
+        [InverseProperty(nameof(Article.ConversationsArticle))]
+        public virtual Article ArticleIdNavigation { get; set; } = null!;
+
+        [ForeignKey(nameof(ConversationIdAcheteur))]
+        [InverseProperty(nameof(Vintie.ConversationsVinties))]
+        public virtual Vintie AcheteurIdNavigation { get; set; } = null!;
+
+        [ForeignKey(nameof(ConversationIdVendeur))]
+        [InverseProperty(nameof(Vintie.ConversationsVinties))]
+        public virtual Vintie VendeurIdNavigation { get; set; } = null!;
 
 
         [InverseProperty(nameof(Message.Conversation))]
