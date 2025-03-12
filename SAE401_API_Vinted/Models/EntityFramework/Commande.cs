@@ -26,13 +26,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("art_id")]
         public int ArticleId { get; set; }
 
+        [Required]
+        [Column("tye_id")]
+        public int TypeEnvoiId { get; set; }
+
         [Column("ptr_id")]
         public int? PointRelaisID { get; set; }
-
-        [Required]
-        [Column("cmd_typeenvoi")]
-        [StringLength(20)]
-        public string TypeEnvoi { get; set; }
 
         [Required]
         [Column("cmd_montant_total")]
@@ -58,6 +57,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Article.CommandesArticles))]
         public virtual Article ArticleCommande { get; set; } = null!;
 
+        [ForeignKey(nameof(TypeEnvoiId))]
+        [InverseProperty(nameof(TypeEnvoi.TypeEnvoiCommandes))]
+        public virtual TypeEnvoi TypeEnvoiDeCommande { get; set; } = null!;
 
         [InverseProperty(nameof(Transaction.CommandeTransaction))]
         public virtual ICollection<Transaction> TransactionsCommandes { get; set; } = new List<Transaction>();
