@@ -47,5 +47,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Expediteur.CommandesExpediteurs))]
         public virtual Expediteur ExpediteurCommande { get; set; } = null!;
+
+        [InverseProperty(nameof(Vintie.CommandesVinties))]
+        public virtual Vintie VintieCommande { get; set; } = null!;
+
+        [InverseProperty(nameof(Article.CommandesArticles))]
+        public virtual Article ArticleCommande { get; set; } = null!;
     }
 }

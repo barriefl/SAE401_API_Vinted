@@ -93,5 +93,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(PointRelaisFavoris.VintiePointRelais))]
         public virtual ICollection<PointRelaisFavoris> PointRelaisFavorisVintie { get; set; } = new List<PointRelaisFavoris>();
+
+        [InverseProperty(nameof(Commande.VintieCommande))]
+        public virtual ICollection<Commande> CommandesVinties { get; set; } = new List<Commande>();
     }
 }
