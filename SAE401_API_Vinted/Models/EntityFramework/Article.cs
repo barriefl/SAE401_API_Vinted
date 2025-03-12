@@ -46,10 +46,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("art_compteurlike")]
         public int CompteurLike { get; set; }
 
-<<<<<<< HEAD
         [InverseProperty(nameof(Conversation.ConversationIdArticle))]
         public virtual ICollection<Conversation> ListeConversation { get; set; } = new List<Conversation>();
-=======
+
         [InverseProperty(nameof(EtatArticle.EtatsDesArticles))]
         public virtual EtatArticle EtatDeArticle { get; set; } = null!;
 
@@ -58,6 +57,5 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Marque.MarquesDesArticles))]
         public virtual Marque MarqueDeArticle { get; set; } = null!;
->>>>>>> e9db82f8623cd204e10f4c8d011153cd92dff540
     }
 }
