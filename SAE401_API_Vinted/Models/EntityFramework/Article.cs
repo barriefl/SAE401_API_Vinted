@@ -24,6 +24,14 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("art_marqueid")]
         public int MarqueId { get; set; }
 
+        [ForeignKey(nameof(Matiere.MatiereId))]
+        [Column("art_matiereid")]
+        public int MatiereId { get; set; }
+
+        [ForeignKey(nameof(EtatVenteArticle.EtatVenteArticleId))]
+        [Column("art_etaitventearticleid")]
+        public int EtatVenteArticleId { get; set; }
+
         [Required]
         [Column("art_titre")]
         [StringLength(100)]
@@ -54,8 +62,15 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Conversation.ConversationIdArticle))]
         public virtual ICollection<Conversation> ListeConversation { get; set; } = new List<Conversation>();
+
         [InverseProperty(nameof(Marque.MarquesDesArticles))]
         public virtual Marque MarqueDeArticle { get; set; } = null!;
+
+        [InverseProperty(nameof(Matiere.MatieresDesArticles))]
+        public virtual Matiere MatiereDeArticle { get; set; } = null!;
+
+        [InverseProperty(nameof(EtatVenteArticle.EtatsVenteDesArticles))]
+        public virtual EtatVenteArticle EtatVenteDeArticle { get; set; } = null!;
 
         [InverseProperty(nameof(Image.ArticleDeImage))]
         public virtual ICollection<Image> ImagesDeArticle { get; set; } = new List<Image>();
@@ -66,8 +81,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Favoris.EstFavoris))]
         public virtual ICollection<Favoris> FavorisArticle { get; set; } = new List<Favoris>();
 
-        [InverseProperty(nameof(Commande.ArticleCommande))]
-        public virtual ICollection<Favoris> CommandesArticles { get; set; } = new List<Favoris>();
+        [InverseProperty(nameof(ArticleTaille.ArticleIdNavigation))]
+        public virtual ICollection<ArticleTaille> TaillesArticle { get; set; } = new List<ArticleTaille>();
 
+        [InverseProperty(nameof(CouleurArticle.ArticleConcerne))]
+        public virtual ICollection<CouleurArticle> CouleursArticle { get; set; } = new List<CouleurArticle>();
     }
 }
