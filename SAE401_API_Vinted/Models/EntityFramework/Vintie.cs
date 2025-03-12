@@ -87,5 +87,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Signalement.VintieSignalant))]
         public virtual ICollection<Signalement> SignalementsDeArticle { get; set; } = new List<Signalement>();
+
+        [InverseProperty(nameof(Favoris.FavorisVintie))]
+        public virtual ICollection<Favoris> FavorisDeVintie { get; set; } = new List<Favoris>();
+
+        [InverseProperty(nameof(PointRelaisFavoris.VintiePointRelais))]
+        public virtual ICollection<PointRelaisFavoris> PointRelaisFavorisVintie { get; set; } = new List<PointRelaisFavoris>();
     }
 }
