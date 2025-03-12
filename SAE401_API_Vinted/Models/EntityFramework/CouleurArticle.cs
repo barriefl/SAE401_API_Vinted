@@ -12,14 +12,14 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int ArticleId { get; set; }
 
         [Key]
-        [Column("cla_couleirId")]
+        [Column("cla_couleurid")]
         [ForeignKey(nameof(Couleur.CouleurId))]
         public int CouleurId { get; set; }
 
-        [InverseProperty(nameof(Article.))]
+        [InverseProperty(nameof(Article.CouleursArticle))]
         public virtual Article ArticleConcerne { get; set; } = null!;
 
-        [InverseProperty(nameof(Couleur.))]
+        [InverseProperty(nameof(Couleur.CouleursDesArticles))]
         public virtual Couleur CouleurConcernee { get; set; } = null!;
     }
 }
