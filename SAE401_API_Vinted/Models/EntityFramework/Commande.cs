@@ -10,25 +10,20 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("cmd_id")]
         public int CommandeID { get; set; }
 
-        [Column("cmd_idpointrelais")]
-        [ForeignKey(nameof(PointRelais.PointRelaisID))]
+        [Column("ptr_id")]
         public int PointRelaisID { get; set; }
 
-        [Column("cmd_idvintie")]
-        [ForeignKey(nameof(Vintie.VintieId))]
-        public int VintieID { get; set; }
+        [Column("vnt_id")]
+        public int VintieId { get; set; }
 
-        [Column("cmd_codeexpediteur")]
-        [ForeignKey(nameof(Expediteur.ExpediteurId))]
-        public int CodeExpediteur { get; set; }
+        [Column("exp_id")]
+        public int ExpediteurId { get; set; }
 
-        [Column("cmd_codeformat")]
-        [ForeignKey(nameof(FormatColis.Code))]
+        [Column("fmc_id")]
         public int CodeFormat { get; set; }
 
-        [Column("cmd_idarticle")]
-        [ForeignKey(nameof(Article.ArticleId))]
-        public int ArticleID { get; set; }
+        [Column("art_id")]
+        public int ArticleId { get; set; }
 
         [Column("cmd_typeenvoi")]
         [StringLength(20)]
@@ -37,20 +32,23 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("cmd_montant_total")]
         public decimal MontantTotal { get; set; }
 
-
+        [ForeignKey(nameof(CodeFormat))]
         [InverseProperty(nameof(FormatColis.ADesCommandes))]
         public virtual FormatColis ACommeFormat { get; set; } = null!;
-        
 
+        [ForeignKey(nameof(PointRelaisID))]
         [InverseProperty(nameof(PointRelais.ADesCommandes))]
         public virtual PointRelais ACommePointRelais { get; set; } = null!;
 
+        [ForeignKey(nameof(ExpediteurId))]
         [InverseProperty(nameof(Expediteur.CommandesExpediteurs))]
         public virtual Expediteur ExpediteurCommande { get; set; } = null!;
 
+        [ForeignKey(nameof(VintieId))]
         [InverseProperty(nameof(Vintie.CommandesVinties))]
         public virtual Vintie VintieCommande { get; set; } = null!;
 
+        [ForeignKey(nameof(ArticleId))]
         [InverseProperty(nameof(Article.CommandesArticles))]
         public virtual Article ArticleCommande { get; set; } = null!;
 

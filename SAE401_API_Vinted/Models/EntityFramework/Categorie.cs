@@ -15,9 +15,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public string CategorieNom { get; set; }
 
         [Column("cat_idparent")]
-        [ForeignKey(nameof(CategorieId))]
         public int IdParent { get; set; }
 
+        [ForeignKey(nameof(CategorieId))]
         [InverseProperty(nameof(CategoriesParent))]
         public virtual TypeTaille CategorieParentIdNavigation { get; set; } = null!;
 
