@@ -17,6 +17,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
 
         [InverseProperty(nameof(Ville.PaysVille))]
-        public virtual ICollection<Pays> VillesPays { get; set; } = new List<Pays>();
+        public virtual ICollection<Ville> VillesPays { get; set; } = new List<Ville>();
     }
 }
