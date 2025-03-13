@@ -20,7 +20,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual Matiere MatiereDeArticle { get; set; } = null!;
 
         [ForeignKey(nameof(ArticleId))]
-        [InverseProperty(nameof(Article.MatieresArticles))]
+        [InverseProperty(nameof(Article.ArticlesMatieres))]
         public virtual Article ArticleMatiere { get; set; } = null!;
 
     }
