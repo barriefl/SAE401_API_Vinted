@@ -17,6 +17,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(50)]
         public string Libelle { get; set; } = null!;
 
+        [Required]
+        [Column("eta_description")]
+        [StringLength(100)]
+        public string Description { get; set; } = null!;
+
         [InverseProperty(nameof(Article.EtatDeArticle))]
         public virtual ICollection<Article> EtatsDesArticles { get; set; } = new List<Article>();
     }
