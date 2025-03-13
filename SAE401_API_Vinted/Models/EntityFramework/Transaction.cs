@@ -21,7 +21,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public string StatusTransaction { get; set; }
 
         [Required]
-        [Column("tsc_datetransaction")]
+        [Column("tsc_datetransaction", TypeName = "date")]
         public DateTime DateTransaction { get; set; }
 
         [InverseProperty(nameof(Commande.TransactionsCommandes))]

@@ -17,11 +17,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int JourId { get; set; }
 
         [Required]
-        [Column("hor_heureouverture")]
+        [Column("hor_heureouverture", TypeName = "date")]
         public DateTime HeureOuverture { get; set; }
 
         [Required]
-        [Column("hor_heurefermeture")]
+        [Column("hor_heurefermeture", TypeName = "date")]
         public DateTime? HeureFermeture { get; set; }
 
         [ForeignKey(nameof(PointRelaisID))]
