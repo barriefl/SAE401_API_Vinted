@@ -8,13 +8,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("pay_id")]
-        public int PaysID { get; set; }
+        public int PaysId { get; set; }
 
         [Required]
         [Column("pay_libelle")]
         [StringLength(100)]
         public string Libelle { get; set; } = null!;
-
 
         [InverseProperty(nameof(Ville.PaysVille))]
         public virtual ICollection<Ville> VillesPays { get; set; } = new List<Ville>();

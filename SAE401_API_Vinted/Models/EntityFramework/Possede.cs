@@ -9,19 +9,18 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     public class Possede
     {
         [Key]
-        [Column("psd_codetype")]
-        [ForeignKey(nameof(TypeAdresse.Code))]
-        public int CodeType { get; set; }
-
-        [Key]
-        [Column("psd_adresseid")]
-        [ForeignKey(nameof(Adresse.AdresseID))]
+        [Column("adr_id")]
         public int AdresseId { get; set; }
 
+        [Key]
+        [Column("tad_id")]
+        public int CodeType { get; set; }
 
+        [ForeignKey(nameof(AdresseId))]
         [InverseProperty(nameof(Adresse.PossedesAdresse))]
         public virtual Adresse APourAdresse { get; set; } = null!;
 
+        [ForeignKey(nameof(CodeType))]
         [InverseProperty(nameof(TypeAdresse.PossedesType))]
         public virtual TypeAdresse APourType { get; set; } = null!;
     }

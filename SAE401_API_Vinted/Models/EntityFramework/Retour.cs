@@ -12,12 +12,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("ret_id")]
         public int RetourId { get; set; }
 
-        [ForeignKey(nameof(TypeRetour.TypeRetourId))]
-        [Column("ret_idtyperetour")]
+        [Required]
+        [Column("tpr_id")]
         public int TypeRetourId { get; set; }
 
-        [ForeignKey(nameof(StatusRetour.StatusRetourId))]
-        [Column("ret_idstatusretour")]
+        [Required]
+        [Column("str_id")]
         public int StatusRetourId { get; set; }
 
         [Required]
@@ -26,22 +26,24 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("ret_datedemande", TypeName = "date")]
-        public DateTime DateDemande { get; set; }
+        public DateTime? DateDemande { get; set; }
 
         [Column("ret_dateenvoi", TypeName = "date")]
-        public DateTime DateEnvoi { get; set; }
+        public DateTime? DateEnvoi { get; set; }
 
         [Column("ret_dateconfirmation", TypeName = "date")]
-        public DateTime DateConfirmation { get; set; }
+        public DateTime? DateConfirmation { get; set; }
 
         [Required]
         [Column("ret_motif")]
         [StringLength(500)]
         public string Motif { get; set; } = null!;
 
+        [ForeignKey(nameof(TypeRetourId))]
         [InverseProperty(nameof(TypeRetour.TypesDesRetours))]
         public virtual TypeRetour TypeDuRetour { get; set; } = null!;
 
+        [ForeignKey(nameof(StatusRetourId))]
         [InverseProperty(nameof(StatusRetour.StatusDesRetours))]
         public virtual StatusRetour StatusDuRetour { get; set; } = null!;
     }

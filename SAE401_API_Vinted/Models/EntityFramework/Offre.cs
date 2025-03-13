@@ -9,14 +9,14 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Required]
         [Range(0, 9999.99)]
         [Column("ofr_montant", TypeName = "numeric(6,2)")]
-        public double OffreMontant { get; set; }
+        public double Montant { get; set; }
 
-        [ForeignKey(nameof(TypeStatusOffre.TypeStatusOffreId))]
         [Required]
-        [Column("ofr_idtypestatusoffre")]
-        public int OffreIdTypeStatusOffre { get; set; }
+        [Column("tso_id")]
+        public int TypeStatusOffreId { get; set; }
 
-        [InverseProperty(nameof(TypeStatusOffre.TypesOffres))]
-        public virtual TypeStatusOffre EstTypeOffre { get; set; } = null!;
+        [ForeignKey(nameof(TypeStatusOffreId))]
+        [InverseProperty(nameof(StatusOffre.StatusOffres))]
+        public virtual StatusOffre EstStatusOffre { get; set; } = null!;
     }
 }

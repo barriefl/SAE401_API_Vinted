@@ -16,11 +16,13 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("jor_id")]
         public int JourId { get; set; }
 
+        [Required]
         [Column("hor_heureouverture")]
         public DateTime HeureOuverture { get; set; }
 
+        [Required]
         [Column("hor_heurefermeture")]
-        public DateTime HeureFermeture { get; set; }
+        public DateTime? HeureFermeture { get; set; }
 
         [ForeignKey(nameof(PointRelaisID))]
         [InverseProperty(nameof(PointRelais.HorairesPointRelais))]

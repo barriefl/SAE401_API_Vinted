@@ -15,7 +15,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(40)]
         public int Libelle { get; set; }
 
-
         [InverseProperty(nameof(Avis.APourTypeAvis))]
         public virtual ICollection<Avis> PossedesTypeAvis { get; set; } = new List<Avis>();
     }

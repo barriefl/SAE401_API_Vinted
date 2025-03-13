@@ -8,11 +8,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("jor_id")]
-        public int Code { get; set; }
+        public int JourId { get; set; }
 
         [Column("jor_libelle")]
-        public int Libelle { get; set; }
-
+        [StringLength(10)]
+        public string? Libelle { get; set; }
 
         [InverseProperty(nameof(Horaire.JourOuvert))]
         public virtual ICollection<Horaire> HeuresOuverts { get; set; } = new List<Horaire>();

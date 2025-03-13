@@ -10,18 +10,18 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("ptr_id")]
         public int PointRelaisID { get; set; }
 
-        [Column("ptr_idadresse")]
-        [ForeignKey(nameof(Adresse.AdresseID))]
-        public int AdresseID { get; set; }
+        [Required]
+        [Column("adr_id")]
+        public int AdresseId { get; set; }
 
         [Required]
         [Column("ptr_nom")]
         public string Nom { get; set; } = null!;
 
-
         [InverseProperty(nameof(Commande.ACommePointRelais))]
         public virtual ICollection<Commande> ADesCommandes { get; set; } = new List<Commande>();
 
+        [ForeignKey(nameof(AdresseId))]
         [InverseProperty(nameof(Adresse.ADesPointRelais))]
         public virtual Adresse AdressePointRelais { get; set; } = null!;
 

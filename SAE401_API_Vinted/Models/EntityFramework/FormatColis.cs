@@ -16,7 +16,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public string Libelle { get; set; } = null!;
 
         [Column("fmc_fraissupplementaire")]
-        public decimal FraisSupplementaire { get; set; }
+        public decimal? FraisSupplementaire { get; set; }
 
         [InverseProperty(nameof(Commande.ACommeFormat))]
         public virtual ICollection<Commande> ADesCommandes { get; set; } = new List<Commande>();

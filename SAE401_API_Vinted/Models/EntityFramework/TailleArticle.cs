@@ -9,18 +9,18 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     public class TailleArticle
     {
         [Key]
-        [Column("tar_articleid")]
-        [ForeignKey(nameof(Article.ArticleId))]
+        [Column("art_id")]
         public int ArticleId { get; set; }
 
         [Key]
-        [Column("tar_tailleid")]
-        [ForeignKey(nameof(Taille.TailleId))]
+        [Column("tal_id")]
         public int TailleId { get; set; }
 
+        [ForeignKey(nameof(ArticleId))]
         [InverseProperty(nameof(Article.TaillesArticle))]
         public virtual Article ArticleIdNavigation { get; set; } = null!;
 
+        [ForeignKey(nameof(TailleId))]
         [InverseProperty(nameof(Taille.ArticlesTaille))]
         public virtual Taille TailleIdNavigation { get; set; }
     }

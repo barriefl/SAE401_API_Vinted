@@ -12,25 +12,26 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("art_id")]
         public int ArticleId { get; set; }
 
-        [ForeignKey(nameof(EtatArticle.EtatArticleId))]
-        [Column("art_marqueid")]
-        public int EtatArticleId { get; set; }
+        [Required]
+        [Column("cat_id")]
+        public int CategorieId { get; set; }
 
-        [ForeignKey(nameof(Vintie.VintieId))]
-        [Column("art_vendeurid")]
+        [Required]
+        [Column("vnt_vendeurid")]
         public int VendeurId { get; set; }
 
-        [ForeignKey(nameof(Marque.MarqueId))]
-        [Column("art_marqueid")]
-        public int MarqueId { get; set; }
-
-        [ForeignKey(nameof(Matiere.MatiereId))]
-        [Column("art_matiereid")]
-        public int MatiereId { get; set; }
-
-        [ForeignKey(nameof(EtatVenteArticle.EtatVenteArticleId))]
-        [Column("art_etaitventearticleid")]
+        [Required]
+        [Column("eva_id")]
         public int EtatVenteArticleId { get; set; }
+
+        [Column("eta_id")]
+        public int? EtatArticleId { get; set; }
+
+        [Column("mrq_id")]
+        public int? MarqueId { get; set; }
+
+        [Column("mat_id")]
+        public int? MatiereId { get; set; }
 
         [Required]
         [Column("art_titre")]
@@ -54,24 +55,30 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("art_compteurlike")]
         public int CompteurLike { get; set; }
 
+        [ForeignKey(nameof(EtatArticleId))]
         [InverseProperty(nameof(EtatArticle.EtatsDesArticles))]
         public virtual EtatArticle EtatDeArticle { get; set; } = null!;
 
+        [ForeignKey(nameof(VendeurId))]
         [InverseProperty(nameof(Vintie.ArticlesDuVendeur))]
         public virtual Vintie VendeurDeArticle { get; set; } = null!;
 
-        [InverseProperty(nameof(Conversation.ConversationIdArticle))]
+        [InverseProperty(nameof(Conversation.ArticleId))]
         public virtual ICollection<Conversation> ListeConversation { get; set; } = new List<Conversation>();
 
+        [ForeignKey(nameof(MarqueId))]
         [InverseProperty(nameof(Marque.MarquesDesArticles))]
         public virtual Marque MarqueDeArticle { get; set; } = null!;
 
+        [ForeignKey(nameof(MatiereId))]
         [InverseProperty(nameof(Matiere.MatieresDesArticles))]
         public virtual Matiere MatiereDeArticle { get; set; } = null!;
 
+        [ForeignKey(nameof(EtatVenteArticleId))]
         [InverseProperty(nameof(EtatVenteArticle.EtatsVenteDesArticles))]
         public virtual EtatVenteArticle EtatVenteDeArticle { get; set; } = null!;
 
+        [ForeignKey(nameof(CategorieId))]
         [InverseProperty(nameof(Categorie.CategoriesArticles))]
         public virtual Categorie CategorieDeArticle { get; set; } = null!;
 
@@ -90,8 +97,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(CouleurArticle.ArticleConcerne))]
         public virtual ICollection<CouleurArticle> CouleursArticle { get; set; } = new List<CouleurArticle>();
         
-
         [InverseProperty(nameof(Commande.ArticleCommande))]
         public virtual ICollection<Commande> CommandesArticles { get; set; } = new List<Commande>();
+
+        [InverseProperty(nameof(Conversation.AcheteurIdNavigation))]
+        public virtual ICollection<Conversation> ConversationsArticle { get; set; } = new List<Conversation>();
     }
 }

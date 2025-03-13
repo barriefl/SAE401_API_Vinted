@@ -12,61 +12,75 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("vnt_id")]
         public int VintieId { get; set; }
 
+        [Required]
         [Column("vnt_pseudo")]
         [StringLength(50)]
-        public string Pseudo { get; set; }
+        public string Pseudo { get; set; } = null!;
 
-        [Column("tco_codetypecompte")]
-        public int CodeTypeCompte { get; set; }
+        [Required]
+        [Column("tyc_id")]
+        public int TypeCompteId { get; set; }
 
+        [Required]
         [Column("vnt_nom")]
-        public string Nom { get; set; }
+        public string Nom { get; set; } = null!;
 
+        [Required]
         [Column("vnt_prenom")]
-        public string Prenom { get; set; }
+        public string Prenom { get; set; } = null!;
 
-        [Column("vnt_civilite", TypeName="Char(1)")]
-        public string Civilite { get; set; }
+        [Required]
+        [Column("vnt_civilite", TypeName = "Char(1)")]
+        public string Civilite { get; set; } = null!;
 
+        [Required]
         [Column("vnt_mail")]
         [EmailAddress(ErrorMessage = "Format de mail incorrect")]
         [StringLength(150, MinimumLength = 6, ErrorMessage = "La longueru d'un mail se situe entre 6 et 150 caractères.")]
-        public string Mail { get; set; }
+        public string Mail { get; set; } = null!;
 
+        [Required]
         [Column("vnt_pwd")]
         [PasswordPropertyText]
         [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un carac spécial (#?!@$%^&*-)")]
-        public string Pwd { get; set; }
+        public string Pwd { get; set; } = null!;
 
-        [Column("vnt_telephone", TypeName ="Char(14)")]
+        [Required]
+        [Column("vnt_telephone", TypeName = "Char(14)")]
         [RegularExpression(@"[0-9]{10}$", ErrorMessage = "Le numéro de tel doit contenir 10 chiffres")]
-        public string Telephone { get; set; }
+        public string Telephone { get; set; } = null!;
 
+        [Required]
         [Column("vnt_datenaissance", TypeName ="date")]
         public DateTime? DateNaissance { get; set; }
 
+        [Required]
         [Column("vnt_urlphoto")]
         [StringLength(500)]
         public string? URLPhoto { get; set; }
 
+        [Required]
         [Column("vnt_dateinscription", TypeName ="date")]
         public DateTime DateInscription { get; set; }
 
+        [Required]
         [Column("vnt_montantcompte", TypeName = "numeric")]
         public double MontantCompte { get; set; }
 
-        [Column("vnt_statut")]
+        [Required]
+        [Column("vnt_status")]
         [StringLength(15)]
-        public string Statut { get; set; }
+        public string Status { get; set; } = null!;
 
+        [Required]
         [Column("vnt_consentement")]
         public bool Consentement { get; set; }
 
         [Column("vnt_siret")]
-        [StringLength (18)]
+        [StringLength(18)]
         public string? Siret { get; set; }
 
-        [ForeignKey(nameof(CodeTypeCompte))]
+        [ForeignKey(nameof(TypeCompteId))]
         [InverseProperty(nameof(TypeCompte.VintiesType))]
         public virtual TypeCompte VintieCodeNavigation { get; set; } = null!;
 
@@ -96,5 +110,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Commande.VintieCommande))]
         public virtual ICollection<Commande> CommandesVinties { get; set; } = new List<Commande>();
+
+        [InverseProperty(nameof(Conversation.AcheteurIdNavigation))]
+        public virtual ICollection<Conversation> ConversationsVinties { get; set; } = new List<Conversation>(); 
+        
+
     }
 }

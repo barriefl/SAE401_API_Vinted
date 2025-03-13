@@ -16,7 +16,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
-
         [InverseProperty(nameof(Possede.APourType))]
         public virtual ICollection<Possede> PossedesType { get; set; } = new List<Possede>();
     }
