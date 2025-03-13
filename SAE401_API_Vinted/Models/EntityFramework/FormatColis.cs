@@ -15,7 +15,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
-        [Column("fmc_fraissupplementaire")]
+        [Required]
+        [Column("fmc_fraissupplementaire", TypeName = "numeric(6,2)")]
         public decimal? FraisSupplementaire { get; set; }
 
         [InverseProperty(nameof(Commande.ACommeFormat))]

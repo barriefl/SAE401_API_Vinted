@@ -22,10 +22,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int TypeCompteId { get; set; }
 
         [Required]
+        [StringLength(50)]
         [Column("vnt_nom")]
         public string Nom { get; set; } = null!;
 
         [Required]
+        [StringLength(50)]
         [Column("vnt_prenom")]
         public string Prenom { get; set; } = null!;
 
@@ -42,7 +44,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Required]
         [Column("vnt_pwd")]
         [PasswordPropertyText]
-        [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un carac spécial (#?!@$%^&*-)")]
+        [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$", ErrorMessage = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial (#?!@$%^&*-) et est composé de 8 à 12 caractères.")]
+        [StringLength(64)]
         public string Pwd { get; set; } = null!;
 
         [Required]

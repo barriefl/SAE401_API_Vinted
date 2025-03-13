@@ -27,16 +27,16 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int MotifSignalementId { get; set; }
 
         [Required]
+        [Column("sgn_commentaire")]
+        [StringLength(300)]
+        public string Commentaire { get; set; } = null!;
+
+        [Required]
         [Column("sgn_dateouvertureticket", TypeName = "date")]
         public DateTime DateOuvertureTicket { get; set; }
 
         [Column("sgn_datefermetureticket", TypeName = "date")]
         public DateTime? DateFermetureTicket { get; set; }
-
-        [Required]
-        [Column("sgn_commentaire")]
-        [StringLength(300)]
-        public string Commentaire { get; set; } = null!;
 
         [ForeignKey(nameof(ArticleId))]
         [InverseProperty(nameof(Article.SignalementsDeArticle))]

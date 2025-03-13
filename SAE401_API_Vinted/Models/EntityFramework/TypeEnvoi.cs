@@ -10,9 +10,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("tye_id")]
         public int TypeEnvoiId { get; set; }
 
+        [Required]
         [Column("tye_libelle")]
         [StringLength(15)]
-        public int Libelle { get; set; }
+        public string Libelle { get; set; } = null!;
 
         [InverseProperty(nameof(Commande.TypeEnvoiDeCommande))]
         public virtual ICollection<Commande> TypeEnvoiCommandes { get; set; } = new List<Commande>();

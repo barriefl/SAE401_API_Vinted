@@ -17,6 +17,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("vil_nom")]
+        [StringLength(60)]
         public string Nom { get; set; } = null!;
 
         [Required]
