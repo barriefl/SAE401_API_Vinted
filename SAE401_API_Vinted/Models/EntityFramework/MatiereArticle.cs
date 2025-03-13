@@ -1,16 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_j_matierearticle_mar")]
+    [PrimaryKey(nameof(MatiereId), nameof(ArticleId))]
+
     public class MatiereArticle
     {
         [Key]
         [Column("mat_id")]
         public int MatiereId { get; set; }
 
-        [Required]
+        [Key]
         [Column("art_id")]
         public int ArticleId { get; set; }
 

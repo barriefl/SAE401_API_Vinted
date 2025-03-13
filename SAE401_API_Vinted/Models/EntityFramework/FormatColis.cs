@@ -11,7 +11,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int Code { get; set; }
 
         [Required]
-        [Column("fmc_id")]
+        [Column("fmc_lib")]
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
