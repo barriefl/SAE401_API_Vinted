@@ -10,13 +10,13 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("tta_id")]
         public int TypeTailleId { get; set; }
 
+        [Column("cat_id")]
+        public int CategorieId { get; set; }
+
         [Required]
         [Column("tta_libelle")]
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
-
-        [Column("cat_id")]
-        public int CategorieId { get; set; }
 
         [ForeignKey(nameof(CategorieId))]
         [InverseProperty(nameof(Categorie.TypesTaillesCategories))]
