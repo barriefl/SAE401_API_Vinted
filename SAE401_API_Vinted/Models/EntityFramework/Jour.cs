@@ -10,6 +10,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("jor_id")]
         public int JourId { get; set; }
 
+        [Required]
         [Column("jor_libelle")]
         [StringLength(10)]
         public string? Libelle { get; set; }

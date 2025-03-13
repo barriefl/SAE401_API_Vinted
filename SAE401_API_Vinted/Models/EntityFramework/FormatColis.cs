@@ -11,11 +11,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int Code { get; set; }
 
         [Required]
-        [Column("fmc_id")]
+        [Column("fmc_lib")]
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
-        [Column("fmc_fraissupplementaire")]
+        [Required]
+        [Column("fmc_fraissupplementaire", TypeName = "numeric(6,2)")]
         public decimal? FraisSupplementaire { get; set; }
 
         [InverseProperty(nameof(Commande.ACommeFormat))]
