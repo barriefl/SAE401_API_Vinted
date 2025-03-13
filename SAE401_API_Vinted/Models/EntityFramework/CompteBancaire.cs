@@ -12,8 +12,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int CompteId { get; set; }
 
         [Required]
-        [Column("cob_iban")]
-        [StringLength(34)]
+        [Column("cob_iban", TypeName = "char(27)")]
         public string Iban { get; set; } = null!;
 
         [Required]
