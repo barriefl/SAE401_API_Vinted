@@ -93,8 +93,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Appartient.VintieIdNavigation))]
         public virtual ICollection<Appartient> AppartienentVintie { get; set; } = new List<Appartient>();
 
-        [InverseProperty(nameof(Avis.ApourVendeur))]
-        public virtual ICollection<Avis> ADesAvis { get; set; } = new List<Avis>();
+        [InverseProperty(nameof(Avis.APourVendeur))]
+        public virtual ICollection<Avis> ADesAvisVendeur { get; set; } = new List<Avis>();
+
+        [InverseProperty(nameof(Avis.APourAcheteur))]
+        public virtual ICollection<Avis> ADesAvisAcheteur { get; set; } = new List<Avis>();
+
 
         [InverseProperty(nameof(Preference.VintieIdNavigation))]
         public virtual ICollection<Preference> PreferencesVintie { get; set; } = new List<Preference>();
@@ -112,8 +116,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual ICollection<Commande> CommandesVinties { get; set; } = new List<Commande>();
 
         [InverseProperty(nameof(Conversation.AcheteurIdNavigation))]
-        public virtual ICollection<Conversation> ConversationsVinties { get; set; } = new List<Conversation>(); 
-        
+        public virtual ICollection<Conversation> ConversationsAcheteur { get; set; } = new List<Conversation>();
+
+        [InverseProperty(nameof(Conversation.VendeurIdNavigation))]
+        public virtual ICollection<Conversation> ConversationsVendeur { get; set; } = new List<Conversation>();
+
 
     }
 }

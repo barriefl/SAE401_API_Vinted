@@ -15,8 +15,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         public virtual DbSet<Article> Articles { get; set; }
 
-        public virtual DbSet<Associe> Associe { get; set; }
-
         public virtual DbSet<Avis> Avis { get; set; }
 
         public virtual DbSet<CarteBancaire> CartesBancaires { get; set; }
@@ -75,6 +73,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         public virtual DbSet<Signalement> Signalements { get; set; }
 
+        public virtual DbSet<StatusOffre> StatusOffres { get; set; }
+
         public virtual DbSet<StatusRetour> StatusRetours { get; set; }
 
         public virtual DbSet<StatusSignalement> StatusSignalements { get; set; }
@@ -93,8 +93,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         public virtual DbSet<TypeRetour> TypesRetours { get; set; }
 
-        public virtual DbSet<StatusOffre> TypesStatusOffres { get; set; }
-
         public virtual DbSet<TypeTaille> TypeTailles { get; set; }
                                                                                                                  
         public virtual DbSet<Ville> Villes { get; set; }
@@ -103,7 +101,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost; Database=VintedDB; Username=postgres; Password=postgres");
+            optionsBuilder.UseNpgsql("Host=localhost; Database=VintedDB; Username=postgres; Password=3246");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -151,7 +149,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
             modelBuilder.Entity<Message>(entity =>
             {
 
-                entity.Property(e => e.MessageDateEnvoi).HasDefaultValueSql("now()");
+                entity.Property(e => e.DateEnvoi).HasDefaultValueSql("now()");
 
             });
 

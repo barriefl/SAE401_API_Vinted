@@ -16,10 +16,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [ForeignKey(nameof(VintieId))]
         [InverseProperty(nameof(Vintie.PreferencesVintie))]
-        public virtual CompteBancaire VintieIdNavigation { get; set; } = null!;
+        public virtual Vintie VintieIdNavigation { get; set; } = null!;
 
         [ForeignKey(nameof(ExpediteurId))]
         [InverseProperty(nameof(Expediteur.PreferencesExpediteur))]
-        public virtual CompteBancaire ExpediteurIdNavigation { get; set; } = null!;
+        public virtual Expediteur ExpediteurIdNavigation { get; set; } = null!;
     }
 }

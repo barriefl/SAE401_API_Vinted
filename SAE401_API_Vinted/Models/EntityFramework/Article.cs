@@ -63,9 +63,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Vintie.ArticlesDuVendeur))]
         public virtual Vintie VendeurDeArticle { get; set; } = null!;
 
-        [InverseProperty(nameof(Conversation.ArticleId))]
-        public virtual ICollection<Conversation> ListeConversation { get; set; } = new List<Conversation>();
-
         [ForeignKey(nameof(MarqueId))]
         [InverseProperty(nameof(Marque.MarquesDesArticles))]
         public virtual Marque MarqueDeArticle { get; set; } = null!;
@@ -100,7 +97,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Commande.ArticleCommande))]
         public virtual ICollection<Commande> CommandesArticles { get; set; } = new List<Commande>();
 
-        [InverseProperty(nameof(Conversation.AcheteurIdNavigation))]
+        [InverseProperty(nameof(Conversation.ArticleIdNavigation))]
         public virtual ICollection<Conversation> ConversationsArticle { get; set; } = new List<Conversation>();
     }
 }

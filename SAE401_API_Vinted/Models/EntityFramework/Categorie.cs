@@ -20,13 +20,13 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [ForeignKey(nameof(CategorieId))]
         [InverseProperty(nameof(CategoriesParent))]
-        public virtual TypeTaille CategorieParentIdNavigation { get; set; } = null!;
+        public virtual Categorie CategorieParentIdNavigation { get; set; } = null!;
 
         [InverseProperty(nameof(CategorieParentIdNavigation))]
-        public virtual ICollection<TypeTaille> CategoriesParent { get; set; } = new List<TypeTaille>();
+        public virtual ICollection<Categorie> CategoriesParent { get; set; } = new List<Categorie>();
 
-        [InverseProperty(nameof(Taille.TypeTailleIdNavigation))]
-        public virtual ICollection<Taille> TaillesTypeTaille { get; set; } = new List<Taille>();
+        [InverseProperty(nameof(TypeTaille.CategorieTypeTaille))]
+        public virtual ICollection<TypeTaille> TypesTaillesCategories { get; set; } = new List<TypeTaille>();
 
         [InverseProperty(nameof(Article.CategorieDeArticle))]
         public virtual ICollection<Article> CategoriesArticles { get; set; } = new List<Article>();

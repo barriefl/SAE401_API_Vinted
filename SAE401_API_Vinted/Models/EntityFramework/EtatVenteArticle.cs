@@ -16,6 +16,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public string Libelle { get; set; } = null!;
 
         [InverseProperty(nameof(Article.EtatVenteDeArticle))]
-        public virtual ICollection<EtatVenteArticle> EtatsVenteDesArticles { get; set; } = new List<EtatVenteArticle>();
+        public virtual ICollection<Article> EtatsVenteDesArticles { get; set; } = new List<Article>();
     }
 }

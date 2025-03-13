@@ -27,11 +27,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual Article ArticleIdNavigation { get; set; } = null!;
 
         [ForeignKey(nameof(AcheteurId))]
-        [InverseProperty(nameof(Vintie.ConversationsVinties))]
+        [InverseProperty(nameof(Vintie.ConversationsAcheteur))]
         public virtual Vintie AcheteurIdNavigation { get; set; } = null!;
 
         [ForeignKey(nameof(VendeurId))]
-        [InverseProperty(nameof(Vintie.ConversationsVinties))]
+        [InverseProperty(nameof(Vintie.ConversationsVendeur))]
         public virtual Vintie VendeurIdNavigation { get; set; } = null!;
 
         [InverseProperty(nameof(Message.Conversation))]

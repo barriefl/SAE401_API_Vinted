@@ -35,11 +35,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual TypeAvis APourTypeAvis { get; set; } = null!;
 
         [ForeignKey(nameof(VendeurId))]
-        [InverseProperty(nameof(Vintie.ADesAvis))]
-        public virtual Vintie ApourVendeur { get; set; } = null!;
+        [InverseProperty(nameof(Vintie.ADesAvisVendeur))]
+        public virtual Vintie APourVendeur { get; set; } = null!;
 
         [ForeignKey(nameof(AcheteurId))]
-        [InverseProperty(nameof(Vintie.ADesAvis))]
+        [InverseProperty(nameof(Vintie.ADesAvisAcheteur))]
         public virtual Vintie APourAcheteur { get; set; } = null!;
     }
 }

@@ -15,6 +15,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
+        [InverseProperty(nameof(Categorie.TypesTaillesCategories))]
+        public virtual Categorie CategorieTypeTaille { get; set; } = null!;
+
         [InverseProperty(nameof(Taille.TypeTailleIdNavigation))]
         public virtual ICollection<Taille> TaillesTypeTaille { get; set; } = new List<Taille>();
 
