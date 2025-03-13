@@ -64,11 +64,14 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Marque.MarquesDesArticles))]
         public virtual Marque MarqueDeArticle { get; set; } = null!;
 
+        
 
+        [InverseProperty(nameof(MatiereArticle.ArticleMatiere))]
+        public virtual ICollection<MatiereArticle> ArticlesMatieres { get; set; } = new List<MatiereArticle>();
 
         [ForeignKey(nameof(EtatVenteArticleId))]
-        [InverseProperty(nameof(EtatVenteArticle.EtatsVenteDesArticles))]
-        public virtual EtatVenteArticle EtatVenteDeArticle { get; set; } = null!;
+        [InverseProperty(nameof(EtatVente.EtatsVenteDesArticles))]
+        public virtual EtatVente EtatVenteDeArticle { get; set; } = null!;
 
         [ForeignKey(nameof(CategorieId))]
         [InverseProperty(nameof(Categorie.CategoriesArticles))]

@@ -15,8 +15,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
-        [ForeignKey(nameof(ArticleId))]
-        [InverseProperty(nameof(Article.MatiereDeArticle))]
-        public virtual ICollection<Article> MatieresDesArticles { get; set; } = new List<Article>();
+        [InverseProperty(nameof(MatiereArticle.MatiereDeArticle))]
+        public virtual ICollection<MatiereArticle> MatieresDesArticles { get; set; } = new List<MatiereArticle>();
     }
 }
