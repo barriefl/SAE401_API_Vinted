@@ -68,9 +68,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public double MontantCompte { get; set; }
 
         [Required]
-        [Column("vnt_status")]
-        [StringLength(15)]
-        public string Status { get; set; } = null!;
+        [Column("vnt_datederniereconnexion", TypeName = "date")]
+        public DateTime DateDerniereConnexion { get; set; }
 
         [Required]
         [Column("vnt_consentement")]
@@ -98,7 +97,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Avis.APourAcheteur))]
         public virtual ICollection<Avis> ADesAvisAcheteur { get; set; } = new List<Avis>();
-
 
         [InverseProperty(nameof(Preference.VintieIdNavigation))]
         public virtual ICollection<Preference> PreferencesVintie { get; set; } = new List<Preference>();

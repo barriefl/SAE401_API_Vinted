@@ -143,6 +143,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
             {
 
                 entity.Property(e => e.DateInscription).HasDefaultValueSql("now()");
+                entity.Property(e => e.DateDerniereConnexion).HasDefaultValueSql("now()");
 
             });
 
