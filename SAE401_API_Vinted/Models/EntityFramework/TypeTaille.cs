@@ -15,6 +15,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [StringLength(40)]
         public string Libelle { get; set; } = null!;
 
+        [Column("cat_id")]
+        public int CategorieId { get; set; }
+
+        [ForeignKey(nameof(CategorieId))]
         [InverseProperty(nameof(Categorie.TypesTaillesCategories))]
         public virtual Categorie CategorieTypeTaille { get; set; } = null!;
 
