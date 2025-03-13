@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_j_preference_pre")]
+    [PrimaryKey(nameof(VintieId), nameof(ExpediteurId))]
     public class Preference
     {
         [Key]
