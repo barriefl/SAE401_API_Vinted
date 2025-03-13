@@ -9,11 +9,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     public class Favoris
     {
         [Key]
-        [Column("fav_idarticle")]
+        [Column("art_id")]
         public int ArticleId { get; set; }
 
         [Key]
-        [Column("fav_idvintie")]
+        [Column("vnt_id")]
         public int VintieId { get; set; }
 
 
