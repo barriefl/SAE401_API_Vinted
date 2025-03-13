@@ -139,11 +139,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
             //});
 
-            modelBuilder.Entity<Vintie>(entity =>
+
+
+            modelBuilder.Entity<Article>(entity =>
             {
 
-                entity.Property(e => e.DateInscription).HasDefaultValueSql("now()");
-                entity.Property(e => e.DateDerniereConnexion).HasDefaultValueSql("now()");
+                entity.Property(e => e.DateAjout).HasDefaultValueSql("now()");
 
             });
 
@@ -154,17 +155,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
             });
 
-            modelBuilder.Entity<Transaction>(entity =>
+            modelBuilder.Entity<Retour>(entity =>
             {
 
-                entity.Property(e => e.DateTransaction).HasDefaultValueSql("now()");
-
-            });
-
-            modelBuilder.Entity<Article>(entity =>
-            {
-
-                entity.Property(e => e.DateAjout).HasDefaultValueSql("now()");
+                entity.Property(e => e.DateDemande).HasDefaultValueSql("now()");
 
             });
 
@@ -172,6 +166,21 @@ namespace SAE401_API_Vinted.Models.EntityFramework
             {
 
                 entity.Property(e => e.DateOuvertureTicket).HasDefaultValueSql("now()");
+
+            });
+
+            modelBuilder.Entity<Transaction>(entity =>
+            {
+
+                entity.Property(e => e.DateTransaction).HasDefaultValueSql("now()");
+
+            });
+
+            modelBuilder.Entity<Vintie>(entity =>
+            {
+
+                entity.Property(e => e.DateInscription).HasDefaultValueSql("now()");
+                entity.Property(e => e.DateDerniereConnexion).HasDefaultValueSql("now()");
 
             });
 
