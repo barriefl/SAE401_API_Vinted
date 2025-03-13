@@ -106,46 +106,135 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.HasDefaultSchema("td4");
 
-            //modelBuilder.Entity<Adresse>(entity =>
-            //{
-            //    entity.HasKey(e => e.AdresseID)
-            //    .HasName("pk_adresse");
+            modelBuilder.Entity<Adresse>(entity =>
+            {
+               entity.HasKey(e => e.AdresseID)
+                .HasName("pk_adresse");
 
-            //    entity.HasOne(d => d.VilleAdresse)
-            //    .WithMany(p => p.AdressesVilles)
-            //    .HasForeignKey(d => d.VilleID)
-            //    .OnDelete(DeleteBehavior.Restrict)
-            //    .HasConstraintName("fk_adresse_ville");
-            //});
+                entity.HasOne(d => d.VilleAdresse)
+                .WithMany(p => p.AdressesVilles)
+                .HasForeignKey(d => d.VilleID)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_adresse_ville");
+            });
 
-            //modelBuilder.Entity<Appartient>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.CompteId, e.VintieId})
-            //        .HasName("pk_app");
+            modelBuilder.Entity<Appartient>(entity =>
+            {
+                entity.HasKey(e => new { e.CompteId, e.VintieId })
+                 .HasName("pk_appartient");
 
-            //    entity.HasOne(d => d.CompteIdNavigation)
-            //        .WithMany(p => p.AppartientCompte)
-            //        .HasForeignKey(d => d.FilmId)
-            //        .OnDelete(DeleteBehavior.Restrict)
-            //        .HasConstraintName("fk_notation_film");
+                entity.HasOne(d => d.CompteIdNavigation)
+                .WithMany(p => p.AppartientCompte)
+                .HasForeignKey(d => d.CompteId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_appartient_compte");
 
-            //    entity.HasOne(d => d.UtilisateurNotant)
-            //        .WithMany(p => p.NotesUtilisateur)
-            //        .HasForeignKey(d => d.UtilisateurId)
-            //        .OnDelete(DeleteBehavior.Restrict)
-            //        .HasConstraintName("fk_notation_utilisateur");
-
-            //});
-
+                entity.HasOne(d => d.VintieIdNavigation)
+                .WithMany(p => p.AppartienentVintie)
+                .HasForeignKey(d => d.VintieId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_appartient_vintie");
+            });
 
 
             modelBuilder.Entity<Article>(entity =>
             {
-
+                entity.HasKey(e => e.ArticleId)
+                .HasName("pk_article");
                 entity.Property(e => e.DateAjout).HasDefaultValueSql("now()");
 
+                entity.HasOne(d => d.EtatDeArticle)
+                .WithMany(p => p.EtatsDesArticles)
+                .HasForeignKey(d => d.EtatArticleId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_article_etatarticle");
+
+                entity.HasOne(d => d.VendeurDeArticle)
+                .WithMany(p => p.ArticlesDuVendeur)
+                .HasForeignKey(d => d.VendeurId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_article_vinties");
+
+                entity.HasOne(d => d.MarqueDeArticle)
+                .WithMany(p => p.MarquesDesArticles)
+                .HasForeignKey(d => d.MarqueId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_article_marque");
+
+                entity.HasOne(d => d.EtatVenteDeArticle)
+                .WithMany(p => p.EtatsVenteDesArticles)
+                .HasForeignKey(d => d.EtatVenteArticleId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_article_etatvente");
+
+                entity.HasOne(d => d.CategorieDeArticle)
+                .WithMany(p => p.CategoriesArticles)
+                .HasForeignKey(d => d.CategorieId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_article_categorie");
+
+            });
+
+            modelBuilder.Entity<Avis>(entity =>
+            {
+                entity.HasKey(e => e.AvisId)
+                 .HasName("pk_avis");
+
+                entity.HasOne(d => d.APourTypeAvis)
+                .WithMany(p => p.PossedesTypeAvis)
+                .HasForeignKey(d => d.CodeTypeAvis)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_avis_typeavis");
+
+                entity.HasOne(d => d.APourVendeur)
+                .WithMany(p => p.ADesAvisVendeur)
+                .HasForeignKey(d => d.VendeurId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_avis_vendeurvinties");
+
+                entity.HasOne(d => d.APourAcheteur)
+                .WithMany(p => p.ADesAvisAcheteur)
+                .HasForeignKey(d => d.AcheteurId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_avis_acheteurvinties");
+            });
+
+            modelBuilder.Entity<CarteBancaire>(entity =>
+            {
+                entity.HasKey(e => e.CarteId)
+                 .HasName("pk_cartebancaire");
+
+                entity.HasOne(d => d.CompteIdNavigation)
+                .WithMany(p => p.CartesCompte)
+                .HasForeignKey(d => d.CompteId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_cartebancaire_comptebancaire");
+            });
+
+            modelBuilder.Entity<Categorie>(entity =>
+            {
+                entity.HasKey(e => e.CategorieId)
+                 .HasName("pk_categorie");
+
+                entity.HasOne(d => d.CategorieParentIdNavigation)
+                .WithMany(p => p.CategoriesParent)
+                .HasForeignKey(d => d.IdParent)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_categorie_categorie");
+            });
+
+
+            modelBuilder.Entity<Commande>(entity =>
+            {
+                entity.HasKey(e => e.CommandeID)
+                 .HasName("pk_commande");
+
+                entity.HasOne(d => d.ACommeFormat)
+                .WithMany(p => p.ADesCommandes)
+                .HasForeignKey(d => d.CodeFormat)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_commande_formatcolis");
             });
 
             modelBuilder.Entity<Message>(entity =>
