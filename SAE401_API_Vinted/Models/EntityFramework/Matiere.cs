@@ -11,10 +11,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int MatiereId { get; set; }
 
         [Required]
-        [Column("art_id")]
-        public int ArticleId { get; set; }
-
-        [Required]
         [Column("mat_libelle")]
         [StringLength(40)]
         public string Libelle { get; set; } = null!;

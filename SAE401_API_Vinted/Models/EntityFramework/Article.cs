@@ -30,9 +30,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("mrq_id")]
         public int? MarqueId { get; set; }
 
-        [Column("mat_id")]
-        public int? MatiereId { get; set; }
-
         [Required]
         [Column("art_titre")]
         [StringLength(100)]
@@ -67,13 +64,11 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Marque.MarquesDesArticles))]
         public virtual Marque MarqueDeArticle { get; set; } = null!;
 
-        [ForeignKey(nameof(MatiereId))]
-        [InverseProperty(nameof(Matiere.MatieresDesArticles))]
-        public virtual Matiere MatiereDeArticle { get; set; } = null!;
+
 
         [ForeignKey(nameof(EtatVenteArticleId))]
-        [InverseProperty(nameof(EtatVente.EtatsVenteDesArticles))]
-        public virtual EtatVente EtatVenteDeArticle { get; set; } = null!;
+        [InverseProperty(nameof(EtatVenteArticle.EtatsVenteDesArticles))]
+        public virtual EtatVenteArticle EtatVenteDeArticle { get; set; } = null!;
 
         [ForeignKey(nameof(CategorieId))]
         [InverseProperty(nameof(Categorie.CategoriesArticles))]
