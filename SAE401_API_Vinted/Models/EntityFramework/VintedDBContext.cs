@@ -15,11 +15,13 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         public virtual DbSet<Article> Articles { get; set; }
 
-        public virtual DbSet<TailleArticle> TaillesArticles { get; set; }
+        public virtual DbSet<Associe> Associe { get; set; }
 
         public virtual DbSet<Avis> Avis { get; set; }
 
         public virtual DbSet<CarteBancaire> CartesBancaires { get; set; }
+
+        public virtual DbSet<Categorie> Categories { get; set; }
 
         public virtual DbSet<Commande> Commandes { get; set; }
 
@@ -27,7 +29,13 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         public virtual DbSet<Conversation> Conversations { get; set; }
 
+        public virtual DbSet<Couleur> Couleurs { get; set; }
+
+        public virtual DbSet<CouleurArticle> CouleursArticles { get; set; }
+
         public virtual DbSet<EtatArticle> EtatsArticles { get; set; }
+
+        public virtual DbSet<EtatVenteArticle> EtatsVentesArticles { get; set; }
 
         public virtual DbSet<Expediteur> Expediteurs { get; set; }
 
@@ -68,9 +76,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual DbSet<Signalement> Signalements { get; set; }
 
         public virtual DbSet<StatusRetour> StatusRetours { get; set; }
+
         public virtual DbSet<StatusSignalement> StatusSignalements { get; set; }
 
         public virtual DbSet<Taille> Tailles { get; set; }
+
+        public virtual DbSet<TailleArticle> TaillesArticles { get; set; }
 
         public virtual DbSet<Transaction> Transactions { get; set; }
 

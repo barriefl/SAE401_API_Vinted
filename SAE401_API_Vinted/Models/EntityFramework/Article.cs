@@ -7,7 +7,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_e_article_art")]
     public class Article
-    {
+    { 
         [Key]
         [Column("art_id")]
         public int ArticleId { get; set; }
