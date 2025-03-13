@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
     [Table("t_e_etatventearticle_eva")]
-    public class EtatVenteArticle
+    public class EtatVente
     {
         [Key]
         [Column("eva_id")]

@@ -72,8 +72,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual Matiere MatiereDeArticle { get; set; } = null!;
 
         [ForeignKey(nameof(EtatVenteArticleId))]
-        [InverseProperty(nameof(EtatVenteArticle.EtatsVenteDesArticles))]
-        public virtual EtatVenteArticle EtatVenteDeArticle { get; set; } = null!;
+        [InverseProperty(nameof(EtatVente.EtatsVenteDesArticles))]
+        public virtual EtatVente EtatVenteDeArticle { get; set; } = null!;
 
         [ForeignKey(nameof(CategorieId))]
         [InverseProperty(nameof(Categorie.CategoriesArticles))]

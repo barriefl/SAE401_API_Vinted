@@ -33,7 +33,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         public virtual DbSet<EtatArticle> EtatsArticles { get; set; }
 
-        public virtual DbSet<EtatVenteArticle> EtatsVentesArticles { get; set; }
+        public virtual DbSet<EtatVente> EtatsVentesArticles { get; set; }
 
         public virtual DbSet<Expediteur> Expediteurs { get; set; }
 
