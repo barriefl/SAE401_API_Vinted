@@ -29,6 +29,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [ForeignKey(nameof(ConversationId))]
         [InverseProperty(nameof(Conversation.Messages))]
-        public virtual Conversation Conversation { get; set; } = null!;
+        public virtual Conversation ConversationMessage { get; set; } = null!;
     }
 }

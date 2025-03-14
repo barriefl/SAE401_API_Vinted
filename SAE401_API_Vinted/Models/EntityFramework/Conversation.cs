@@ -34,7 +34,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Vintie.ConversationsVendeur))]
         public virtual Vintie VendeurIdNavigation { get; set; } = null!;
 
-        [InverseProperty(nameof(Message.Conversation))]
+        [InverseProperty(nameof(Message.ConversationMessage))]
         public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
     }
 }

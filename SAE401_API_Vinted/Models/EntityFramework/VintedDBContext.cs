@@ -393,17 +393,204 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
             });
 
+            modelBuilder.Entity<Image>(entity =>
+            {
+                entity.HasKey(e => e.ImageId)
+                .HasName("pk_img");
+
+                entity.HasOne(d => d.ArticleDeImage)
+                .WithMany(p => p.ImagesDeArticle)
+                .HasForeignKey(d => d.ArticleId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_img_art");
+            });
+
+            modelBuilder.Entity<Jour>(entity =>
+            {
+                entity.HasKey(e => e.JourId)
+                .HasName("pk_jor");
+
+            });
+
+            modelBuilder.Entity<Marque>(entity =>
+            {
+                entity.HasKey(e => e.MarqueId)
+                .HasName("pk_mrq");
+
+            });
+
+            modelBuilder.Entity<Matiere>(entity =>
+            {
+                entity.HasKey(e => e.MatiereId)
+                .HasName("pk_mat");
+
+            });
+
+            modelBuilder.Entity<MatiereArticle>(entity =>
+            {
+                entity.HasKey(e => new { e.MatiereId, e.ArticleId })
+                .HasName("pk_mar");
+
+                entity.HasOne(d => d.MatiereDeArticle)
+                .WithMany(p => p.MatieresDesArticles)
+                .HasForeignKey(d => d.MatiereId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_mar_mat");
+
+                entity.HasOne(d => d.ArticleMatiere)
+                .WithMany(p => p.ArticlesMatieres)
+                .HasForeignKey(d => d.ArticleId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_mar_art");
+
+            });
+
             modelBuilder.Entity<Message>(entity =>
             {
+                entity.HasKey(e => e.MessageId)
+                .HasName("pk_msg");
 
                 entity.Property(e => e.DateEnvoi).HasDefaultValueSql("now()");
+
+                entity.HasOne(d => d.ConversationMessage)
+                .WithMany(p => p.Messages)
+                .HasForeignKey(d => d.ConversationId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_msg_cnv");
+
+            });
+
+            modelBuilder.Entity<MotifSignalement>(entity =>
+            {
+                entity.HasKey(e => e.MotifSignalementId)
+                .HasName("pk_mos");
+
+            });
+
+            modelBuilder.Entity<Offre>(entity =>
+            {
+                entity.HasOne(d => d.EstStatusOffre)
+                .WithMany(p => p.StatusOffres)
+                .HasForeignKey(d => d.TypeStatusOffreId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_ofr_tso");
+
+            });
+
+            modelBuilder.Entity<Pays>(entity =>
+            {
+                entity.HasKey(e => e.PaysId)
+                .HasName("pk_pay");
+
+            });
+
+            modelBuilder.Entity<PointRelais>(entity =>
+            {
+                entity.HasKey(e => e.PointRelaisID)
+                .HasName("pk_ptr");
+
+                entity.HasOne(d => d.AdressePointRelais)
+                .WithMany(p => p.ADesPointRelais)
+                .HasForeignKey(d => d.AdresseId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_ptr_adr");
+
+            });
+
+            modelBuilder.Entity<PointRelaisFavoris>(entity =>
+            {
+                entity.HasKey(e => new { e.PointRelaisId, e.VintieId })
+                .HasName("pk_prf");
+
+                entity.HasOne(d => d.FavPointRelais)
+                .WithMany(p => p.PointsRelaisEnFavoris)
+                .HasForeignKey(d => d.PointRelaisId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_prf_ptr");
+
+                entity.HasOne(d => d.VintiePointRelais)
+                .WithMany(p => p.PointRelaisFavorisVintie)
+                .HasForeignKey(d => d.VintieId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_prf_vnt");
+
+            });
+
+            modelBuilder.Entity<Possede>(entity =>
+            {
+                entity.HasKey(e => new { e.CodeType, e.AdresseId })
+                .HasName("pk_psd");
+
+                entity.HasOne(d => d.APourAdresse)
+                .WithMany(p => p.PossedesAdresse)
+                .HasForeignKey(d => d.AdresseId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_psd_adr");
+
+                entity.HasOne(d => d.APourType)
+                .WithMany(p => p.PossedesType)
+                .HasForeignKey(d => d.CodeType)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_psd_tad");
+
+            });
+
+            modelBuilder.Entity<Preference>(entity =>
+            {
+                entity.HasKey(e => new { e.ExpediteurId, e.VintieId })
+                .HasName("pk_pre");
+
+                entity.HasOne(d => d.VintieIdNavigation)
+                .WithMany(p => p.PreferencesVintie)
+                .HasForeignKey(d => d.VintieId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_pre_vnt");
+
+                entity.HasOne(d => d.ExpediteurIdNavigation)
+                .WithMany(p => p.PreferencesExpediteur)
+                .HasForeignKey(d => d.ExpediteurId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_pre_exp");
+
+            });
+
+            modelBuilder.Entity<Reside>(entity =>
+            {
+                entity.HasKey(e => new { e.AdresseId, e.VintieId })
+                .HasName("pk_rsd");
+
+                entity.HasOne(d => d.ResideA)
+                .WithMany(p => p.AResidents)
+                .HasForeignKey(d => d.AdresseId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_rsd_adr");
+
+                entity.HasOne(d => d.ResideVintie)
+                .WithMany(p => p.VintiesResides)
+                .HasForeignKey(d => d.VintieId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_rsd_vnt");
 
             });
 
             modelBuilder.Entity<Retour>(entity =>
             {
+                entity.HasKey(e => e.RetourId)
+                .HasName("pk_ret");
 
                 entity.Property(e => e.DateDemande).HasDefaultValueSql("now()");
+
+                entity.HasOne(d => d.TypeDuRetour)
+                .WithMany(p => p.TypesDesRetours)
+                .HasForeignKey(d => d.TypeRetourId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_ret_tpr");
+
+                entity.HasOne(d => d.StatusDuRetour)
+                .WithMany(p => p.StatusDesRetours)
+                .HasForeignKey(d => d.StatusRetourId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_ret_str");
 
             });
 
