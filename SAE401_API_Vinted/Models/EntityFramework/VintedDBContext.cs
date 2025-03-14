@@ -596,23 +596,173 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
             modelBuilder.Entity<Signalement>(entity =>
             {
+                entity.HasKey(e => e.SignalementId)
+                .HasName("pk_sgn");
+
+                entity.HasOne(d => d.ArticleDuSignalement)
+                .WithMany(p => p.SignalementsDeArticle)
+                .HasForeignKey(d => d.ArticleId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_sgn_art");
+
+                entity.HasOne(d => d.VintieSignalant)
+                .WithMany(p => p.SignalementsDeArticle)
+                .HasForeignKey(d => d.VintieId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_sgn_vnt");
+
+                entity.HasOne(d => d.StatusDuSignalement)
+                .WithMany(p => p.StatusDesSignalements)
+                .HasForeignKey(d => d.StatusSignalementId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_sgn_sts");
+
+                entity.HasOne(d => d.MotifDuSignalement)
+                .WithMany(p => p.MotifsDesSignalement)
+                .HasForeignKey(d => d.MotifSignalementId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_sgn_mos");
 
                 entity.Property(e => e.DateOuvertureTicket).HasDefaultValueSql("now()");
 
             });
 
+            modelBuilder.Entity<StatusOffre>(entity =>
+            {
+                entity.HasKey(e => e.StatusOffreId)
+                .HasName("pk_sto");
+
+            });
+
+            modelBuilder.Entity<StatusRetour>(entity =>
+            {
+                entity.HasKey(e => e.StatusRetourId)
+                .HasName("pk_str");
+
+            });
+
+            modelBuilder.Entity<StatusSignalement>(entity =>
+            {
+                entity.HasKey(e => e.StatusSignalementId)
+                .HasName("pk_sts");
+
+            });
+
+            modelBuilder.Entity<Taille>(entity =>
+            {
+                entity.HasKey(e => e.TailleId)
+                .HasName("pk_tal");
+
+                entity.HasOne(d => d.TypeTailleIdNavigation)
+                .WithMany(p => p.TaillesTypeTaille)
+                .HasForeignKey(d => d.TypeTailleId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_tal_tta");
+
+            });
+
+            modelBuilder.Entity<TailleArticle>(entity =>
+            {
+                entity.HasKey(e => new { e.TailleId, e.ArticleId })
+                .HasName("pk_tar");
+
+                entity.HasOne(d => d.ArticleIdNavigation)
+                .WithMany(p => p.TaillesArticle)
+                .HasForeignKey(d => d.ArticleId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_tar_art");
+
+                entity.HasOne(d => d.TailleIdNavigation)
+                .WithMany(p => p.ArticlesTaille)
+                .HasForeignKey(d => d.TailleId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_tar_tal");
+
+            });
+
             modelBuilder.Entity<Transaction>(entity =>
             {
+                entity.HasKey(e => e.TransactionID)
+                .HasName("pk_tsc");
 
                 entity.Property(e => e.DateTransaction).HasDefaultValueSql("now()");
+
+                entity.HasOne(d => d.CommandeTransaction)
+                .WithMany(p => p.TransactionsCommandes)
+                .HasForeignKey(d => d.CommandeID)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_tsc_cmd");
+
+            });
+
+            modelBuilder.Entity<TypeAdresse>(entity =>
+            {
+                entity.HasKey(e => e.TypeAdresseId)
+                .HasName("pk_tad");
+
+            });
+
+            modelBuilder.Entity<TypeAvis>(entity =>
+            {
+                entity.HasKey(e => e.TypeAvisID)
+                .HasName("pk_tas");
+
+            });
+
+            modelBuilder.Entity<TypeCompte>(entity =>
+            {
+                entity.HasKey(e => e.TypeCompteId)
+                .HasName("pk_tyc");
+
+            });
+
+            modelBuilder.Entity<TypeEnvoi>(entity =>
+            {
+                entity.HasKey(e => e.TypeEnvoiId)
+                .HasName("pk_tye");
+
+            });
+
+            modelBuilder.Entity<TypeRetour>(entity =>
+            {
+                entity.HasKey(e => e.TypeRetourId)
+                .HasName("pk_tpr");
+
+            });
+
+            modelBuilder.Entity<TypeTaille>(entity =>
+            {
+                entity.HasKey(e => e.TypeTailleId)
+                .HasName("pk_tta");
+
+            });
+
+            modelBuilder.Entity<Ville>(entity =>
+            {
+                entity.HasKey(e => e.VilleId)
+                .HasName("pk_vil");
+
+                entity.HasOne(d => d.PaysVille)
+                .WithMany(p => p.VillesPays)
+                .HasForeignKey(d => d.PaysId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_vil_pay");
 
             });
 
             modelBuilder.Entity<Vintie>(entity =>
             {
+                entity.HasKey(e => e.VintieId)
+                .HasName("pk_vnt");
 
                 entity.Property(e => e.DateInscription).HasDefaultValueSql("now()");
                 entity.Property(e => e.DateDerniereConnexion).HasDefaultValueSql("now()");
+
+                entity.HasOne(d => d.VintieCodeNavigation)
+                .WithMany(p => p.VintiesType)
+                .HasForeignKey(d => d.TypeCompteId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_vnt_tyc");
 
             });
 

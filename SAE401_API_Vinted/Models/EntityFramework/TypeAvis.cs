@@ -8,7 +8,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("tas_id")]
-        public int Code { get; set; }
+        public int TypeAvisID { get; set; }
 
         [Required]
         [Column("tas_lib")]

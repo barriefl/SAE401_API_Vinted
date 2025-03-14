@@ -9,7 +9,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     {
         [Key]
         [Column("tad_id")]
-        public int Code { get; set; }
+        public int TypeAdresseId { get; set; }
 
         [Required]
         [Column("tad_libelle")]

@@ -22,6 +22,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [ForeignKey(nameof(TailleId))]
         [InverseProperty(nameof(Taille.ArticlesTaille))]
-        public virtual Taille TailleIdNavigation { get; set; }
+        public virtual Taille TailleIdNavigation { get; set; } =null!;
     }
 }

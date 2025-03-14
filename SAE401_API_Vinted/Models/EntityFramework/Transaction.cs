@@ -24,6 +24,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("tsc_datetransaction", TypeName = "date")]
         public DateTime DateTransaction { get; set; }
 
+        [ForeignKey(nameof(CommandeID))]
         [InverseProperty(nameof(Commande.TransactionsCommandes))]
         public virtual Commande CommandeTransaction { get; set; } = null!;        
     }
