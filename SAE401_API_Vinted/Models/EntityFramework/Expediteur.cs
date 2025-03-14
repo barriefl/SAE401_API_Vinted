@@ -19,8 +19,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Commande.ExpediteurCommande))]
         public virtual ICollection<Commande> CommandesExpediteurs { get; set; } = new List<Commande>();
-        /*
-        [InverseProperty(nameof(Appartient.VintieIdNavigation))]
-        public virtual ICollection<Commande> AppartienentVintie { get; set; } = new List<Appartient>();*/
+
     }
 }
