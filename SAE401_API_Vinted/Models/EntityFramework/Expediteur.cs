@@ -10,9 +10,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("exp_id")]
         public int ExpediteurId { get; set; }
 
+        [Required]
         [Column("exp_nom")]
         [StringLength(50)]
-        public string Nom { get; set; }
+        public string Nom { get; set; } = null!;
 
         [InverseProperty(nameof(Preference.ExpediteurIdNavigation))]
         public virtual ICollection<Preference> PreferencesExpediteur { get; set; } = new List<Preference>();
