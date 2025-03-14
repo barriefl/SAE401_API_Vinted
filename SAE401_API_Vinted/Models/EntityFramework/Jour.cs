@@ -13,7 +13,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Required]
         [Column("jor_libelle")]
         [StringLength(10)]
-        public string? Libelle { get; set; }
+        public string Libelle { get; set; } = null!;
 
         [InverseProperty(nameof(Horaire.JourOuvert))]
         public virtual ICollection<Horaire> HeuresOuverts { get; set; } = new List<Horaire>();
