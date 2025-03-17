@@ -174,6 +174,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_art_cat");
 
+                entity.Property(e => e.EtatArticleId).HasDefaultValue(3);
+
+                entity.Property(e => e.MarqueId).HasDefaultValue(59);
+
             });
 
             modelBuilder.Entity<Avis>(entity =>

@@ -25,10 +25,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [RegularExpression(@"^\d{5}$", ErrorMessage = "Le code postal doit être composé de 5 chiffres.")]
         public int CodePostal { get; set; }
 
-        [Column("vil_latitude")]
+        [Column("vil_latitude", TypeName ="numeric(15,13)")]
         public float? Latitude { get; set; }
 
-        [Column("vil_longitude")]
+        [Column("vil_longitude", TypeName = "numeric(15,13)")]
         public float? Longitude { get; set; }
 
         [ForeignKey(nameof(PaysId))]

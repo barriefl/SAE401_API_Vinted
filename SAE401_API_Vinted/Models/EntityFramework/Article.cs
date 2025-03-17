@@ -24,11 +24,13 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("eva_id")]
         public int EtatVenteArticleId { get; set; }
 
+        [Required]
         [Column("eta_id")]
-        public int? EtatArticleId { get; set; }
+        public int EtatArticleId { get; set; }
 
+        [Required]
         [Column("mrq_id")]
-        public int? MarqueId { get; set; }
+        public int MarqueId { get; set; }
 
         [Required]
         [Column("art_titre")]

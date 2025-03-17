@@ -24,6 +24,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("avs_commentaire")]
+        [StringLength(300)]
         public string? Commentaire { get; set; }
 
         [Required]

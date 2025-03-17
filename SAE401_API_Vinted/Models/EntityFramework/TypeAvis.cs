@@ -11,9 +11,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int TypeAvisID { get; set; }
 
         [Required]
-        [Column("tas_lib")]
+        [Column("tas_libelle")]
         [StringLength(40)]
-        public int Libelle { get; set; }
+        public string Libelle { get; set; } = null!;
 
         [InverseProperty(nameof(Avis.APourTypeAvis))]
         public virtual ICollection<Avis> PossedesTypeAvis { get; set; } = new List<Avis>();

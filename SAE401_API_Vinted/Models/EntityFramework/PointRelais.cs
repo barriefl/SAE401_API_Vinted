@@ -15,8 +15,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int AdresseId { get; set; }
 
         [Required]
-        [StringLength(40)]
         [Column("ptr_nom")]
+        [StringLength(40)]
         public string Nom { get; set; } = null!;
 
         [InverseProperty(nameof(Commande.ACommePointRelais))]
