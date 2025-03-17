@@ -293,12 +293,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_cnv_acheteurvnt");
 
-                entity.HasOne(d => d.VendeurIdNavigation)
-                .WithMany(p => p.ConversationsVendeur)
-                .HasForeignKey(d => d.VendeurId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("fk_cnv_vendeurvnt");
-
             });
 
             modelBuilder.Entity<Couleur>(entity =>

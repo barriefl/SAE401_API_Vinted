@@ -118,10 +118,5 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Conversation.AcheteurIdNavigation))]
         public virtual ICollection<Conversation> ConversationsAcheteur { get; set; } = new List<Conversation>();
-
-        [InverseProperty(nameof(Conversation.VendeurIdNavigation))]
-        public virtual ICollection<Conversation> ConversationsVendeur { get; set; } = new List<Conversation>();
-
-
     }
 }
