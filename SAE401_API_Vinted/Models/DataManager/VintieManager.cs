@@ -44,12 +44,42 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task PostAsync(Vintie entity)
         {
-            throw new NotImplementedException();
+            await vintiesDbContext.Vinties.AddAsync(entity);
+            await vintiesDbContext.SaveChangesAsync();
         }
 
-        public Task PutAsync(Vintie entityToUpdate, Vintie entity)
+        public async Task PutAsync(Vintie entityToUpdate, Vintie entity)
         {
-            throw new NotImplementedException();
+            vintiesDbContext.Entry(entityToUpdate).State = EntityState.Modified;
+            entityToUpdate.VintieId = entity.VintieId;
+            entityToUpdate.Pseudo = entity.Pseudo;
+            entityToUpdate.TypeCompteId = entity.TypeCompteId;
+            entityToUpdate.Nom = entity.Nom;
+            entityToUpdate.Prenom = entity.Prenom;
+            entityToUpdate.Civilite = entity.Civilite;
+            entityToUpdate.Mail = entity.Mail;
+            entityToUpdate.Pwd = entity.Pwd;
+            entityToUpdate.Telephone = entity.Telephone;
+            entityToUpdate.DateNaissance = entity.DateNaissance;
+            entityToUpdate.URLPhoto = entity.URLPhoto;
+            entityToUpdate.DateInscription = entity.DateInscription;
+            entityToUpdate.MontantCompte = entity.MontantCompte;
+            entityToUpdate.DateDerniereConnexion = entity.DateDerniereConnexion;
+            entityToUpdate.Consentement = entity.Consentement;
+            entityToUpdate.Siret = entity.Siret;
+            entityToUpdate.VintieCodeNavigation = entity.VintieCodeNavigation;
+            entityToUpdate.VintiesResides = entity.VintiesResides;
+            entityToUpdate.ArticlesDuVendeur = entity.ArticlesDuVendeur;
+            entityToUpdate.AppartienentVintie = entity.AppartienentVintie;
+            entityToUpdate.ADesAvisVendeur = entity.ADesAvisVendeur;
+            entityToUpdate.ADesAvisAcheteur = entity.ADesAvisAcheteur;
+            entityToUpdate.PreferencesVintie = entity.PreferencesVintie;
+            entityToUpdate.SignalementsDeArticle = entity.SignalementsDeArticle;
+            entityToUpdate.FavorisDeVintie = entity.FavorisDeVintie;
+            entityToUpdate.PointRelaisFavorisVintie = entity.PointRelaisFavorisVintie;
+            entityToUpdate.CommandesVinties = entity.CommandesVinties;
+            entityToUpdate.ConversationsAcheteur = entity.ConversationsAcheteur;
+            await vintiesDbContext.SaveChangesAsync();
         }
     }
 }

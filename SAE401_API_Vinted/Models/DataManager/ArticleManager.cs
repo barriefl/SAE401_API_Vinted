@@ -46,14 +46,40 @@ namespace SAE401_API_Vinted.Models.DataManager
             return articles;
         }
 
-        public Task PostAsync(Article entity)
+        public async Task PostAsync(Article entity)
         {
-            throw new NotImplementedException();
+            await vintiesDbContext.Articles.AddAsync(entity);
+            await vintiesDbContext.SaveChangesAsync();
         }
 
-        public Task PutAsync(Article entityToUpdate, Article entity)
+        public async Task PutAsync(Article entityToUpdate, Article entity)
         {
-            throw new NotImplementedException();
+            vintiesDbContext.Entry(entityToUpdate).State = EntityState.Modified;
+            entityToUpdate.ArticleId = entity.ArticleId;
+            entityToUpdate.CategorieId = entity.CategorieId;
+            entityToUpdate.VendeurId = entity.VendeurId;
+            entityToUpdate.EtatVenteArticleId = entity.EtatVenteArticleId;
+            entityToUpdate.EtatArticleId = entity.EtatArticleId;
+            entityToUpdate.MarqueId = entity.MarqueId;
+            entityToUpdate.Titre = entity.Titre;
+            entityToUpdate.Description = entity.Description;
+            entityToUpdate.PrixHT = entity.PrixHT;
+            entityToUpdate.DateAjout = entity.DateAjout;
+            entityToUpdate.CompteurLike = entity.CompteurLike;
+            entityToUpdate.EtatDeArticle = entity.EtatDeArticle;
+            entityToUpdate.VendeurDeArticle = entity.VendeurDeArticle;
+            entityToUpdate.MarqueDeArticle = entity.MarqueDeArticle;
+            entityToUpdate.ArticlesMatieres = entity.ArticlesMatieres;
+            entityToUpdate.EtatVenteDeArticle = entity.EtatVenteDeArticle;
+            entityToUpdate.CategorieDeArticle = entity.CategorieDeArticle;
+            entityToUpdate.ImagesDeArticle = entity.ImagesDeArticle;
+            entityToUpdate.SignalementsDeArticle = entity.SignalementsDeArticle;
+            entityToUpdate.FavorisArticle = entity.FavorisArticle;
+            entityToUpdate.TaillesArticle = entity.TaillesArticle;
+            entityToUpdate.CouleursArticle = entity.CouleursArticle;
+            entityToUpdate.CommandesArticles = entity.CommandesArticles;
+            entityToUpdate.ConversationsArticle = entity.ConversationsArticle;
+            await vintiesDbContext.SaveChangesAsync();
         }
     }
 }
