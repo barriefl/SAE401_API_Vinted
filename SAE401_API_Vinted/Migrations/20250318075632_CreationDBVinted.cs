@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SAE401_API_Vinted.Migrations
 {
     /// <inheritdoc />
-    public partial class NewAnnotations1 : Migration
+    public partial class CreationDBVinted : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -955,7 +955,8 @@ namespace SAE401_API_Vinted.Migrations
                     cnv_id = table.Column<int>(type: "integer", nullable: false),
                     msg_idexpediteur = table.Column<int>(type: "integer", nullable: false),
                     msg_contenu = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
-                    msg_dateenvoi = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "now()")
+                    msg_dateenvoi = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "now()"),
+                    Discriminator = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: true)
                 },
                 constraints: table =>
                 {

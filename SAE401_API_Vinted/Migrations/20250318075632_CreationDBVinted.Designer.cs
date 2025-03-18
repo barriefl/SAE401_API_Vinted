@@ -12,8 +12,8 @@ using SAE401_API_Vinted.Models.EntityFramework;
 namespace SAE401_API_Vinted.Migrations
 {
     [DbContext(typeof(VintedDBContext))]
-    [Migration("20250318072602_NewAnnotations1")]
-    partial class NewAnnotations1
+    [Migration("20250318075632_CreationDBVinted")]
+    partial class CreationDBVinted
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -682,6 +682,10 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnName("msg_dateenvoi")
                         .HasDefaultValueSql("now()");
 
+                    b.Property<string>("Discriminator")
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
+
                     b.Property<int>("ExpediteurId")
                         .HasColumnType("integer")
                         .HasColumnName("msg_idexpediteur");
@@ -691,7 +695,7 @@ namespace SAE401_API_Vinted.Migrations
 
                     b.HasIndex("ConversationId");
 
-                    b.ToTable("t_e_message_msg");
+                    b.ToTable("t_e_message_msg", (string)null);
 
                     b.UseTptMappingStrategy();
                 });

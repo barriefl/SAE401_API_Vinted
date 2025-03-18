@@ -467,9 +467,6 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
             modelBuilder.Entity<Offre>(entity =>
             {
-                entity.HasKey(e => e.MessageId)
-                .HasName("pk_ofr");
-
                 entity.HasOne(d => d.EstStatusOffre)
                 .WithMany(p => p.StatusOffres)
                 .HasForeignKey(d => d.TypeStatusOffreId)
@@ -479,10 +476,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
             });
 
             modelBuilder.Entity<Message>()
-            .ToTable("t_e_message_msg") 
-            .HasDiscriminator<string>("Discriminator") 
-            .HasValue<Message>("Message")
-            .HasValue<Offre>("Offre"); 
+                .ToTable("t_e_message_msg") 
+                .HasDiscriminator<string>("Discriminator") 
+                .HasValue<Message>("Message")
+                .HasValue<Offre>("Offre");
 
             modelBuilder.Entity<Pays>(entity =>
             {

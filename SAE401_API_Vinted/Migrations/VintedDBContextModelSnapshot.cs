@@ -679,6 +679,10 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnName("msg_dateenvoi")
                         .HasDefaultValueSql("now()");
 
+                    b.Property<string>("Discriminator")
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
+
                     b.Property<int>("ExpediteurId")
                         .HasColumnType("integer")
                         .HasColumnName("msg_idexpediteur");
@@ -688,7 +692,7 @@ namespace SAE401_API_Vinted.Migrations
 
                     b.HasIndex("ConversationId");
 
-                    b.ToTable("t_e_message_msg");
+                    b.ToTable("t_e_message_msg", (string)null);
 
                     b.UseTptMappingStrategy();
                 });
