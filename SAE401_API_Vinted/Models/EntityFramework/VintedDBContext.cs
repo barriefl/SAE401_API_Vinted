@@ -467,22 +467,18 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
             modelBuilder.Entity<Offre>(entity =>
             {
-                entity.HasKey(e => e.MessageId)
-                .HasName("pk_ofr");
-
                 entity.HasOne(d => d.EstStatusOffre)
                 .WithMany(p => p.StatusOffres)
                 .HasForeignKey(d => d.TypeStatusOffreId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_ofr_tso");
 
-            });
+                entity.Property(e => e.MessageId) 
+                .HasColumnName("pk_ofr");
 
-            modelBuilder.Entity<Message>()
-            .ToTable("t_e_message_msg") 
-            .HasDiscriminator<string>("Discriminator") 
-            .HasValue<Message>("Message")
-            .HasValue<Offre>("Offre"); 
+                entity.HasBaseType<Message>();
+
+            });
 
             modelBuilder.Entity<Pays>(entity =>
             {
