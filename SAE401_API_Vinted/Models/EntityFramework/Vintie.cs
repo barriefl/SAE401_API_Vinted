@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
-    [Table("t_e_vinties_vnt")]
+    [Table("t_e_vintie_vnt")]
     [Index(nameof(Mail), Name = "uq_vnt_mail", IsUnique = true)]
     public class Vintie
     {
