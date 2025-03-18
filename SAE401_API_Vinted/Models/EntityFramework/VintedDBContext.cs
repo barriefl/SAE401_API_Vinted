@@ -473,13 +473,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_ofr_tso");
 
-            });
+                entity.Property(e => e.MessageId) 
+                .HasColumnName("pk_ofr");
 
-            modelBuilder.Entity<Message>()
-                .ToTable("t_e_message_msg") 
-                .HasDiscriminator<string>("Discriminator") 
-                .HasValue<Message>("Message")
-                .HasValue<Offre>("Offre");
+                entity.HasBaseType<Message>();
+
+            });
 
             modelBuilder.Entity<Pays>(entity =>
             {
