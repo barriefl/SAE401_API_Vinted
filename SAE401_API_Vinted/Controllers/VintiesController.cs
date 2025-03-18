@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SAE401_API_Vinted.Models.EntityFramework;
+using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
@@ -13,25 +14,25 @@ namespace SAE401_API_Vinted.Controllers
     [ApiController]
     public class VintiesController : ControllerBase
     {
-        private readonly VintedDBContext _context;
+        private readonly IDataRepositoryArticleVintie<Vintie> dataRepository;
 
-        public VintiesController(VintedDBContext context)
+        public VintiesController(IDataRepositoryArticleVintie<Vintie> dataRepo)
         {
-            _context = context;
+            dataRepository = dataRepo;
         }
 
         // GET: api/Vinties
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vintie>>> GetVinties()
         {
-            return await _context.Vinties.ToListAsync();
+            return await dataRepository.GetAllAsync();
         }
 
         // GET: api/Vinties/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Vintie>> GetVintie(int id)
         {
-            var vintie = await _context.Vinties.FindAsync(id);
+            var vintie = await dataRepository.GetByIdAsync(id);
 
             if (vintie == null)
             {
