@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SAE401_API_Vinted.Models.EntityFramework;
+using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
@@ -13,25 +14,26 @@ namespace SAE401_API_Vinted.Controllers
     [ApiController]
     public class ArticlesController : ControllerBase
     {
-        private readonly VintedDBContext _context;
 
-        public ArticlesController(VintedDBContext context)
+        private readonly IDataRepositoryArticleVintie<Article> dataRepository;
+
+        public ArticlesController(IDataRepositoryArticleVintie<Article> dataRepo)
         {
-            _context = context;
+            dataRepository = dataRepo;
         }
 
         // GET: api/Articles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
         {
-            return await _context.Articles.ToListAsync();
+            return await dataRepository.GetAllAsync();
         }
 
         // GET: api/Articles/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
-            var article = await _context.Articles.FindAsync(id);
+            var article = await dataRepository.GetByIdAsync(id);
 
             if (article == null)
             {
@@ -39,6 +41,26 @@ namespace SAE401_API_Vinted.Controllers
             }
 
             return article;
+        }
+
+
+        [HttpGet]
+        [Route("[action]/{text}")]
+        [ActionName("GetByTitre")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<Article>>> GetArticleByTitreDescription(string text)
+        {
+            var articles = await dataRepository.GetAllAsync();
+
+            // If no articles were found, return a 404 Not Found
+            if (articles == null)
+            {
+                return NotFound();
+            }
+
+            // Return the articles wrapped in an Ok result
+            return articles;
         }
 
         // PUT: api/Articles/5
@@ -51,25 +73,16 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(article).State = EntityState.Modified;
-
-            try
+            var articleToUpdate = await dataRepository.GetByIdAsync(id);
+            if (articleToUpdate == null)
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!ArticleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                await dataRepository.PutAsync(articleToUpdate.Value, article);
+                return NoContent();
             }
-
-            return NoContent();
         }
 
         // POST: api/Articles
@@ -77,31 +90,26 @@ namespace SAE401_API_Vinted.Controllers
         [HttpPost]
         public async Task<ActionResult<Article>> PostArticle(Article article)
         {
-            _context.Articles.Add(article);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetArticle", new { id = article.ArticleId }, article);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await dataRepository.PostAsync(article);
+            return CreatedAtAction("GetById", new { id = article.ArticleId }, article); // GetById : nom de l’action
         }
 
         // DELETE: api/Articles/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteArticle(int id)
         {
-            var article = await _context.Articles.FindAsync(id);
+            var article = await dataRepository.GetByIdAsync(id);
             if (article == null)
             {
                 return NotFound();
             }
-
-            _context.Articles.Remove(article);
-            await _context.SaveChangesAsync();
-
+            await dataRepository.DeleteAsync(article.Value);
             return NoContent();
         }
 
-        private bool ArticleExists(int id)
-        {
-            return _context.Articles.Any(e => e.ArticleId == id);
-        }
     }
 }
