@@ -13,7 +13,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int ArticleId { get; set; }
 
         [Key]
-        [Column("cla_couleurid")]
+        [Column("clr_id")]
         public int CouleurId { get; set; }
 
         [ForeignKey(nameof(ArticleId))]
