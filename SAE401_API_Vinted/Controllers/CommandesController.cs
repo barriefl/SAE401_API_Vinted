@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SAE401_API_Vinted.Models.EntityFramework;
+using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
@@ -13,63 +14,33 @@ namespace SAE401_API_Vinted.Controllers
     [ApiController]
     public class CommandesController : ControllerBase
     {
-        private readonly VintedDBContext _context;
 
-        public CommandesController(VintedDBContext context)
+        private readonly IDataRepositoryCommande<Commande> dataRepositoryCommande;
+
+        public CommandesController(IDataRepositoryCommande<Commande> dataRepo)
         {
-            _context = context;
+            dataRepositoryCommande = dataRepo;
         }
 
         // GET: api/Commandes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Commande>>> GetCommandes()
         {
-            return await _context.Commandes.ToListAsync();
+            return await dataRepositoryCommande.GetAllAsync();
         }
 
         // GET: api/Commandes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Commande>> GetCommande(int id)
+        public async Task<ActionResult<IEnumerable<Commande>>> GetCommande(int id)
         {
-            var commande = await _context.Commandes.FindAsync(id);
+            var article = await dataRepositoryCommande.GetByVintieIdAsync(id);
 
-            if (commande == null)
+            if (article == null)
             {
                 return NotFound();
             }
 
-            return commande;
-        }
-
-        // PUT: api/Commandes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCommande(int id, Commande commande)
-        {
-            if (id != commande.CommandeID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(commande).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommandeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return article;
         }
 
         // POST: api/Commandes
@@ -77,31 +48,14 @@ namespace SAE401_API_Vinted.Controllers
         [HttpPost]
         public async Task<ActionResult<Commande>> PostCommande(Commande commande)
         {
-            _context.Commandes.Add(commande);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCommande", new { id = commande.CommandeID }, commande);
-        }
-
-        // DELETE: api/Commandes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCommande(int id)
-        {
-            var commande = await _context.Commandes.FindAsync(id);
-            if (commande == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
-
-            _context.Commandes.Remove(commande);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            await dataRepositoryCommande.PostAsync(commande);
+            return CreatedAtAction("GetById", new { id = commande.CommandeID }, commande); // GetById : nom de l’action
         }
 
-        private bool CommandeExists(int id)
-        {
-            return _context.Commandes.Any(e => e.CommandeID == id);
-        }
+
     }
 }
