@@ -2,7 +2,7 @@
 
 namespace SAE401_API_Vinted.Models.Repository
 {
-    public interface IDataRepository<TEntity>
+    public interface IDataRepositoryArticleVintie<TEntity>
     {
         Task<ActionResult<IEnumerable<TEntity>>> GetAllAsync();
         Task<ActionResult<TEntity>> GetByIdAsync(int id);

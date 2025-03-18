@@ -14,13 +14,13 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int VintieId { get; set; }
 
         [Required]
+        [Column("tyc_id")]
+        public int TypeCompteId { get; set; }
+
+        [Required]
         [Column("vnt_pseudo")]
         [StringLength(50)]
         public string Pseudo { get; set; } = null!;
-
-        [Required]
-        [Column("tyc_id")]
-        public int TypeCompteId { get; set; }
 
         [Required]
         [Column("vnt_nom")]
