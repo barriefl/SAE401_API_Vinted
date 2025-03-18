@@ -351,18 +351,12 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("art_id");
 
-                    b.Property<int>("VendeurId")
-                        .HasColumnType("integer")
-                        .HasColumnName("vnt_idvendeur");
-
                     b.HasKey("ConversationId")
                         .HasName("pk_cnv");
 
                     b.HasIndex("AcheteurId");
 
                     b.HasIndex("ArticleId");
-
-                    b.HasIndex("VendeurId");
 
                     b.ToTable("t_e_conversation_cnv");
                 });
@@ -1572,18 +1566,9 @@ namespace SAE401_API_Vinted.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_cnv_art");
 
-                    b.HasOne("SAE401_API_Vinted.Models.EntityFramework.Vintie", "VendeurIdNavigation")
-                        .WithMany("ConversationsVendeur")
-                        .HasForeignKey("VendeurId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("fk_cnv_vendeurvnt");
-
                     b.Navigation("AcheteurIdNavigation");
 
                     b.Navigation("ArticleIdNavigation");
-
-                    b.Navigation("VendeurIdNavigation");
                 });
 
             modelBuilder.Entity("SAE401_API_Vinted.Models.EntityFramework.CouleurArticle", b =>
@@ -2131,8 +2116,6 @@ namespace SAE401_API_Vinted.Migrations
                     b.Navigation("CommandesVinties");
 
                     b.Navigation("ConversationsAcheteur");
-
-                    b.Navigation("ConversationsVendeur");
 
                     b.Navigation("FavorisDeVintie");
 
