@@ -528,13 +528,12 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("jor_id");
 
-                    b.Property<DateTime?>("HeureFermeture")
-                        .IsRequired()
-                        .HasColumnType("date")
+                    b.Property<TimeSpan>("HeureFermeture")
+                        .HasColumnType("time")
                         .HasColumnName("hor_heurefermeture");
 
-                    b.Property<DateTime>("HeureOuverture")
-                        .HasColumnType("date")
+                    b.Property<TimeSpan>("HeureOuverture")
+                        .HasColumnType("time")
                         .HasColumnName("hor_heureouverture");
 
                     b.HasKey("PointRelaisID", "JourId")
@@ -1350,6 +1349,9 @@ namespace SAE401_API_Vinted.Migrations
                         .HasName("pk_vnt");
 
                     b.HasIndex("TypeCompteId");
+
+                    b.HasIndex(new[] { "Mail" }, "uq_vnt_mail")
+                        .IsUnique();
 
                     b.ToTable("t_e_vinties_vnt");
                 });

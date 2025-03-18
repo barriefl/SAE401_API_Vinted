@@ -902,8 +902,8 @@ namespace SAE401_API_Vinted.Migrations
                 {
                     ptr_id = table.Column<int>(type: "integer", nullable: false),
                     jor_id = table.Column<int>(type: "integer", nullable: false),
-                    hor_heureouverture = table.Column<DateTime>(type: "date", nullable: false),
-                    hor_heurefermeture = table.Column<DateTime>(type: "date", nullable: false)
+                    hor_heureouverture = table.Column<TimeSpan>(type: "time", nullable: false),
+                    hor_heurefermeture = table.Column<TimeSpan>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1000,9 +1000,9 @@ namespace SAE401_API_Vinted.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_msg", x => x.msg_id);
+                    table.PrimaryKey("pk_ofr", x => x.msg_id);
                     table.ForeignKey(
-                        name: "FK_t_e_offre_ofr_t_e_message_msg_msg_id",
+                        name: "fk_ofr_msg",
                         column: x => x.msg_id,
                         principalTable: "t_e_message_msg",
                         principalColumn: "msg_id",
@@ -1179,6 +1179,12 @@ namespace SAE401_API_Vinted.Migrations
                 name: "IX_t_e_vinties_vnt_tyc_id",
                 table: "t_e_vinties_vnt",
                 column: "tyc_id");
+
+            migrationBuilder.CreateIndex(
+                name: "uq_vnt_mail",
+                table: "t_e_vinties_vnt",
+                column: "vnt_mail",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_t_j_appartient_app_vnt_id",
