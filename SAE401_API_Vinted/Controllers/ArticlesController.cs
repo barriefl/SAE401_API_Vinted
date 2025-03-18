@@ -10,7 +10,7 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ArticlesController : ControllerBase
     {
@@ -22,15 +22,15 @@ namespace SAE401_API_Vinted.Controllers
             dataRepositoryArticle = dataRepo;
         }
 
-        // GET: api/Articles
         [HttpGet]
+        [ActionName("GetAll")]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
         {
             return await dataRepositoryArticle.GetAllAsync();
         }
 
-        // GET: api/Articles/5
         [HttpGet("{id}")]
+        [ActionName("GetbyId")]
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
             var article = await dataRepositoryArticle.GetByIdAsync(id);
@@ -66,6 +66,7 @@ namespace SAE401_API_Vinted.Controllers
         // PUT: api/Articles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ActionName("Put")]
         public async Task<IActionResult> PutArticle(int id, Article article)
         {
             if (id != article.ArticleId)
@@ -88,6 +89,7 @@ namespace SAE401_API_Vinted.Controllers
         // POST: api/Articles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ActionName("Post")]
         public async Task<ActionResult<Article>> PostArticle(Article article)
         {
             if (!ModelState.IsValid)
@@ -95,11 +97,12 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest(ModelState);
             }
             await dataRepositoryArticle.PostAsync(article);
-            return CreatedAtAction("GetById", new { id = article.ArticleId }, article); // GetById : nom de l’action
+            return CreatedAtAction("GetbyId", new { id = article.ArticleId }, article); // GetById : nom de l’action
         }
 
         // DELETE: api/Articles/5
         [HttpDelete("{id}")]
+        [ActionName("Delete")]
         public async Task<IActionResult> DeleteArticle(int id)
         {
             var article = await dataRepositoryArticle.GetByIdAsync(id);

@@ -10,29 +10,31 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class VintiesController : ControllerBase
     {
-        private readonly IDataRepositoryArticleVintie<Vintie> dataRepository;
+        private readonly IDataRepositoryArticleVintie<Vintie> dataRepositoryVintie;
 
         public VintiesController(IDataRepositoryArticleVintie<Vintie> dataRepo)
         {
-            dataRepository = dataRepo;
+            dataRepositoryVintie = dataRepo;
         }
 
         // GET: api/Vinties
         [HttpGet]
+        [ActionName("GetAll")]
         public async Task<ActionResult<IEnumerable<Vintie>>> GetVinties()
         {
-            return await dataRepository.GetAllAsync();
+            return await dataRepositoryVintie.GetAllAsync();
         }
 
         // GET: api/Vinties/5
         [HttpGet("{id}")]
+        [ActionName("GetbyId")]
         public async Task<ActionResult<Vintie>> GetVintie(int id)
         {
-            var vintie = await dataRepository.GetByIdAsync(id);
+            var vintie = await dataRepositoryVintie.GetByIdAsync(id);
 
             if (vintie == null)
             {
@@ -42,9 +44,29 @@ namespace SAE401_API_Vinted.Controllers
             return vintie;
         }
 
+        [HttpGet]
+        [Route("[action]/{text}")]
+        [ActionName("GetByPseudo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<Vintie>>> GetVintiebyPseudo(string text)
+        {
+            var vinties = await dataRepositoryVintie.GetByStringAsync(text);
+
+            // If no articles were found, return a 404 Not Found
+            if (vinties == null)
+            {
+                return NotFound();
+            }
+
+            // Return the articles wrapped in an Ok result
+            return vinties;
+        }
+
         // PUT: api/Vinties/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ActionName("Put")]
         public async Task<IActionResult> PutVintie(int id, Vintie vintie)
         {
             if (id != vintie.VintieId)
@@ -52,57 +74,44 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(vintie).State = EntityState.Modified;
-
-            try
+            var vintieToUpdate = await dataRepositoryVintie.GetByIdAsync(id);
+            if (vintieToUpdate == null)
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!VintieExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                await dataRepositoryVintie.PutAsync(vintieToUpdate.Value, vintie);
+                return NoContent();
             }
-
-            return NoContent();
         }
 
         // POST: api/Vinties
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ActionName("Post")]
         public async Task<ActionResult<Vintie>> PostVintie(Vintie vintie)
         {
-            _context.Vinties.Add(vintie);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetVintie", new { id = vintie.VintieId }, vintie);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await dataRepositoryVintie.PostAsync(vintie);
+            return CreatedAtAction("GetbyId", new { id = vintie.VintieId }, vintie);
         }
 
         // DELETE: api/Vinties/5
         [HttpDelete("{id}")]
+        [ActionName("Delete")]
         public async Task<IActionResult> DeleteVintie(int id)
         {
-            var vintie = await _context.Vinties.FindAsync(id);
+            var vintie = await dataRepositoryVintie.GetByIdAsync(id);
             if (vintie == null)
             {
                 return NotFound();
             }
-
-            _context.Vinties.Remove(vintie);
-            await _context.SaveChangesAsync();
-
+            await dataRepositoryVintie.DeleteAsync(vintie.Value);
             return NoContent();
-        }
-
-        private bool VintieExists(int id)
-        {
-            return _context.Vinties.Any(e => e.VintieId == id);
         }
     }
 }

@@ -10,7 +10,7 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CommandesController : ControllerBase
     {
@@ -22,15 +22,15 @@ namespace SAE401_API_Vinted.Controllers
             dataRepositoryCommande = dataRepo;
         }
 
-        // GET: api/Commandes
         [HttpGet]
+        [ActionName("GetAll")]
         public async Task<ActionResult<IEnumerable<Commande>>> GetCommandes()
         {
             return await dataRepositoryCommande.GetAllAsync();
         }
 
-        // GET: api/Commandes/5
         [HttpGet("{id}")]
+        [ActionName("GetbyVintieId")]
         public async Task<ActionResult<IEnumerable<Commande>>> GetCommande(int id)
         {
             var article = await dataRepositoryCommande.GetByVintieIdAsync(id);
@@ -43,9 +43,24 @@ namespace SAE401_API_Vinted.Controllers
             return article;
         }
 
+        [HttpGet("{id}")]
+        [ActionName("GetbyId")]
+        public async Task<ActionResult<Commande>> GetArticle(int id)
+        {
+            var article = await dataRepositoryCommande.GetByIdAsync(id);
+
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            return article;
+        }
+
         // POST: api/Commandes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ActionName("Post")]
         public async Task<ActionResult<Commande>> PostCommande(Commande commande)
         {
             if (!ModelState.IsValid)
@@ -53,7 +68,7 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest(ModelState);
             }
             await dataRepositoryCommande.PostAsync(commande);
-            return CreatedAtAction("GetById", new { id = commande.CommandeID }, commande); // GetById : nom de l’action
+            return CreatedAtAction("GetById", new { id = commande.CommandeID }, commande); 
         }
 
 
