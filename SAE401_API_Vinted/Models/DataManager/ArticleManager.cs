@@ -37,7 +37,7 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task<ActionResult<IEnumerable<Article>>> GetByStringAsync(string text)
         {
-           var articles = await vintiesDbContext.Articles
+            var articles = await vintiesDbContext.Articles
             .Where(a =>
             a.Titre.ToUpper().Contains(text.ToUpper()) ||
             a.Description.ToUpper().Contains(text.ToUpper()))
