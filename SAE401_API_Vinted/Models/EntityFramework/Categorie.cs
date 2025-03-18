@@ -12,7 +12,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("cat_libelle")]
-        [StringLength(40)]
+        [StringLength(50)]
         public string Libelle { get; set; } = null!;
 
         [Column("cat_idparent")]
