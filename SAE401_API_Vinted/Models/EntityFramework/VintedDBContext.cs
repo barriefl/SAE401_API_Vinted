@@ -590,6 +590,18 @@ namespace SAE401_API_Vinted.Models.EntityFramework
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_ret_str");
 
+                entity.HasOne(d => d.ArticleRetourne)
+                .WithMany(p => p.RetourDesArticles)
+                .HasForeignKey(d => d.ArticleId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_ret_art");
+
+                entity.HasOne(d => d.VintieRetour)
+                .WithMany(p => p.RetourDesVintie)
+                .HasForeignKey(d => d.VintieId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_ret_vnt");
+
             });
 
             modelBuilder.Entity<Signalement>(entity =>

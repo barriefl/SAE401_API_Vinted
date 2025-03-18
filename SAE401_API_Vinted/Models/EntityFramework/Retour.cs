@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿    using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
@@ -19,6 +19,14 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Required]
         [Column("str_id")]
         public int StatusRetourId { get; set; }
+
+        [Required]
+        [Column("art_id")]
+        public int ArticleId { get; set; }
+
+        [Required]
+        [Column("vnt_id")]
+        public int VintieId { get; set; }
 
         [Required]
         [Column("ret_frais", TypeName = "numeric(6,2)")]
@@ -42,6 +50,14 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [ForeignKey(nameof(TypeRetourId))]
         [InverseProperty(nameof(TypeRetour.TypesDesRetours))]
         public virtual TypeRetour TypeDuRetour { get; set; } = null!;
+
+        [ForeignKey(nameof(TypeRetourId))]
+        [InverseProperty(nameof(Article.RetourDesArticles))]
+        public virtual Article ArticleRetourne { get; set; } = null!;
+
+        [ForeignKey(nameof(TypeRetourId))]
+        [InverseProperty(nameof(Vintie.RetourDesVintie))]
+        public virtual Vintie VintieRetour { get; set; } = null!;
 
         [ForeignKey(nameof(StatusRetourId))]
         [InverseProperty(nameof(StatusRetour.StatusDesRetours))]

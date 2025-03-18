@@ -12,7 +12,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("eva_libelle")]
-        [StringLength(20)]
+        [StringLength(30)]
         public string Libelle { get; set; } = null!;
 
         [InverseProperty(nameof(Article.EtatVenteDeArticle))]

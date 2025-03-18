@@ -15,25 +15,25 @@ namespace SAE401_API_Vinted.Controllers
     public class ArticlesController : ControllerBase
     {
 
-        private readonly IDataRepositoryArticleVintie<Article> dataRepository;
+        private readonly IDataRepositoryArticleVintie<Article> dataRepositoryArticle;
 
         public ArticlesController(IDataRepositoryArticleVintie<Article> dataRepo)
         {
-            dataRepository = dataRepo;
+            dataRepositoryArticle = dataRepo;
         }
 
         // GET: api/Articles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
         {
-            return await dataRepository.GetAllAsync();
+            return await dataRepositoryArticle.GetAllAsync();
         }
 
         // GET: api/Articles/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
-            var article = await dataRepository.GetByIdAsync(id);
+            var article = await dataRepositoryArticle.GetByIdAsync(id);
 
             if (article == null)
             {
@@ -51,7 +51,7 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticleByTitreDescription(string text)
         {
-            var articles = await dataRepository.GetAllAsync();
+            var articles = await dataRepositoryArticle.GetByStringAsync(text);
 
             // If no articles were found, return a 404 Not Found
             if (articles == null)
@@ -73,14 +73,14 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest();
             }
 
-            var articleToUpdate = await dataRepository.GetByIdAsync(id);
+            var articleToUpdate = await dataRepositoryArticle.GetByIdAsync(id);
             if (articleToUpdate == null)
             {
                 return NotFound();
             }
             else
             {
-                await dataRepository.PutAsync(articleToUpdate.Value, article);
+                await dataRepositoryArticle.PutAsync(articleToUpdate.Value, article);
                 return NoContent();
             }
         }
@@ -94,7 +94,7 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await dataRepository.PostAsync(article);
+            await dataRepositoryArticle.PostAsync(article);
             return CreatedAtAction("GetById", new { id = article.ArticleId }, article); // GetById : nom de l’action
         }
 
@@ -102,12 +102,12 @@ namespace SAE401_API_Vinted.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteArticle(int id)
         {
-            var article = await dataRepository.GetByIdAsync(id);
+            var article = await dataRepositoryArticle.GetByIdAsync(id);
             if (article == null)
             {
                 return NotFound();
             }
-            await dataRepository.DeleteAsync(article.Value);
+            await dataRepositoryArticle.DeleteAsync(article.Value);
             return NoContent();
         }
 

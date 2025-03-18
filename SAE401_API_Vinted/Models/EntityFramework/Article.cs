@@ -99,5 +99,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Conversation.ArticleIdNavigation))]
         public virtual ICollection<Conversation> ConversationsArticle { get; set; } = new List<Conversation>();
+
+        [InverseProperty(nameof(Retour.ArticleRetourne))]
+        public virtual ICollection<Retour> RetourDesArticles { get; set; } = new List<Retour>();
     }
 }

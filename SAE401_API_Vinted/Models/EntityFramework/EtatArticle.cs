@@ -19,7 +19,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("eta_description")]
-        [StringLength(100)]
+        [StringLength(200)]
         public string Description { get; set; } = null!;
 
         [InverseProperty(nameof(Article.EtatDeArticle))]

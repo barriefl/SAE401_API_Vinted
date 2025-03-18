@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace SAE401_API_Vinted.Models.EntityFramework
 {
-    [Table("t_e_vinties_vnt")]
+    [Table("t_e_vintie_vnt")]
     [Index(nameof(Mail), Name = "uq_vnt_mail", IsUnique = true)]
     public class Vintie
     {
@@ -120,5 +120,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Conversation.AcheteurIdNavigation))]
         public virtual ICollection<Conversation> ConversationsAcheteur { get; set; } = new List<Conversation>();
+
+        [InverseProperty(nameof(Retour.VintieRetour))]
+        public virtual ICollection<Retour> RetourDesVintie { get; set; } = new List<Retour>();
     }
 }
