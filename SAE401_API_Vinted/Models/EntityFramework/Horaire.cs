@@ -17,12 +17,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public int JourId { get; set; }
 
         [Required]
-        [Column("hor_heureouverture", TypeName = "date")]
-        public DateTime HeureOuverture { get; set; }
+        [Column("hor_heureouverture", TypeName = "time")]
+        public TimeSpan HeureOuverture { get; set; }
 
         [Required]
-        [Column("hor_heurefermeture", TypeName = "date")]
-        public DateTime? HeureFermeture { get; set; }
+        [Column("hor_heurefermeture", TypeName = "time")]
+        public TimeSpan HeureFermeture { get; set; }
 
         [ForeignKey(nameof(PointRelaisID))]
         [InverseProperty(nameof(PointRelais.HorairesPointRelais))]

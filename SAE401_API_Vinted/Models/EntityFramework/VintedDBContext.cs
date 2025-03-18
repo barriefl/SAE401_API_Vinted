@@ -480,6 +480,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
             });
 
+            modelBuilder.Entity<Message>()
+           .ToTable("t_e_message_msg")  // Table partagée entre Message et Offre
+           .HasDiscriminator<string>("Discriminator")  // Discriminant pour l'héritage
+           .HasValue<Message>("Message")  // Discriminant pour Message
+           .HasValue<Offre>("Offre");
+
             modelBuilder.Entity<Pays>(entity =>
             {
                 entity.HasKey(e => e.PaysId)
