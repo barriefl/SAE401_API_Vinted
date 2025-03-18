@@ -51,7 +51,7 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticleByTitreDescription(string text)
         {
-            var articles = await dataRepository.GetAllAsync();
+            var articles = await dataRepository.GetByStringAsync(text);
 
             // If no articles were found, return a 404 Not Found
             if (articles == null)
