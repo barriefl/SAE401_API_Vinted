@@ -12,8 +12,8 @@ using SAE401_API_Vinted.Models.EntityFramework;
 namespace SAE401_API_Vinted.Migrations
 {
     [DbContext(typeof(VintedDBContext))]
-    [Migration("20250318072602_NewAnnotations1")]
-    partial class NewAnnotations1
+    [Migration("20250318082835_CreationDBVinted")]
+    partial class CreationDBVinted
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -531,13 +531,12 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("jor_id");
 
-                    b.Property<DateTime?>("HeureFermeture")
-                        .IsRequired()
-                        .HasColumnType("date")
+                    b.Property<TimeSpan>("HeureFermeture")
+                        .HasColumnType("time")
                         .HasColumnName("hor_heurefermeture");
 
-                    b.Property<DateTime>("HeureOuverture")
-                        .HasColumnType("date")
+                    b.Property<TimeSpan>("HeureOuverture")
+                        .HasColumnType("time")
                         .HasColumnName("hor_heureouverture");
 
                     b.HasKey("PointRelaisID", "JourId")
@@ -682,6 +681,10 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnName("msg_dateenvoi")
                         .HasDefaultValueSql("now()");
 
+                    b.Property<string>("Discriminator")
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
+
                     b.Property<int>("ExpediteurId")
                         .HasColumnType("integer")
                         .HasColumnName("msg_idexpediteur");
@@ -691,7 +694,7 @@ namespace SAE401_API_Vinted.Migrations
 
                     b.HasIndex("ConversationId");
 
-                    b.ToTable("t_e_message_msg");
+                    b.ToTable("t_e_message_msg", (string)null);
 
                     b.UseTptMappingStrategy();
                 });
@@ -1349,6 +1352,9 @@ namespace SAE401_API_Vinted.Migrations
                         .HasName("pk_vnt");
 
                     b.HasIndex("TypeCompteId");
+
+                    b.HasIndex(new[] { "Mail" }, "uq_vnt_mail")
+                        .IsUnique();
 
                     b.ToTable("t_e_vinties_vnt");
                 });
