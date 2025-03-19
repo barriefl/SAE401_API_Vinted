@@ -1008,21 +1008,21 @@ namespace SAE401_API_Vinted.Migrations
                 columns: table => new
                 {
                     msg_id = table.Column<int>(type: "integer", nullable: false),
-                    tso_id = table.Column<int>(type: "integer", nullable: false),
+                    sto_id = table.Column<int>(type: "integer", nullable: false),
                     ofr_montant = table.Column<double>(type: "numeric(6,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_ofr", x => x.msg_id);
+                    table.PrimaryKey("pk_msg", x => x.msg_id);
                     table.ForeignKey(
-                        name: "fk_ofr_msg",
+                        name: "FK_t_e_offre_ofr_t_e_message_msg_msg_id",
                         column: x => x.msg_id,
                         principalTable: "t_e_message_msg",
                         principalColumn: "msg_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_ofr_tso",
-                        column: x => x.tso_id,
+                        name: "fk_ofr_sto",
+                        column: x => x.sto_id,
                         principalTable: "t_e_statusoffre_sto",
                         principalColumn: "sto_id",
                         onDelete: ReferentialAction.Restrict);
@@ -1129,9 +1129,9 @@ namespace SAE401_API_Vinted.Migrations
                 column: "cnv_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_t_e_offre_ofr_tso_id",
+                name: "IX_t_e_offre_ofr_sto_id",
                 table: "t_e_offre_ofr",
-                column: "tso_id");
+                column: "sto_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_t_e_pointrelais_ptr_adr_id",
