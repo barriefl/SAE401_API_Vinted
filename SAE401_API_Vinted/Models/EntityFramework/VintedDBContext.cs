@@ -471,7 +471,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
                 .WithMany(p => p.StatusOffres)
                 .HasForeignKey(d => d.TypeStatusOffreId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("fk_ofr_tso");
+                .HasConstraintName("fk_ofr_sto");
 
             });
 

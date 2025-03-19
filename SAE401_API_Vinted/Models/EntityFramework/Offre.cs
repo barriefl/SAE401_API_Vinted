@@ -7,7 +7,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     public class Offre : Message
     {
         [Required]
-        [Column("tso_id")]
+        [Column("sto_id")]
         public int TypeStatusOffreId { get; set; }
 
         [Required]
