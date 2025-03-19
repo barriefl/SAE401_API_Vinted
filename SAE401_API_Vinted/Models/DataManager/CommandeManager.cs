@@ -36,6 +36,7 @@ namespace SAE401_API_Vinted.Models.DataManager
             .Include(a => a.VintieCommande)
             .Include(a => a.ArticleCommande)
             .Include(a => a.TypeEnvoiDeCommande)
+            .Include(a => a.TransactionsCommandes)
             .FirstOrDefaultAsync(u => u.CommandeID == id);
         }
 
@@ -48,6 +49,7 @@ namespace SAE401_API_Vinted.Models.DataManager
             .Include(a => a.ExpediteurCommande)
             .Include(a => a.VintieCommande)
             .Include(a => a.ArticleCommande)
+            .Include(a => a.TransactionsCommandes)
             .Include(a => a.TypeEnvoiDeCommande)
             .ToListAsync();
 
