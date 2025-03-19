@@ -47,7 +47,7 @@ namespace SAE401_API_Vinted.Controllers
 
 
         [HttpGet]
-        [Route("[action]/{text}")]
+        [Route("{text}")]
         [ActionName("GetByTitre")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
