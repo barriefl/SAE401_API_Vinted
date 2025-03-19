@@ -21,6 +21,11 @@ namespace SAE401_API_Vinted.Models.DataManager
             return await vintiesDbContext.Commandes.ToListAsync();
         }
 
+        public async Task<ActionResult<Commande>> GetByIdAsync(int id)
+        {
+            return await vintiesDbContext.Commandes.FirstOrDefaultAsync(u => u.CommandeID == id);
+        }
+
         public async Task<ActionResult<IEnumerable<Commande>>> GetByVintieIdAsync(int id)
         {
             var articles = await vintiesDbContext.Commandes
