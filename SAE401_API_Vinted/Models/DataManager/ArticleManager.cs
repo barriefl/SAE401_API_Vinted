@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class ArticleManager :IDataRepositoryArticleVintie<Article>
+    public class ArticleManager : IArticleRepository<Article>
     {
         readonly VintedDBContext? vintiesDbContext;
 
