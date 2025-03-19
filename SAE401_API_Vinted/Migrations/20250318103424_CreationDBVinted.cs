@@ -18,7 +18,7 @@ namespace SAE401_API_Vinted.Migrations
                 {
                     cat_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    cat_libelle = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    cat_libelle = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     cat_idparent = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -67,7 +67,7 @@ namespace SAE401_API_Vinted.Migrations
                     eta_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     eta_libelle = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    eta_description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    eta_description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,7 +80,7 @@ namespace SAE401_API_Vinted.Migrations
                 {
                     eva_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    eva_libelle = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
+                    eva_libelle = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -350,13 +350,13 @@ namespace SAE401_API_Vinted.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "t_e_vinties_vnt",
+                name: "t_e_vintie_vnt",
                 columns: table => new
                 {
                     vnt_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    vnt_pseudo = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     tyc_id = table.Column<int>(type: "integer", nullable: false),
+                    vnt_pseudo = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     vnt_nom = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     vnt_prenom = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     vnt_civilite = table.Column<string>(type: "Char(1)", nullable: false),
@@ -379,37 +379,6 @@ namespace SAE401_API_Vinted.Migrations
                         column: x => x.tyc_id,
                         principalTable: "t_e_typecompte_tyc",
                         principalColumn: "tyc_id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "t_e_retour_ret",
-                columns: table => new
-                {
-                    ret_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    tpr_id = table.Column<int>(type: "integer", nullable: false),
-                    str_id = table.Column<int>(type: "integer", nullable: false),
-                    ret_frais = table.Column<double>(type: "numeric(6,2)", nullable: false),
-                    ret_datedemande = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "now()"),
-                    ret_dateenvoi = table.Column<DateTime>(type: "date", nullable: true),
-                    ret_dateconfirmation = table.Column<DateTime>(type: "date", nullable: true),
-                    ret_motif = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_ret", x => x.ret_id);
-                    table.ForeignKey(
-                        name: "fk_ret_str",
-                        column: x => x.str_id,
-                        principalTable: "t_e_statusretour_str",
-                        principalColumn: "str_id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "fk_ret_tpr",
-                        column: x => x.tpr_id,
-                        principalTable: "t_e_typeretour_tpr",
-                        principalColumn: "tpr_id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -500,7 +469,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_art_vnt",
                         column: x => x.vnt_vendeurid,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -523,7 +492,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_avs_acheteurvnt",
                         column: x => x.vnt_acheteurid,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -535,7 +504,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_avs_vendeurvnt",
                         column: x => x.vnt_vendeurid,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -559,7 +528,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_app_vnt",
                         column: x => x.vnt_id,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -583,7 +552,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_pre_vnt",
                         column: x => x.vnt_id,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -651,7 +620,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_rsd_vnt",
                         column: x => x.vnt_id,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -671,7 +640,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_cnv_acheteurvnt",
                         column: x => x.vnt_idacheteur,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -699,6 +668,51 @@ namespace SAE401_API_Vinted.Migrations
                         column: x => x.art_id,
                         principalTable: "t_e_article_art",
                         principalColumn: "art_id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "t_e_retour_ret",
+                columns: table => new
+                {
+                    ret_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    tpr_id = table.Column<int>(type: "integer", nullable: false),
+                    str_id = table.Column<int>(type: "integer", nullable: false),
+                    art_id = table.Column<int>(type: "integer", nullable: false),
+                    vnt_id = table.Column<int>(type: "integer", nullable: false),
+                    ret_frais = table.Column<double>(type: "numeric(6,2)", nullable: false),
+                    ret_datedemande = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "now()"),
+                    ret_dateenvoi = table.Column<DateTime>(type: "date", nullable: true),
+                    ret_dateconfirmation = table.Column<DateTime>(type: "date", nullable: true),
+                    ret_motif = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_ret", x => x.ret_id);
+                    table.ForeignKey(
+                        name: "fk_ret_art",
+                        column: x => x.art_id,
+                        principalTable: "t_e_article_art",
+                        principalColumn: "art_id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_ret_str",
+                        column: x => x.str_id,
+                        principalTable: "t_e_statusretour_str",
+                        principalColumn: "str_id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_ret_tpr",
+                        column: x => x.tpr_id,
+                        principalTable: "t_e_typeretour_tpr",
+                        principalColumn: "tpr_id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_ret_vnt",
+                        column: x => x.vnt_id,
+                        principalTable: "t_e_vintie_vnt",
+                        principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -740,7 +754,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_sgn_vnt",
                         column: x => x.vnt_id,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -750,11 +764,11 @@ namespace SAE401_API_Vinted.Migrations
                 columns: table => new
                 {
                     art_id = table.Column<int>(type: "integer", nullable: false),
-                    cla_couleurid = table.Column<int>(type: "integer", nullable: false)
+                    clr_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_cla", x => new { x.cla_couleurid, x.art_id });
+                    table.PrimaryKey("pk_cla", x => new { x.clr_id, x.art_id });
                     table.ForeignKey(
                         name: "fk_cla_art",
                         column: x => x.art_id,
@@ -763,7 +777,7 @@ namespace SAE401_API_Vinted.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "fk_cla_clr",
-                        column: x => x.cla_couleurid,
+                        column: x => x.clr_id,
                         principalTable: "t_e_couleur_clr",
                         principalColumn: "clr_id",
                         onDelete: ReferentialAction.Restrict);
@@ -788,7 +802,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_fav_vnt",
                         column: x => x.vnt_id,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -891,7 +905,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_cmd_vnt",
                         column: x => x.vnt_id,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -941,7 +955,7 @@ namespace SAE401_API_Vinted.Migrations
                     table.ForeignKey(
                         name: "fk_prf_vnt",
                         column: x => x.vnt_id,
-                        principalTable: "t_e_vinties_vnt",
+                        principalTable: "t_e_vintie_vnt",
                         principalColumn: "vnt_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -955,8 +969,7 @@ namespace SAE401_API_Vinted.Migrations
                     cnv_id = table.Column<int>(type: "integer", nullable: false),
                     msg_idexpediteur = table.Column<int>(type: "integer", nullable: false),
                     msg_contenu = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
-                    msg_dateenvoi = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "now()"),
-                    Discriminator = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: true)
+                    msg_dateenvoi = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -1126,6 +1139,11 @@ namespace SAE401_API_Vinted.Migrations
                 column: "adr_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_t_e_retour_ret_art_id",
+                table: "t_e_retour_ret",
+                column: "art_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_t_e_retour_ret_str_id",
                 table: "t_e_retour_ret",
                 column: "str_id");
@@ -1134,6 +1152,11 @@ namespace SAE401_API_Vinted.Migrations
                 name: "IX_t_e_retour_ret_tpr_id",
                 table: "t_e_retour_ret",
                 column: "tpr_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_t_e_retour_ret_vnt_id",
+                table: "t_e_retour_ret",
+                column: "vnt_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_t_e_signalement_sgn_art_id",
@@ -1176,13 +1199,13 @@ namespace SAE401_API_Vinted.Migrations
                 column: "pay_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_t_e_vinties_vnt_tyc_id",
-                table: "t_e_vinties_vnt",
+                name: "IX_t_e_vintie_vnt_tyc_id",
+                table: "t_e_vintie_vnt",
                 column: "tyc_id");
 
             migrationBuilder.CreateIndex(
                 name: "uq_vnt_mail",
-                table: "t_e_vinties_vnt",
+                table: "t_e_vintie_vnt",
                 column: "vnt_mail",
                 unique: true);
 
@@ -1370,7 +1393,7 @@ namespace SAE401_API_Vinted.Migrations
                 name: "t_e_marque_mrq");
 
             migrationBuilder.DropTable(
-                name: "t_e_vinties_vnt");
+                name: "t_e_vintie_vnt");
 
             migrationBuilder.DropTable(
                 name: "t_e_ville_vil");
