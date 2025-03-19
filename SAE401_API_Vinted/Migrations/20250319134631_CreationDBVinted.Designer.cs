@@ -12,7 +12,7 @@ using SAE401_API_Vinted.Models.EntityFramework;
 namespace SAE401_API_Vinted.Migrations
 {
     [DbContext(typeof(VintedDBContext))]
-    [Migration("20250318103424_CreationDBVinted")]
+    [Migration("20250319134631_CreationDBVinted")]
     partial class CreationDBVinted
     {
         /// <inheritdoc />
@@ -1375,11 +1375,11 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnType("numeric(6,2)")
                         .HasColumnName("ofr_montant");
 
-                    b.Property<int>("TypeStatusOffreId")
+                    b.Property<int>("StatusOffreId")
                         .HasColumnType("integer")
-                        .HasColumnName("tso_id");
+                        .HasColumnName("sto_id");
 
-                    b.HasIndex("TypeStatusOffreId");
+                    b.HasIndex("StatusOffreId");
 
                     b.ToTable("t_e_offre_ofr");
                 });
@@ -1968,10 +1968,10 @@ namespace SAE401_API_Vinted.Migrations
 
                     b.HasOne("SAE401_API_Vinted.Models.EntityFramework.StatusOffre", "EstStatusOffre")
                         .WithMany("StatusOffres")
-                        .HasForeignKey("TypeStatusOffreId")
+                        .HasForeignKey("StatusOffreId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("fk_ofr_tso");
+                        .HasConstraintName("fk_ofr_sto");
 
                     b.Navigation("EstStatusOffre");
                 });
