@@ -14,9 +14,9 @@ namespace SAE401_API_Vinted.Controllers
     [ApiController]
     public class VintiesController : ControllerBase
     {
-        private readonly IArticleRepository<Vintie> dataRepositoryVintie;
+        private readonly IVintieRepository<Vintie> dataRepositoryVintie;
 
-        public VintiesController(IArticleRepository<Vintie> dataRepo)
+        public VintiesController(IVintieRepository<Vintie> dataRepo)
         {
             dataRepositoryVintie = dataRepo;
         }
@@ -30,7 +30,7 @@ namespace SAE401_API_Vinted.Controllers
 
         // GET: api/Vinties/5
         [HttpGet("{id}")]
-        [ActionName("Put")]
+        [ActionName("GetById")]
         public async Task<ActionResult<Vintie>> GetVintie(int id)
         {
             var vintie = await dataRepositoryVintie.GetByIdAsync(id);
