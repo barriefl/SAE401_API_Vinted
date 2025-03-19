@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IDataRepositoryArticleVintie<Article>, ArticleManager>();
+builder.Services.AddScoped<IDataRepositoryArticleVintie<Vintie>, VintieManager>();
+builder.Services.AddScoped<IDataRepositoryCommande<Commande>, CommandeManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("VintedDBContext")));
