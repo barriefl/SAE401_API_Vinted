@@ -17,9 +17,9 @@ namespace SAE401_API_Vinted.Controllers
     public class ArticlesController : ControllerBase
     {
 
-        private readonly IDataRepositoryArticleVintie<Article> dataRepositoryArticle;
+        private readonly IArticleRepository<Article> dataRepositoryArticle;
 
-        public ArticlesController(IDataRepositoryArticleVintie<Article> dataRepo)
+        public ArticlesController(IArticleRepository<Article> dataRepo)
         {
             dataRepositoryArticle = dataRepo;
         }

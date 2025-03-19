@@ -6,7 +6,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class CommandeManager : IDataRepositoryCommande<Commande>
+    public class CommandeManager : ICommandeRepository<Commande>
     {
         readonly VintedDBContext? vintiesDbContext;
 
@@ -16,6 +16,12 @@ namespace SAE401_API_Vinted.Models.DataManager
         {
             vintiesDbContext = context;
         }
+
+        public Task DeleteAsync(Commande entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ActionResult<IEnumerable<Commande>>> GetAllAsync()
         {
             return await vintiesDbContext.Commandes.ToListAsync();
@@ -39,6 +45,11 @@ namespace SAE401_API_Vinted.Models.DataManager
         {
             await vintiesDbContext.Commandes.AddAsync(entity);
             await vintiesDbContext.SaveChangesAsync();
+        }
+
+        public Task PutAsync(Commande entityToUpdate, Commande entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

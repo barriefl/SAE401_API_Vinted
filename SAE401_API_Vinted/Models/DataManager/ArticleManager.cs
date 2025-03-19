@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class ArticleManager :IDataRepositoryArticleVintie<Article>
+    public class ArticleManager : IArticleRepository<Article>
     {
         readonly VintedDBContext? vintiesDbContext;
 
@@ -31,8 +31,9 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task<ActionResult<Article>> GetByIdAsync(int id)
         {
-            return await vintiesDbContext.Articles.FirstOrDefaultAsync(u => u.ArticleId == id);
-
+            return await vintiesDbContext.Articles
+                .Include(a =>  a.MarqueDeArticle)
+                .FirstOrDefaultAsync(u => u.ArticleId == id);
         }
 
         public async Task<ActionResult<IEnumerable<Article>>> GetByStringAsync(string text)
