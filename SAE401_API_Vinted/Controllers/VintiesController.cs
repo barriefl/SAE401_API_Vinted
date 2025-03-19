@@ -30,7 +30,7 @@ namespace SAE401_API_Vinted.Controllers
 
         // GET: api/Vinties/5
         [HttpGet("{id}")]
-        [ActionName("Put")]
+        [ActionName("GetById")]
         public async Task<ActionResult<Vintie>> GetVintie(int id)
         {
             var vintie = await dataRepositoryVintie.GetByIdAsync(id);
