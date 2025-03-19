@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SAE401_API_Vinted.Models.EntityFramework;
 using SAE401_API_Vinted.Models.Repository;
+using SAE401_API_Vinted.Models.DataManager;
+
 
 namespace SAE401_API_Vinted.Controllers
 {
