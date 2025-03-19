@@ -469,7 +469,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
             {
                 entity.HasOne(d => d.EstStatusOffre)
                 .WithMany(p => p.StatusOffres)
-                .HasForeignKey(d => d.StatusOffreId)
+                .HasForeignKey(d => d.TypeStatusOffreId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_ofr_sto");
 
