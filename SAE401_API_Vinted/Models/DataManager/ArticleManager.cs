@@ -32,8 +32,9 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<Article>> GetByIdAsync(int id)
         {
             return await vintiesDbContext.Articles
-                .Include(a =>  a.MarqueDeArticle)
-                .FirstOrDefaultAsync(u => u.ArticleId == id);
+                .Include(a =>  a.ArticlesMatieres).ThenInclude(a => a.MatiereDeArticle)
+                //.Include(a => a.EtatVenteDeArticle).FirstOrDefaultAsync(u => u.ArticleId == id)
+                .Include();
         }
 
         public async Task<ActionResult<IEnumerable<Article>>> GetByStringAsync(string text)
