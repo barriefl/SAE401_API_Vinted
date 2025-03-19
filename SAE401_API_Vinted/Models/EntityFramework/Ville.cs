@@ -23,7 +23,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Required]
         [Column("vil_codepostal", TypeName = "char(5)")]
         [RegularExpression(@"^\d{5}$", ErrorMessage = "Le code postal doit être composé de 5 chiffres.")]
-        public int CodePostal { get; set; }
+        public string CodePostal { get; set; } = null!;
 
         [Column("vil_latitude", TypeName ="numeric(15,13)")]
         public float? Latitude { get; set; }

@@ -43,6 +43,21 @@ namespace SAE401_API_Vinted.Controllers
             return vintie;
         }
 
+        // GET: api/Vinties/pseudo
+        [HttpGet("{pseudo}")]
+        [ActionName("GetByPseudo")]
+        public async Task<ActionResult<IEnumerable<Vintie>>> GetVintiesByPseudo(string pseudo)
+        {
+            var vinties = await dataRepositoryVintie.GetByPseudoAsync(pseudo);
+
+            if (vinties == null)
+            {
+                return NotFound();
+            }
+
+            return vinties;
+        }
+
         // PUT: api/Articles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
