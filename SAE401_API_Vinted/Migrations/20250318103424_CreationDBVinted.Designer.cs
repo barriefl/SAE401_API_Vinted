@@ -12,7 +12,7 @@ using SAE401_API_Vinted.Models.EntityFramework;
 namespace SAE401_API_Vinted.Migrations
 {
     [DbContext(typeof(VintedDBContext))]
-    [Migration("20250318082835_CreationDBVinted")]
+    [Migration("20250318103424_CreationDBVinted")]
     partial class CreationDBVinted
     {
         /// <inheritdoc />
@@ -245,8 +245,8 @@ namespace SAE401_API_Vinted.Migrations
 
                     b.Property<string>("Libelle")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("cat_libelle");
 
                     b.HasKey("CategorieId")
@@ -394,7 +394,7 @@ namespace SAE401_API_Vinted.Migrations
                 {
                     b.Property<int>("CouleurId")
                         .HasColumnType("integer")
-                        .HasColumnName("cla_couleurid");
+                        .HasColumnName("clr_id");
 
                     b.Property<int>("ArticleId")
                         .HasColumnType("integer")
@@ -419,8 +419,8 @@ namespace SAE401_API_Vinted.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
                         .HasColumnName("eta_description");
 
                     b.Property<string>("Libelle")
@@ -446,8 +446,8 @@ namespace SAE401_API_Vinted.Migrations
 
                     b.Property<string>("Libelle")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
                         .HasColumnName("eva_libelle");
 
                     b.HasKey("EtatVenteArticleId")
@@ -681,10 +681,6 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnName("msg_dateenvoi")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<string>("Discriminator")
-                        .HasMaxLength(8)
-                        .HasColumnType("character varying(8)");
-
                     b.Property<int>("ExpediteurId")
                         .HasColumnType("integer")
                         .HasColumnName("msg_idexpediteur");
@@ -694,7 +690,7 @@ namespace SAE401_API_Vinted.Migrations
 
                     b.HasIndex("ConversationId");
 
-                    b.ToTable("t_e_message_msg", (string)null);
+                    b.ToTable("t_e_message_msg");
 
                     b.UseTptMappingStrategy();
                 });
@@ -849,6 +845,10 @@ namespace SAE401_API_Vinted.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RetourId"));
 
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("art_id");
+
                     b.Property<DateTime?>("DateConfirmation")
                         .HasColumnType("date")
                         .HasColumnName("ret_dateconfirmation");
@@ -882,12 +882,20 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("tpr_id");
 
+                    b.Property<int>("VintieId")
+                        .HasColumnType("integer")
+                        .HasColumnName("vnt_id");
+
                     b.HasKey("RetourId")
                         .HasName("pk_ret");
+
+                    b.HasIndex("ArticleId");
 
                     b.HasIndex("StatusRetourId");
 
                     b.HasIndex("TypeRetourId");
+
+                    b.HasIndex("VintieId");
 
                     b.ToTable("t_e_retour_ret");
                 });
@@ -1356,7 +1364,7 @@ namespace SAE401_API_Vinted.Migrations
                     b.HasIndex(new[] { "Mail" }, "uq_vnt_mail")
                         .IsUnique();
 
-                    b.ToTable("t_e_vinties_vnt");
+                    b.ToTable("t_e_vintie_vnt");
                 });
 
             modelBuilder.Entity("SAE401_API_Vinted.Models.EntityFramework.Offre", b =>
@@ -1794,6 +1802,13 @@ namespace SAE401_API_Vinted.Migrations
 
             modelBuilder.Entity("SAE401_API_Vinted.Models.EntityFramework.Retour", b =>
                 {
+                    b.HasOne("SAE401_API_Vinted.Models.EntityFramework.Article", "ArticleRetourne")
+                        .WithMany("RetourDesArticles")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_ret_art");
+
                     b.HasOne("SAE401_API_Vinted.Models.EntityFramework.StatusRetour", "StatusDuRetour")
                         .WithMany("StatusDesRetours")
                         .HasForeignKey("StatusRetourId")
@@ -1808,9 +1823,20 @@ namespace SAE401_API_Vinted.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_ret_tpr");
 
+                    b.HasOne("SAE401_API_Vinted.Models.EntityFramework.Vintie", "VintieRetour")
+                        .WithMany("RetourDesVintie")
+                        .HasForeignKey("VintieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_ret_vnt");
+
+                    b.Navigation("ArticleRetourne");
+
                     b.Navigation("StatusDuRetour");
 
                     b.Navigation("TypeDuRetour");
+
+                    b.Navigation("VintieRetour");
                 });
 
             modelBuilder.Entity("SAE401_API_Vinted.Models.EntityFramework.Signalement", b =>
@@ -1972,6 +1998,8 @@ namespace SAE401_API_Vinted.Migrations
                     b.Navigation("FavorisArticle");
 
                     b.Navigation("ImagesDeArticle");
+
+                    b.Navigation("RetourDesArticles");
 
                     b.Navigation("SignalementsDeArticle");
 
@@ -2139,6 +2167,8 @@ namespace SAE401_API_Vinted.Migrations
                     b.Navigation("PointRelaisFavorisVintie");
 
                     b.Navigation("PreferencesVintie");
+
+                    b.Navigation("RetourDesVintie");
 
                     b.Navigation("SignalementsDeArticle");
 
