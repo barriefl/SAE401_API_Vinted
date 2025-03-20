@@ -29,15 +29,51 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task<ActionResult<Vintie>> GetByIdAsync(int id)
         {
-            return await vintiesDbContext.Vinties.FirstOrDefaultAsync(u => u.VintieId == id);
+            return await vintiesDbContext.Vinties
+                .Include(a => a.VintiesResides)
+                    .ThenInclude(a => a.ResideA)
+                        .ThenInclude(a => a.VilleAdresse)
+                            .ThenInclude(a => a.PaysVille)
+                .Include(a => a.ArticlesDuVendeur)
+                .Include(a => a.AppartienentVintie)
+                    .ThenInclude(a => a.CompteIdNavigation)
+                .Include(a => a.ADesAvisVendeur)
+                    .ThenInclude(a => a.APourTypeAvis)
+                .Include(a => a.ADesAvisAcheteur)
+                .Include(a => a.PreferencesVintie)
+                    .ThenInclude(a => a.ExpediteurIdNavigation)
+                .Include(a => a.SignalementsDeArticle)
+                .Include(a => a.FavorisDeVintie)
+                .Include(a => a.PointRelaisFavorisVintie)
+                .Include(a => a.CommandesVinties)
+                .Include(a => a.ConversationsAcheteur)
+                .Include(a => a.RetourDesVintie)
+                .FirstOrDefaultAsync(u => u.VintieId == id);
         }
 
         public async Task<ActionResult<IEnumerable<Vintie>>> GetByPseudoAsync(string text)
         {
             var vinties = await vintiesDbContext.Vinties
-             .Where(a =>
-             a.Pseudo.ToUpper().Contains(text.ToUpper()))
-             .ToListAsync();
+            .Where(a => a.Pseudo.ToUpper().Contains(text.ToUpper()))
+                .Include(a => a.VintiesResides)
+                    .ThenInclude(a => a.ResideA)
+                        .ThenInclude(a => a.VilleAdresse)
+                            .ThenInclude(a => a.PaysVille)
+                .Include(a => a.ArticlesDuVendeur)
+                .Include(a => a.AppartienentVintie)
+                    .ThenInclude(a => a.CompteIdNavigation)
+                .Include(a => a.ADesAvisVendeur)
+                    .ThenInclude(a => a.APourTypeAvis)
+                .Include(a => a.ADesAvisAcheteur)
+                .Include(a => a.PreferencesVintie)
+                    .ThenInclude(a => a.ExpediteurIdNavigation)
+                .Include(a => a.SignalementsDeArticle)
+                .Include(a => a.FavorisDeVintie)
+                .Include(a => a.PointRelaisFavorisVintie)
+                .Include(a => a.CommandesVinties)
+                .Include(a => a.ConversationsAcheteur)
+                .Include(a => a.RetourDesVintie)
+            .ToListAsync();
 
             return vinties;
         }

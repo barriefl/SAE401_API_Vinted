@@ -1234,7 +1234,8 @@ namespace SAE401_API_Vinted.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VilleId"));
 
-                    b.Property<int>("CodePostal")
+                    b.Property<string>("CodePostal")
+                        .IsRequired()
                         .HasColumnType("char(5)")
                         .HasColumnName("vil_codepostal");
 

@@ -334,7 +334,7 @@ namespace SAE401_API_Vinted.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     pay_id = table.Column<int>(type: "integer", nullable: false),
                     vil_nom = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
-                    vil_codepostal = table.Column<int>(type: "char(5)", nullable: false),
+                    vil_codepostal = table.Column<string>(type: "char(5)", nullable: false),
                     vil_latitude = table.Column<float>(type: "numeric(15,13)", nullable: true),
                     vil_longitude = table.Column<float>(type: "numeric(15,13)", nullable: true)
                 },
@@ -1013,9 +1013,9 @@ namespace SAE401_API_Vinted.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_msg", x => x.msg_id);
+                    table.PrimaryKey("pk_ofr", x => x.msg_id);
                     table.ForeignKey(
-                        name: "FK_t_e_offre_ofr_t_e_message_msg_msg_id",
+                        name: "fk_ofr_msg",
                         column: x => x.msg_id,
                         principalTable: "t_e_message_msg",
                         principalColumn: "msg_id",
