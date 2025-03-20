@@ -13,7 +13,9 @@ builder.Services.AddScoped<IDataRepository<Retour>, RetourManager>();
 builder.Services.AddScoped<IDataRepository<Conversation>, ConversationManager>();
 builder.Services.AddScoped<IDataRepository<Message>, MessageManager>();
 builder.Services.AddScoped<IDataRepository<Offre>, OffreManager>();
+builder.Services.AddScoped<IDataRepository<Avis>, AvisManager>();
 builder.Services.AddScoped<IGetDataRepository<Couleur>, CouleurManager>();
+builder.Services.AddScoped<IGetDataRepository<Categorie>, CategorieManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("VintedDBContext")));

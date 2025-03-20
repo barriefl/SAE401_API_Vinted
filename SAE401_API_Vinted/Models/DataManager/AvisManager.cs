@@ -26,7 +26,11 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task<ActionResult<Avis>> GetByIdAsync(int id)
         {
-            return await vintiesDbContext.Avis.FirstOrDefaultAsync(c => c.AvisId == id);
+            return await vintiesDbContext.Avis
+                .Include(a => a.APourTypeAvis)
+                .Include(a => a.APourVendeur)
+                .Include(a => a.APourAcheteur)
+                .FirstOrDefaultAsync(c => c.AvisId == id);
         }
 
         public async Task PostAsync(Avis entity)

@@ -23,15 +23,16 @@ namespace SAE401_API_Vinted.Controllers
 
         // GET: api/Avis
         [HttpGet]
+        [ActionName("GetAll")]
         public async Task<ActionResult<IEnumerable<Avis>>> GetAvis()
         {
             return await dataRepository.GetAllAsync();
         }
 
-        // GET: api/Avis/5
+        // GET: api/Avis/GetById/5
         [HttpGet("{id}")]
         [ActionName("GetById")]
-        public async Task<ActionResult<Avis>> GetAvis(int id)
+        public async Task<ActionResult<Avis>> GetAvisById(int id)
         {
             var Avis = await dataRepository.GetByIdAsync(id);
 
@@ -43,11 +44,11 @@ namespace SAE401_API_Vinted.Controllers
             return Avis;
         }
 
-        // PUT: api/Articles/5
+        // PUT: api/Avis/Put/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [ActionName("Put")]
-        public async Task<IActionResult> Avis(int id, Avis Avis)
+        public async Task<IActionResult> PutAvis(int id, Avis Avis)
         {
             if (id != Avis.AvisId)
             {
@@ -55,6 +56,7 @@ namespace SAE401_API_Vinted.Controllers
             }
 
             var AvisToUpdate = await dataRepository.GetByIdAsync(id);
+
             if (AvisToUpdate == null)
             {
                 return NotFound();
@@ -66,7 +68,7 @@ namespace SAE401_API_Vinted.Controllers
             }
         }
 
-        // POST: api/Avis
+        // POST: api/Avis/Post
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [ActionName("Post")]
@@ -77,10 +79,10 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest(ModelState);
             }
             await dataRepository.PostAsync(Avis);
-            return CreatedAtAction("GetbyId", new { id = Avis.AvisId }, Avis); // GetById : nom de l’action
+            return CreatedAtAction("GetbyId", new { id = Avis.AvisId }, Avis);
         }
 
-        // DELETE: api/Avis/5
+        // DELETE: api/Avis/Delete/5
         [HttpDelete("{id}")]
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteAvis(int id)

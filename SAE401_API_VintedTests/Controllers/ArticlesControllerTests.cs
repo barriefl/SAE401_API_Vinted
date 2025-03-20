@@ -84,7 +84,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         [TestMethod()]
         public void GetArticleByIdTest_UnkownId()
         {
-            //Assert
+            //Arrange
 
             //Act
             var result = controller.GetArticle(4273).Result;
