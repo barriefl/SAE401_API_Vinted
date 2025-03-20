@@ -26,7 +26,7 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task<ActionResult<IEnumerable<Article>>> GetAllAsync()
         {
-            return await vintiesDbContext.Articles.ToListAsync();
+            return await vintiesDbContext.Articles.Include(a => a.ImagesDeArticle).ToListAsync();
         }
 
         public async Task<ActionResult<Article>> GetByIdAsync(int id)
@@ -92,6 +92,7 @@ namespace SAE401_API_Vinted.Models.DataManager
             entityToUpdate.CouleursArticle = entity.CouleursArticle;
             entityToUpdate.CommandesArticles = entity.CommandesArticles;
             entityToUpdate.ConversationsArticle = entity.ConversationsArticle;
+            entityToUpdate.RetourDesArticles = entity.RetourDesArticles;
             await vintiesDbContext.SaveChangesAsync();
         }
     }

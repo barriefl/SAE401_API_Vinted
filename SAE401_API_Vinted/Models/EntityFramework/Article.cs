@@ -102,5 +102,82 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Retour.ArticleRetourne))]
         public virtual ICollection<Retour> RetourDesArticles { get; set; } = new List<Retour>();
+
+        public Article()
+        {
+        }
+
+        public Article(int articleId, int categorieId, int vendeurId, int etatVenteArticleId, int etatArticleId, int marqueId, string titre, string description, int prixHT, DateTime dateAjout, int compteurLike, EtatArticle etatDeArticle, Vintie vendeurDeArticle, Marque marqueDeArticle, ICollection<MatiereArticle> articlesMatieres, EtatVente etatVenteDeArticle, Categorie categorieDeArticle, ICollection<Image> imagesDeArticle, ICollection<Signalement> signalementsDeArticle, ICollection<Favoris> favorisArticle, ICollection<TailleArticle> taillesArticle, ICollection<CouleurArticle> couleursArticle, ICollection<Commande> commandesArticles, ICollection<Conversation> conversationsArticle, ICollection<Retour> retourDesArticles)
+        {
+            ArticleId = articleId;
+            CategorieId = categorieId;
+            VendeurId = vendeurId;
+            EtatVenteArticleId = etatVenteArticleId;
+            EtatArticleId = etatArticleId;
+            MarqueId = marqueId;
+            Titre = titre;
+            Description = description;
+            PrixHT = prixHT;
+            DateAjout = dateAjout;
+            CompteurLike = compteurLike;
+            EtatDeArticle = etatDeArticle;
+            VendeurDeArticle = vendeurDeArticle;
+            MarqueDeArticle = marqueDeArticle;
+            ArticlesMatieres = articlesMatieres;
+            EtatVenteDeArticle = etatVenteDeArticle;
+            CategorieDeArticle = categorieDeArticle;
+            ImagesDeArticle = imagesDeArticle;
+            SignalementsDeArticle = signalementsDeArticle;
+            FavorisArticle = favorisArticle;
+            TaillesArticle = taillesArticle;
+            CouleursArticle = couleursArticle;
+            CommandesArticles = commandesArticles;
+            ConversationsArticle = conversationsArticle;
+            RetourDesArticles = retourDesArticles;
+        }
+
+        public Article(int categorieId, int vendeurId, int etatVenteArticleId, int etatArticleId, int marqueId, string titre, string description, int prixHT, DateTime dateAjout, int compteurLike)
+        {
+            CategorieId = categorieId;
+            VendeurId = vendeurId;
+            EtatVenteArticleId = etatVenteArticleId;
+            EtatArticleId = etatArticleId;
+            MarqueId = marqueId;
+            Titre = titre;
+            Description = description;
+            PrixHT = prixHT;
+            DateAjout = dateAjout;
+            CompteurLike = compteurLike;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Article article &&
+                   ArticleId == article.ArticleId &&
+                   CategorieId == article.CategorieId &&
+                   VendeurId == article.VendeurId &&
+                   EtatVenteArticleId == article.EtatVenteArticleId &&
+                   EtatArticleId == article.EtatArticleId &&
+                   MarqueId == article.MarqueId &&
+                   Titre == article.Titre &&
+                   Description == article.Description &&
+                   PrixHT == article.PrixHT &&
+                   DateAjout == article.DateAjout &&
+                   CompteurLike == article.CompteurLike &&
+                   EqualityComparer<EtatArticle>.Default.Equals(EtatDeArticle, article.EtatDeArticle) &&
+                   EqualityComparer<Vintie>.Default.Equals(VendeurDeArticle, article.VendeurDeArticle) &&
+                   EqualityComparer<Marque>.Default.Equals(MarqueDeArticle, article.MarqueDeArticle) &&
+                   EqualityComparer<ICollection<MatiereArticle>>.Default.Equals(ArticlesMatieres, article.ArticlesMatieres) &&
+                   EqualityComparer<EtatVente>.Default.Equals(EtatVenteDeArticle, article.EtatVenteDeArticle) &&
+                   EqualityComparer<Categorie>.Default.Equals(CategorieDeArticle, article.CategorieDeArticle) &&
+                   EqualityComparer<ICollection<Image>>.Default.Equals(ImagesDeArticle, article.ImagesDeArticle) &&
+                   EqualityComparer<ICollection<Signalement>>.Default.Equals(SignalementsDeArticle, article.SignalementsDeArticle) &&
+                   EqualityComparer<ICollection<Favoris>>.Default.Equals(FavorisArticle, article.FavorisArticle) &&
+                   EqualityComparer<ICollection<TailleArticle>>.Default.Equals(TaillesArticle, article.TaillesArticle) &&
+                   EqualityComparer<ICollection<CouleurArticle>>.Default.Equals(CouleursArticle, article.CouleursArticle) &&
+                   EqualityComparer<ICollection<Commande>>.Default.Equals(CommandesArticles, article.CommandesArticles) &&
+                   EqualityComparer<ICollection<Conversation>>.Default.Equals(ConversationsArticle, article.ConversationsArticle) &&
+                   EqualityComparer<ICollection<Retour>>.Default.Equals(RetourDesArticles, article.RetourDesArticles);
+        }
     }
 }

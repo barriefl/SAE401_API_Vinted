@@ -16,8 +16,6 @@ namespace SAE401_API_Vinted.Models.DataManager
             vintedDbContext = context;
         }
 
-
-
         public async Task<ActionResult<IEnumerable<Retour>>> GetAllAsync()
         {
             return await vintedDbContext.Retours.ToListAsync();
