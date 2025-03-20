@@ -31,7 +31,9 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task<ActionResult<Conversation>> GetByIdAsync(int id)
         {
-            return await vintiesDbContext.Conversations.FirstOrDefaultAsync(c => c.ConversationId == id);
+            return await vintiesDbContext.Conversations
+                .Include(c => c.Messages)
+                .FirstOrDefaultAsync(c => c.ConversationId == id);
         }
 
         public async Task PostAsync(Conversation entity)

@@ -28,7 +28,7 @@ namespace SAE401_API_Vinted.Controllers
             return await dataRepository.GetAllAsync();
         }
 
-        // GET: api/Conversations/5
+        // GET: api/Conversations/GetById/5
         [HttpGet("{id}")]
         [ActionName("GetById")]
         public async Task<ActionResult<Conversation>> GetConversation(int id)
@@ -43,7 +43,7 @@ namespace SAE401_API_Vinted.Controllers
             return conversation;
         }
 
-        // PUT: api/Conversations/5
+        // PUT: api/Conversations/Put/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [ActionName("Put")]
@@ -67,7 +67,7 @@ namespace SAE401_API_Vinted.Controllers
             }
         }
 
-        // POST: api/Conversations
+        // POST: api/Conversations/Post
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [ActionName("Post")]
@@ -81,7 +81,7 @@ namespace SAE401_API_Vinted.Controllers
             return CreatedAtAction("GetbyId", new { id = conversation.ConversationId }, conversation);
         }
 
-        // DELETE: api/Conversations/5
+        // DELETE: api/Conversations/Delete/5
         [HttpDelete("{id}")]
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteConversation(int id)

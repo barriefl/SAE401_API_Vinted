@@ -10,6 +10,9 @@ builder.Services.AddScoped<IArticleRepository<Article>, ArticleManager>();
 builder.Services.AddScoped<IVintieRepository<Vintie>, VintieManager>();
 builder.Services.AddScoped<ICommandeRepository<Commande>, CommandeManager>();
 builder.Services.AddScoped<IDataRepository<Retour>, RetourManager>();
+builder.Services.AddScoped<IDataRepository<Conversation>, ConversationManager>();
+builder.Services.AddScoped<IDataRepository<Message>, MessageManager>();
+builder.Services.AddScoped<IDataRepository<Offre>, OffreManager>();
 builder.Services.AddScoped<IGetDataRepository<Couleur>, CouleurManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
@@ -30,7 +33,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost", policy =>
     {
-        policy.WithOrigins("http://localhost:5179")  // Autoriser ton frontend
+        policy.WithOrigins("http://localhost:5183")  // Autoriser ton frontend
               .AllowAnyMethod()                     // Autoriser toutes les méthodes HTTP (GET, POST, etc.)
               .AllowAnyHeader();                    // Autoriser tous les en-têtes
     });
