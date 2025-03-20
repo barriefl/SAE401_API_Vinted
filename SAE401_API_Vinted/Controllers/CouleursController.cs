@@ -10,13 +10,13 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CouleursController : ControllerBase
     {
-        private readonly IDataRepository<Couleur> dataRepositoryCouleur;
+        private readonly IGetDataRepository<Couleur> dataRepositoryCouleur;
 
-        public CouleursController(IDataRepository<Couleur> dataRepo)
+        public CouleursController(IGetDataRepository<Couleur> dataRepo)
         {
             dataRepositoryCouleur = dataRepo;
         }
