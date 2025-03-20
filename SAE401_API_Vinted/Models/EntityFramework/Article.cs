@@ -149,5 +149,35 @@ namespace SAE401_API_Vinted.Models.EntityFramework
             DateAjout = dateAjout;
             CompteurLike = compteurLike;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Article article &&
+                   ArticleId == article.ArticleId &&
+                   CategorieId == article.CategorieId &&
+                   VendeurId == article.VendeurId &&
+                   EtatVenteArticleId == article.EtatVenteArticleId &&
+                   EtatArticleId == article.EtatArticleId &&
+                   MarqueId == article.MarqueId &&
+                   Titre == article.Titre &&
+                   Description == article.Description &&
+                   PrixHT == article.PrixHT &&
+                   DateAjout == article.DateAjout &&
+                   CompteurLike == article.CompteurLike &&
+                   EqualityComparer<EtatArticle>.Default.Equals(EtatDeArticle, article.EtatDeArticle) &&
+                   EqualityComparer<Vintie>.Default.Equals(VendeurDeArticle, article.VendeurDeArticle) &&
+                   EqualityComparer<Marque>.Default.Equals(MarqueDeArticle, article.MarqueDeArticle) &&
+                   EqualityComparer<ICollection<MatiereArticle>>.Default.Equals(ArticlesMatieres, article.ArticlesMatieres) &&
+                   EqualityComparer<EtatVente>.Default.Equals(EtatVenteDeArticle, article.EtatVenteDeArticle) &&
+                   EqualityComparer<Categorie>.Default.Equals(CategorieDeArticle, article.CategorieDeArticle) &&
+                   EqualityComparer<ICollection<Image>>.Default.Equals(ImagesDeArticle, article.ImagesDeArticle) &&
+                   EqualityComparer<ICollection<Signalement>>.Default.Equals(SignalementsDeArticle, article.SignalementsDeArticle) &&
+                   EqualityComparer<ICollection<Favoris>>.Default.Equals(FavorisArticle, article.FavorisArticle) &&
+                   EqualityComparer<ICollection<TailleArticle>>.Default.Equals(TaillesArticle, article.TaillesArticle) &&
+                   EqualityComparer<ICollection<CouleurArticle>>.Default.Equals(CouleursArticle, article.CouleursArticle) &&
+                   EqualityComparer<ICollection<Commande>>.Default.Equals(CommandesArticles, article.CommandesArticles) &&
+                   EqualityComparer<ICollection<Conversation>>.Default.Equals(ConversationsArticle, article.ConversationsArticle) &&
+                   EqualityComparer<ICollection<Retour>>.Default.Equals(RetourDesArticles, article.RetourDesArticles);
+        }
     }
 }

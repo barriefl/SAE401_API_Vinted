@@ -92,6 +92,7 @@ namespace SAE401_API_Vinted.Models.DataManager
             entityToUpdate.CouleursArticle = entity.CouleursArticle;
             entityToUpdate.CommandesArticles = entity.CommandesArticles;
             entityToUpdate.ConversationsArticle = entity.ConversationsArticle;
+            entityToUpdate.RetourDesArticles = entity.RetourDesArticles;
             await vintiesDbContext.SaveChangesAsync();
         }
     }
