@@ -41,6 +41,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            else if (article.Value == null) 
+            {
+                return NotFound();
+            }
 
             return article;
         }
@@ -57,6 +61,10 @@ namespace SAE401_API_Vinted.Controllers
 
             // If no articles were found, return a 404 Not Found
             if (articles == null)
+            {
+                return NotFound();
+            }
+            else if (articles.Value.Count() == 0)
             {
                 return NotFound();
             }

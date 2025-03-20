@@ -50,7 +50,9 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual DbSet<Marque> Marques { get; set; }
 
         public virtual DbSet<Matiere> Matieres { get; set; }
-     
+
+        public virtual DbSet<MatiereArticle> MatieresArticles { get; set; }
+
         public virtual DbSet<Message> Messages { get; set; }
 
         public virtual DbSet<MotifSignalement> MotifsSignalements { get; set; }

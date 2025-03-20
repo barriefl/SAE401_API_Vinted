@@ -102,5 +102,52 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Retour.ArticleRetourne))]
         public virtual ICollection<Retour> RetourDesArticles { get; set; } = new List<Retour>();
+
+        public Article()
+        {
+        }
+
+        public Article(int articleId, int categorieId, int vendeurId, int etatVenteArticleId, int etatArticleId, int marqueId, string titre, string description, int prixHT, DateTime dateAjout, int compteurLike, EtatArticle etatDeArticle, Vintie vendeurDeArticle, Marque marqueDeArticle, ICollection<MatiereArticle> articlesMatieres, EtatVente etatVenteDeArticle, Categorie categorieDeArticle, ICollection<Image> imagesDeArticle, ICollection<Signalement> signalementsDeArticle, ICollection<Favoris> favorisArticle, ICollection<TailleArticle> taillesArticle, ICollection<CouleurArticle> couleursArticle, ICollection<Commande> commandesArticles, ICollection<Conversation> conversationsArticle, ICollection<Retour> retourDesArticles)
+        {
+            ArticleId = articleId;
+            CategorieId = categorieId;
+            VendeurId = vendeurId;
+            EtatVenteArticleId = etatVenteArticleId;
+            EtatArticleId = etatArticleId;
+            MarqueId = marqueId;
+            Titre = titre;
+            Description = description;
+            PrixHT = prixHT;
+            DateAjout = dateAjout;
+            CompteurLike = compteurLike;
+            EtatDeArticle = etatDeArticle;
+            VendeurDeArticle = vendeurDeArticle;
+            MarqueDeArticle = marqueDeArticle;
+            ArticlesMatieres = articlesMatieres;
+            EtatVenteDeArticle = etatVenteDeArticle;
+            CategorieDeArticle = categorieDeArticle;
+            ImagesDeArticle = imagesDeArticle;
+            SignalementsDeArticle = signalementsDeArticle;
+            FavorisArticle = favorisArticle;
+            TaillesArticle = taillesArticle;
+            CouleursArticle = couleursArticle;
+            CommandesArticles = commandesArticles;
+            ConversationsArticle = conversationsArticle;
+            RetourDesArticles = retourDesArticles;
+        }
+
+        public Article(int categorieId, int vendeurId, int etatVenteArticleId, int etatArticleId, int marqueId, string titre, string description, int prixHT, DateTime dateAjout, int compteurLike)
+        {
+            CategorieId = categorieId;
+            VendeurId = vendeurId;
+            EtatVenteArticleId = etatVenteArticleId;
+            EtatArticleId = etatArticleId;
+            MarqueId = marqueId;
+            Titre = titre;
+            Description = description;
+            PrixHT = prixHT;
+            DateAjout = dateAjout;
+            CompteurLike = compteurLike;
+        }
     }
 }
