@@ -284,6 +284,24 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             transaction.Rollback();
         }
+        
+        [TestMethod()]
+        public void PutArticleLike_ValidUpdate_ReturnsNoContent()
+        {
+            //Arrange
+            
+            //Act
+            var result = controller.PutArticleLike(1, 42).Result;
+
+            //Assert
+            var articleToGet = context.Articles.Where(a => a.ArticleId == 1).FirstOrDefault();
+
+            Assert.IsInstanceOfType(result, typeof(NoContentResult), "Result n'est pas un NoContentResult");
+            Assert.AreEqual(((NoContentResult)result).StatusCode, StatusCodes.Status204NoContent, "N'est pas 204");
+            Assert.AreEqual(articleToGet.CompteurLike, 42, "L'article n'a pas été modifié !");
+
+            transaction.Rollback();
+        }
 
         [TestMethod()]
         [ExpectedException(typeof(System.AggregateException))]

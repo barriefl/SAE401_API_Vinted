@@ -39,6 +39,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            if (vintie.Value == null)
+            {
+                return NotFound();
+            }
 
             return vintie;
         }
@@ -51,6 +55,10 @@ namespace SAE401_API_Vinted.Controllers
             var vinties = await dataRepositoryVintie.GetByPseudoAsync(pseudo);
 
             if (vinties == null)
+            {
+                return NotFound();
+            }
+            if (vinties.Value.Count() == 0)
             {
                 return NotFound();
             }
