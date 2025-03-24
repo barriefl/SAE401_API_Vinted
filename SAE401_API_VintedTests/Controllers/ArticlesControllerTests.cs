@@ -303,7 +303,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             //Assert
 
         }
-        /*
+
         [TestMethod()]
         public void DeleteArticleTest_OK()
         {
@@ -318,7 +318,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.IsNull(utilisateurSupprime);
 
             transaction.Rollback();
-        }*/
+        }
         // delete
     }
 }

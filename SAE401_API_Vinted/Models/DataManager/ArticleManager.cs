@@ -20,6 +20,47 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task DeleteAsync(Article entity)
         {
+            foreach (var articleMat in entity.ArticlesMatieres)
+            {
+                vintiesDbContext.MatieresArticles.Remove(articleMat);
+            }
+            foreach (var commande in entity.CommandesArticles)
+            {
+                vintiesDbContext.Commandes.Remove(commande);
+            }
+            foreach (var signalement in entity.SignalementsDeArticle)
+            {
+                vintiesDbContext.Signalements.Remove(signalement);
+            }
+            foreach (var couleurArt in entity.CouleursArticle)
+            {
+                vintiesDbContext.CouleursArticles.Remove(couleurArt);
+            }
+            foreach (var imgArt in entity.ImagesDeArticle)
+            {
+                vintiesDbContext.Images.Remove(imgArt);
+            }
+            foreach (var tailArt in entity.TaillesArticle)
+            {
+                vintiesDbContext.TaillesArticles.Remove(tailArt);
+            }
+            foreach (var retour in entity.RetourDesArticles)
+            {
+                vintiesDbContext.Retours.Remove(retour);
+            }
+            foreach (var conversation in entity.ConversationsArticle)
+            {
+                foreach (var message in conversation.Messages)
+                {
+                    vintiesDbContext.Messages.Remove(message);
+                }
+                //ILFAUDRAT DELETE CHAQUE MESSAGE EN UTILISANT LA FONCTION DU CONTROLLER
+                vintiesDbContext.Conversations.Remove(conversation);
+            }
+            foreach (var favori in entity.FavorisArticle)
+            {
+                vintiesDbContext.Favoris.Remove(favori);
+            }
             vintiesDbContext.Articles.Remove(entity);
             await vintiesDbContext.SaveChangesAsync();
         }

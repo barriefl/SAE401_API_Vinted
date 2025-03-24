@@ -179,5 +179,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
                    EqualityComparer<ICollection<Conversation>>.Default.Equals(ConversationsArticle, article.ConversationsArticle) &&
                    EqualityComparer<ICollection<Retour>>.Default.Equals(RetourDesArticles, article.RetourDesArticles);
         }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ArticleId);
+        }
     }
 }
