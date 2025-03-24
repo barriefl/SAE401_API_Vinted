@@ -18,6 +18,7 @@ builder.Services.AddScoped<IGetDataRepository<Categorie>, CategorieManager>();
 builder.Services.AddScoped<IDataRepository<Image>, ImageManager>();
 builder.Services.AddScoped<IDataRepository<Adresse>, AdresseManager>();
 builder.Services.AddScoped<IGetDataRepository<PointRelais>, PointRelaisManager>();
+builder.Services.AddScoped<IGetDataRepository<TypeTaille>, TypeTailleManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("VintedDBContext")));
