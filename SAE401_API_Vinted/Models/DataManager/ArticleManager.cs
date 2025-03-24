@@ -194,5 +194,27 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .FirstOrDefaultAsync(c => c.MarqueId == id);
         }
 
+        public async Task<ActionResult<IEnumerable<EtatArticle>>> GetAllEtatsArticlesAsync()
+        {
+            return await vintiesDbContext.EtatsArticles.ToListAsync();
+        }
+        public async Task<ActionResult<EtatArticle>> GetEtatArticleByIdAsync(int id)
+        {
+            return await vintiesDbContext.EtatsArticles
+                .Include(c => c.EtatsDesArticles)
+                .FirstOrDefaultAsync(c => c.EtatArticleId == id);
+        }
+
+        public async Task<ActionResult<IEnumerable<EtatVente>>> GetAllEtatsVentesAsync()
+        {
+            return await vintiesDbContext.EtatsVentesArticles.ToListAsync();
+        }
+        public async Task<ActionResult<EtatVente>> GetEtatVenteByIdAsync(int id)
+        {
+            return await vintiesDbContext.EtatsVentesArticles
+                .Include(c => c.EtatsVenteDesArticles)
+                .FirstOrDefaultAsync(c => c.EtatVenteArticleId == id);
+        }
+
     }
 }

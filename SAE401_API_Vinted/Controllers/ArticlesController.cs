@@ -209,5 +209,56 @@ namespace SAE401_API_Vinted.Controllers
 
             return marque;
         }
+
+        [HttpGet]
+        [ActionName("GetAllEtatsArticles")]
+        public async Task<ActionResult<IEnumerable<EtatArticle>>> GetEtatsArticles()
+        {
+            return await dataRepositoryArticle.GetAllEtatsArticlesAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetEtatArticleById")]
+        public async Task<ActionResult<EtatArticle>> GetEtatArticle(int id)
+        {
+            var etatArticle = await dataRepositoryArticle.GetEtatArticleByIdAsync(id);
+
+            if (etatArticle == null)
+            {
+                return NotFound();
+            }
+            else if (etatArticle.Value == null)
+            {
+                return NotFound();
+            }
+
+            return etatArticle;
+        }
+
+
+        [HttpGet]
+        [ActionName("GetAllEtatsVentesArticles")]
+        public async Task<ActionResult<IEnumerable<EtatVente>>> GetEtatsVentesArticles()
+        {
+            return await dataRepositoryArticle.GetAllEtatsVentesAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetEtatVenteArticleById")]
+        public async Task<ActionResult<EtatVente>> GetEtatVenteArticle(int id)
+        {
+            var etatVente = await dataRepositoryArticle.GetEtatVenteByIdAsync(id);
+
+            if (etatVente == null)
+            {
+                return NotFound();
+            }
+            else if (etatVente.Value == null)
+            {
+                return NotFound();
+            }
+
+            return etatVente;
+        }
     }
 }
