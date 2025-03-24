@@ -14,7 +14,6 @@ builder.Services.AddScoped<IDataRepository<Conversation>, ConversationManager>()
 builder.Services.AddScoped<IDataRepository<Message>, MessageManager>();
 builder.Services.AddScoped<IDataRepository<Offre>, OffreManager>();
 builder.Services.AddScoped<IDataRepository<Avis>, AvisManager>();
-builder.Services.AddScoped<IGetDataRepository<Couleur>, CouleurManager>();
 builder.Services.AddScoped<IGetDataRepository<Categorie>, CategorieManager>();
 builder.Services.AddScoped<IDataRepository<Image>, ImageManager>();
 builder.Services.AddScoped<IDataRepository<Adresse>, AdresseManager>();

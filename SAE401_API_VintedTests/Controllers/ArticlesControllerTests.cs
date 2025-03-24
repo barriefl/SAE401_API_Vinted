@@ -516,6 +516,54 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.AreEqual(articleModifie, Result.Value as Article);
         }
 
+        [TestMethod()]
+        public void PutArticleLike_ValidUpdate_ReturnsNoContent_Moq()
+        {
+            //Arrange
+            Article articleInitial = new Article()
+            {
+                ArticleId = 1,
+                CategorieId = 1,
+                VendeurId = 1,
+                EtatVenteArticleId = 1,
+                EtatArticleId = 1,
+                MarqueId = 1,
+                Titre = "Sample text",
+                Description = "Sample text",
+                PrixHT = 1,
+                DateAjout = DateTime.Now,
+                CompteurLike = 0
+            };
+
+            Article articleModifie = new Article()
+            {
+                ArticleId = 1,
+                CategorieId = 1,
+                VendeurId = 1,
+                EtatVenteArticleId = 1,
+                EtatArticleId = 1,
+                MarqueId = 1,
+                Titre = "Sample text",
+                Description = "Sample text",
+                PrixHT = 1,
+                DateAjout = DateTime.Now,
+                CompteurLike = 42
+            };
+            mockArticleRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(articleModifie);
+
+            // Act
+            var actionResult = mockArticleController.PutArticleLike(1, 42).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");
+
+            var Result = mockArticleController.GetArticle(1).Result;
+
+            Assert.IsNotNull(Result);
+            Assert.IsNotNull(Result.Value);
+            Assert.AreEqual(articleModifie, Result.Value as Article);
+        }
+
         [TestMethod]
         public void DeleteUtilisateurTest_OK_AvecMoq()
         {
