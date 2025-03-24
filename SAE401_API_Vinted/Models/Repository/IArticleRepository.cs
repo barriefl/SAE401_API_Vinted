@@ -1,9 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SAE401_API_Vinted.Models.EntityFramework;
 
 namespace SAE401_API_Vinted.Models.Repository
 {
     public interface IArticleRepository<TEntity> : IDataRepository<TEntity>
     {
         Task<ActionResult<IEnumerable<TEntity>>> GetByStringAsync(string text);
+        Task<ActionResult<IEnumerable<Couleur>>> GetAllCouleursAsync();
+        Task<ActionResult<Couleur>> GetCouleurByIdAsync(int id);
+        Task<ActionResult<IEnumerable<Matiere>>> GetAllMatieresAsync();
+        Task<ActionResult<Matiere>> GetMatiereByIdAsync(int id);
+        Task<ActionResult<IEnumerable<Taille>>> GetAllTaillesAsync();
+        Task<ActionResult<Taille>> GetTailleByIdAsync(int id);
+        Task<ActionResult<IEnumerable<Marque>>> GetAllMarquesAsync();
+        Task<ActionResult<Marque>> GetMarqueByIdAsync(int id);
     }
 }

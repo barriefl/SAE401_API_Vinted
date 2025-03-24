@@ -70,6 +70,7 @@ namespace SAE401_API_Vinted.Models.DataManager
             return await vintiesDbContext.Articles.Include(a => a.ImagesDeArticle).ToListAsync();
         }
 
+       
         public async Task<ActionResult<Article>> GetByIdAsync(int id)
         {
             return await vintiesDbContext.Articles
@@ -136,5 +137,54 @@ namespace SAE401_API_Vinted.Models.DataManager
             entityToUpdate.RetourDesArticles = entity.RetourDesArticles;
             await vintiesDbContext.SaveChangesAsync();
         }
+
+
+        public async Task<ActionResult<IEnumerable<Couleur>>> GetAllCouleursAsync()
+        {
+            return await vintiesDbContext.Couleurs.ToListAsync();
+        }
+
+        public async Task<ActionResult<Couleur>> GetCouleurByIdAsync(int id)
+        {
+            return await vintiesDbContext.Couleurs
+                .Include(c => c.CouleursDesArticles).ThenInclude(c => c.ArticleConcerne)
+                .FirstOrDefaultAsync(c => c.CouleurId == id);
+        }
+
+        public async Task<ActionResult<IEnumerable<Matiere>>> GetAllMatieresAsync()
+        {
+            return await vintiesDbContext.Matieres.ToListAsync();
+        }
+
+        public async Task<ActionResult<Matiere>> GetMatiereByIdAsync(int id)
+        {
+            return await vintiesDbContext.Matieres
+                .Include(c => c.MatieresDesArticles).ThenInclude(c => c.ArticleMatiere)
+                .FirstOrDefaultAsync(c => c.MatiereId == id);
+        }
+
+        public async Task<ActionResult<IEnumerable<Taille>>> GetAllTaillesAsync()
+        {
+            return await vintiesDbContext.Tailles.ToListAsync();
+        }
+
+        public async Task<ActionResult<Taille>> GetTailleByIdAsync(int id)
+        {
+            return await vintiesDbContext.Tailles
+                .Include(c => c.ArticlesTaille).ThenInclude(c => c.ArticleIdNavigation)
+                .FirstOrDefaultAsync(c => c.TailleId == id);
+        }
+
+        public async Task<ActionResult<IEnumerable<Marque>>> GetAllMarquesAsync()
+        {
+            return await vintiesDbContext.Marques.ToListAsync();
+        }
+        public async Task<ActionResult<Marque>> GetMarqueByIdAsync(int id)
+        {
+            return await vintiesDbContext.Marques
+                .Include(c => c.MarquesDesArticles)
+                .FirstOrDefaultAsync(c => c.MarqueId == id);
+        }
+
     }
 }
