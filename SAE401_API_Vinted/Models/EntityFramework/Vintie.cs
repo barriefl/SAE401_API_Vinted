@@ -123,5 +123,44 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Retour.VintieRetour))]
         public virtual ICollection<Retour> RetourDesVintie { get; set; } = new List<Retour>();
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Vintie vintie &&
+                   VintieId == vintie.VintieId &&
+                   TypeCompteId == vintie.TypeCompteId &&
+                   Pseudo == vintie.Pseudo &&
+                   Nom == vintie.Nom &&
+                   Prenom == vintie.Prenom &&
+                   Civilite == vintie.Civilite &&
+                   Mail == vintie.Mail &&
+                   Pwd == vintie.Pwd &&
+                   Telephone == vintie.Telephone &&
+                   DateNaissance == vintie.DateNaissance &&
+                   URLPhoto == vintie.URLPhoto &&
+                   DateInscription == vintie.DateInscription &&
+                   MontantCompte == vintie.MontantCompte &&
+                   DateDerniereConnexion == vintie.DateDerniereConnexion &&
+                   Consentement == vintie.Consentement &&
+                   Siret == vintie.Siret &&
+                   EqualityComparer<TypeCompte>.Default.Equals(VintieCodeNavigation, vintie.VintieCodeNavigation) &&
+                   EqualityComparer<ICollection<Reside>>.Default.Equals(VintiesResides, vintie.VintiesResides) &&
+                   EqualityComparer<ICollection<Article>>.Default.Equals(ArticlesDuVendeur, vintie.ArticlesDuVendeur) &&
+                   EqualityComparer<ICollection<Appartient>>.Default.Equals(AppartienentVintie, vintie.AppartienentVintie) &&
+                   EqualityComparer<ICollection<Avis>>.Default.Equals(ADesAvisVendeur, vintie.ADesAvisVendeur) &&
+                   EqualityComparer<ICollection<Avis>>.Default.Equals(ADesAvisAcheteur, vintie.ADesAvisAcheteur) &&
+                   EqualityComparer<ICollection<Preference>>.Default.Equals(PreferencesVintie, vintie.PreferencesVintie) &&
+                   EqualityComparer<ICollection<Signalement>>.Default.Equals(SignalementsDeArticle, vintie.SignalementsDeArticle) &&
+                   EqualityComparer<ICollection<Favoris>>.Default.Equals(FavorisDeVintie, vintie.FavorisDeVintie) &&
+                   EqualityComparer<ICollection<PointRelaisFavoris>>.Default.Equals(PointRelaisFavorisVintie, vintie.PointRelaisFavorisVintie) &&
+                   EqualityComparer<ICollection<Commande>>.Default.Equals(CommandesVinties, vintie.CommandesVinties) &&
+                   EqualityComparer<ICollection<Conversation>>.Default.Equals(ConversationsAcheteur, vintie.ConversationsAcheteur) &&
+                   EqualityComparer<ICollection<Retour>>.Default.Equals(RetourDesVintie, vintie.RetourDesVintie);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(VintieId);
+        }
     }
 }

@@ -284,6 +284,24 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             transaction.Rollback();
         }
+        
+        [TestMethod()]
+        public void PutArticleLike_ValidUpdate_ReturnsNoContent()
+        {
+            //Arrange
+            
+            //Act
+            var result = controller.PutArticleLike(1, 42).Result;
+
+            //Assert
+            var articleToGet = context.Articles.Where(a => a.ArticleId == 1).FirstOrDefault();
+
+            Assert.IsInstanceOfType(result, typeof(NoContentResult), "Result n'est pas un NoContentResult");
+            Assert.AreEqual(((NoContentResult)result).StatusCode, StatusCodes.Status204NoContent, "N'est pas 204");
+            Assert.AreEqual(articleToGet.CompteurLike, 42, "L'article n'a pas été modifié !");
+
+            transaction.Rollback();
+        }
 
         [TestMethod()]
         [ExpectedException(typeof(System.AggregateException))]
@@ -487,6 +505,54 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             // Act
             var actionResult = mockArticleController.PutArticle(1, articleModifie).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");
+
+            var Result = mockArticleController.GetArticle(1).Result;
+
+            Assert.IsNotNull(Result);
+            Assert.IsNotNull(Result.Value);
+            Assert.AreEqual(articleModifie, Result.Value as Article);
+        }
+
+        [TestMethod()]
+        public void PutArticleLike_ValidUpdate_ReturnsNoContent_Moq()
+        {
+            //Arrange
+            Article articleInitial = new Article()
+            {
+                ArticleId = 1,
+                CategorieId = 1,
+                VendeurId = 1,
+                EtatVenteArticleId = 1,
+                EtatArticleId = 1,
+                MarqueId = 1,
+                Titre = "Sample text",
+                Description = "Sample text",
+                PrixHT = 1,
+                DateAjout = DateTime.Now,
+                CompteurLike = 0
+            };
+
+            Article articleModifie = new Article()
+            {
+                ArticleId = 1,
+                CategorieId = 1,
+                VendeurId = 1,
+                EtatVenteArticleId = 1,
+                EtatArticleId = 1,
+                MarqueId = 1,
+                Titre = "Sample text",
+                Description = "Sample text",
+                PrixHT = 1,
+                DateAjout = DateTime.Now,
+                CompteurLike = 42
+            };
+            mockArticleRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(articleModifie);
+
+            // Act
+            var actionResult = mockArticleController.PutArticleLike(1, 42).Result;
 
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");

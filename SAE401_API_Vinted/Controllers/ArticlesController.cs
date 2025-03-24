@@ -133,5 +133,132 @@ namespace SAE401_API_Vinted.Controllers
             return NoContent();
         }
 
+
+        [HttpGet]
+        [ActionName("GetAllCouleurs")]
+        public async Task<ActionResult<IEnumerable<Couleur>>> GetCouleurs()
+        {
+            return await dataRepositoryArticle.GetAllCouleursAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetCouleurById")]
+        public async Task<ActionResult<Couleur>> GetCouleur(int id)
+        {
+            var couleur = await dataRepositoryArticle.GetCouleurByIdAsync(id);
+
+            if (couleur == null)
+            {
+                return NotFound();
+            }
+            else if (couleur.Value == null)
+            {
+                return NotFound();
+            }
+
+            return couleur;
+        }
+
+
+        [HttpGet]
+        [ActionName("GetAllTailles")]
+        public async Task<ActionResult<IEnumerable<Taille>>> GetTailles()
+        {
+            return await dataRepositoryArticle.GetAllTaillesAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetTailleById")]
+        public async Task<ActionResult<Taille>> GetTaille(int id)
+        {
+            var taille = await dataRepositoryArticle.GetTailleByIdAsync(id);
+
+            if (taille == null)
+            {
+                return NotFound();
+            }
+            else if (taille.Value == null)
+            {
+                return NotFound();
+            }
+
+            return taille;
+        }
+
+        [HttpGet]
+        [ActionName("GetAllMarques")]
+        public async Task<ActionResult<IEnumerable<Marque>>> GetMarques()
+        {
+            return await dataRepositoryArticle.GetAllMarquesAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetMarqueById")]
+        public async Task<ActionResult<Marque>> GetMarque(int id)
+        {
+            var marque = await dataRepositoryArticle.GetMarqueByIdAsync(id);
+
+            if (marque == null)
+            {
+                return NotFound();
+            }
+            else if (marque.Value == null)
+            {
+                return NotFound();
+            }
+
+            return marque;
+        }
+
+        [HttpGet]
+        [ActionName("GetAllEtatsArticles")]
+        public async Task<ActionResult<IEnumerable<EtatArticle>>> GetEtatsArticles()
+        {
+            return await dataRepositoryArticle.GetAllEtatsArticlesAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetEtatArticleById")]
+        public async Task<ActionResult<EtatArticle>> GetEtatArticle(int id)
+        {
+            var etatArticle = await dataRepositoryArticle.GetEtatArticleByIdAsync(id);
+
+            if (etatArticle == null)
+            {
+                return NotFound();
+            }
+            else if (etatArticle.Value == null)
+            {
+                return NotFound();
+            }
+
+            return etatArticle;
+        }
+
+
+        [HttpGet]
+        [ActionName("GetAllEtatsVentesArticles")]
+        public async Task<ActionResult<IEnumerable<EtatVente>>> GetEtatsVentesArticles()
+        {
+            return await dataRepositoryArticle.GetAllEtatsVentesAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetEtatVenteArticleById")]
+        public async Task<ActionResult<EtatVente>> GetEtatVenteArticle(int id)
+        {
+            var etatVente = await dataRepositoryArticle.GetEtatVenteByIdAsync(id);
+
+            if (etatVente == null)
+            {
+                return NotFound();
+            }
+            else if (etatVente.Value == null)
+            {
+                return NotFound();
+            }
+
+            return etatVente;
+        }
     }
 }
