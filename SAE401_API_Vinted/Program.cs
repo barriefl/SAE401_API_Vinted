@@ -21,6 +21,7 @@ builder.Services.AddScoped<IGetDataRepository<PointRelais>, PointRelaisManager>(
 builder.Services.AddScoped<IJointureRepository<Possede>, PossedeManager>();
 builder.Services.AddScoped<IGetDataRepository<TypeTaille>, TypeTailleManager>();
 builder.Services.AddScoped<IJointureRepository<Reside>, ResideManager>();
+builder.Services.AddScoped<IJointureRepository<Appartient>, AppartientManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("VintedDBContext")));
