@@ -475,6 +475,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_ofr_sto");
 
+                entity.Property(e => e.StatusOffreId).HasDefaultValue(1);
             });
 
             modelBuilder.Entity<Pays>(entity =>
