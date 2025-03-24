@@ -138,6 +138,14 @@ namespace SAE401_API_Vinted.Models.DataManager
             await vintiesDbContext.SaveChangesAsync();
         }
 
+        public async Task PutLikeAsync(int id , int compteurLike)
+        {
+            Article article = GetByIdAsync(id).Result.Value;
+            article.CompteurLike = compteurLike;
+            await vintiesDbContext.SaveChangesAsync();
+
+        }
+
 
         public async Task<ActionResult<IEnumerable<Couleur>>> GetAllCouleursAsync()
         {

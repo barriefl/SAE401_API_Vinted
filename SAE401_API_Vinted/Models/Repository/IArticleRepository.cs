@@ -6,6 +6,9 @@ namespace SAE401_API_Vinted.Models.Repository
     public interface IArticleRepository<TEntity> : IDataRepository<TEntity>
     {
         Task<ActionResult<IEnumerable<TEntity>>> GetByStringAsync(string text);
+
+        Task PutLikeAsync(int id, int compteur);
+
         Task<ActionResult<IEnumerable<Couleur>>> GetAllCouleursAsync();
         Task<ActionResult<Couleur>> GetCouleurByIdAsync(int id);
         Task<ActionResult<IEnumerable<Matiere>>> GetAllMatieresAsync();
