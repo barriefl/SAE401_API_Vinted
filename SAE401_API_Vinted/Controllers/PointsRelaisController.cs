@@ -17,9 +17,9 @@ namespace SAE401_API_Vinted.Controllers
     public class PointsRelaisController : ControllerBase
     {
 
-        private readonly IGetDataRepository<PointRelais> dataRepositoryPointRelais;
+        private readonly IPointRelaisRepository<PointRelais> dataRepositoryPointRelais;
 
-        public PointsRelaisController(IGetDataRepository<PointRelais> dataRepo)
+        public PointsRelaisController(IPointRelaisRepository<PointRelais> dataRepo)
         {
             dataRepositoryPointRelais = dataRepo;
         }
@@ -47,6 +47,31 @@ namespace SAE401_API_Vinted.Controllers
             }
 
             return pointRelais;
+        }
+
+        [HttpGet]
+        [ActionName("GetAllJours")]
+        public async Task<ActionResult<IEnumerable<Jour>>> GetJoursArticles()
+        {
+            return await dataRepositoryPointRelais.GetAllJoursAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetJourById")]
+        public async Task<ActionResult<Jour>> GetJourArticle(int id)
+        {
+            var jour = await dataRepositoryPointRelais.GetJourByIdAsync(id);
+
+            if (jour == null)
+            {
+                return NotFound();
+            }
+            else if (jour.Value == null)
+            {
+                return NotFound();
+            }
+
+            return jour;
         }
 
     }

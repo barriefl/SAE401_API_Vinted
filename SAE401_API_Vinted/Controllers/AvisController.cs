@@ -14,11 +14,11 @@ namespace SAE401_API_Vinted.Controllers
     [ApiController]
     public class AvisController : ControllerBase
     {
-        private readonly IDataRepository<Avis> dataRepository;
+        private readonly IAvisRepository<Avis> dataRepositoryAvis;
 
-        public AvisController(IDataRepository<Avis> dataRepo)
+        public AvisController(IAvisRepository<Avis> dataRepo)
         {
-            dataRepository = dataRepo;
+            dataRepositoryAvis = dataRepo;
         }
 
         // GET: api/Avis
@@ -26,7 +26,7 @@ namespace SAE401_API_Vinted.Controllers
         [ActionName("GetAll")]
         public async Task<ActionResult<IEnumerable<Avis>>> GetAvis()
         {
-            return await dataRepository.GetAllAsync();
+            return await dataRepositoryAvis.GetAllAsync();
         }
 
         // GET: api/Avis/GetById/5
@@ -34,7 +34,7 @@ namespace SAE401_API_Vinted.Controllers
         [ActionName("GetById")]
         public async Task<ActionResult<Avis>> GetAvisById(int id)
         {
-            var Avis = await dataRepository.GetByIdAsync(id);
+            var Avis = await dataRepositoryAvis.GetByIdAsync(id);
 
             if (Avis == null)
             {
@@ -55,7 +55,7 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest();
             }
 
-            var AvisToUpdate = await dataRepository.GetByIdAsync(id);
+            var AvisToUpdate = await dataRepositoryAvis.GetByIdAsync(id);
 
             if (AvisToUpdate == null)
             {
@@ -63,7 +63,7 @@ namespace SAE401_API_Vinted.Controllers
             }
             else
             {
-                await dataRepository.PutAsync(AvisToUpdate.Value, Avis);
+                await dataRepositoryAvis.PutAsync(AvisToUpdate.Value, Avis);
                 return NoContent();
             }
         }
@@ -78,7 +78,7 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await dataRepository.PostAsync(Avis);
+            await dataRepositoryAvis.PostAsync(Avis);
             return CreatedAtAction("GetbyId", new { id = Avis.AvisId }, Avis);
         }
 
@@ -87,13 +87,38 @@ namespace SAE401_API_Vinted.Controllers
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteAvis(int id)
         {
-            var Avis = await dataRepository.GetByIdAsync(id);
+            var Avis = await dataRepositoryAvis.GetByIdAsync(id);
             if (Avis == null)
             {
                 return NotFound();
             }
-            await dataRepository.DeleteAsync(Avis.Value);
+            await dataRepositoryAvis.DeleteAsync(Avis.Value);
             return NoContent();
+        }
+
+        [HttpGet]
+        [ActionName("GetAllTypesAvis")]
+        public async Task<ActionResult<IEnumerable<TypeAvis>>> GetTypesAvisArticles()
+        {
+            return await dataRepositoryAvis.GetAllTypesAvisAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetTypeAvisById")]
+        public async Task<ActionResult<TypeAvis>> GetTypeAvisArticle(int id)
+        {
+            var typeAvis = await dataRepositoryAvis.GetTypeAvisByIdAsync(id);
+
+            if (typeAvis == null)
+            {
+                return NotFound();
+            }
+            else if (typeAvis.Value == null)
+            {
+                return NotFound();
+            }
+
+            return typeAvis;
         }
     }
 }

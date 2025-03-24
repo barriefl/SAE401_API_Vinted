@@ -97,14 +97,14 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         [HttpGet]
-        [ActionName("GetAllFormatsColisArticles")]
+        [ActionName("GetAllFormatsColis")]
         public async Task<ActionResult<IEnumerable<FormatColis>>> GetFormatsColisArticles()
         {
             return await dataRepositoryCommande.GetAllFormatsColisAsync();
         }
 
         [HttpGet("{id}")]
-        [ActionName("GetFormatColisArticleById")]
+        [ActionName("GetFormatColisById")]
         public async Task<ActionResult<FormatColis>> GetFormatColisArticle(int id)
         {
             var formatColis = await dataRepositoryCommande.GetFormatColisByIdAsync(id);

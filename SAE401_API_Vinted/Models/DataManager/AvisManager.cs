@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class AvisManager : IDataRepository<Avis>
+    public class AvisManager : IAvisRepository<Avis>
     {
         readonly VintedDBContext? vintiesDbContext;
 
@@ -55,6 +55,18 @@ namespace SAE401_API_Vinted.Models.DataManager
         {
             vintiesDbContext.Avis.Remove(entity);
             await vintiesDbContext.SaveChangesAsync();
+        }
+
+        public async Task<ActionResult<IEnumerable<TypeAvis>>> GetAllTypesAvisAsync()
+        {
+            return await vintiesDbContext.TypesAvis.ToListAsync();
+        }
+
+        public async Task<ActionResult<TypeAvis>> GetTypeAvisByIdAsync(int id)
+        {
+            return await vintiesDbContext.TypesAvis
+                .Include(ta => ta.PossedesTypeAvis)
+                .FirstOrDefaultAsync(ta => ta.TypeAvisID == id);
         }
     }
 }
