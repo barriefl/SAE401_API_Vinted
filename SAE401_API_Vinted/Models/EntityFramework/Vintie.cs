@@ -162,5 +162,62 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         {
             return HashCode.Combine(VintieId);
         }
+
+        public Vintie()
+        {
+        }
+
+        public Vintie(int vintieId, int typeCompteId, string pseudo, string nom, string prenom, string civilite, string mail, string pwd, string telephone, DateTime? dateNaissance, string? uRLPhoto, DateTime dateInscription, double montantCompte, DateTime dateDerniereConnexion, bool consentement, string? siret, TypeCompte vintieCodeNavigation, ICollection<Reside> vintiesResides, ICollection<Article> articlesDuVendeur, ICollection<Appartient> appartienentVintie, ICollection<Avis> aDesAvisVendeur, ICollection<Avis> aDesAvisAcheteur, ICollection<Preference> preferencesVintie, ICollection<Signalement> signalementsDeArticle, ICollection<Favoris> favorisDeVintie, ICollection<PointRelaisFavoris> pointRelaisFavorisVintie, ICollection<Commande> commandesVinties, ICollection<Conversation> conversationsAcheteur, ICollection<Retour> retourDesVintie)
+        {
+            VintieId = vintieId;
+            TypeCompteId = typeCompteId;
+            Pseudo = pseudo;
+            Nom = nom;
+            Prenom = prenom;
+            Civilite = civilite;
+            Mail = mail;
+            Pwd = pwd;
+            Telephone = telephone;
+            DateNaissance = dateNaissance;
+            URLPhoto = uRLPhoto;
+            DateInscription = dateInscription;
+            MontantCompte = montantCompte;
+            DateDerniereConnexion = dateDerniereConnexion;
+            Consentement = consentement;
+            Siret = siret;
+            VintieCodeNavigation = vintieCodeNavigation;
+            VintiesResides = vintiesResides;
+            ArticlesDuVendeur = articlesDuVendeur;
+            AppartienentVintie = appartienentVintie;
+            ADesAvisVendeur = aDesAvisVendeur;
+            ADesAvisAcheteur = aDesAvisAcheteur;
+            PreferencesVintie = preferencesVintie;
+            SignalementsDeArticle = signalementsDeArticle;
+            FavorisDeVintie = favorisDeVintie;
+            PointRelaisFavorisVintie = pointRelaisFavorisVintie;
+            CommandesVinties = commandesVinties;
+            ConversationsAcheteur = conversationsAcheteur;
+            RetourDesVintie = retourDesVintie;
+        }
+
+        public Vintie(int vintieId, int typeCompteId, string pseudo, string nom, string prenom, string civilite, string mail, string pwd, string telephone, DateTime? dateNaissance, string? uRLPhoto, DateTime dateInscription, double montantCompte, DateTime dateDerniereConnexion, bool consentement, string? siret)
+        {
+            VintieId = vintieId;
+            TypeCompteId = typeCompteId;
+            Pseudo = pseudo;
+            Nom = nom;
+            Prenom = prenom;
+            Civilite = civilite;
+            Mail = mail;
+            Pwd = pwd;
+            Telephone = telephone;
+            DateNaissance = dateNaissance;
+            URLPhoto = uRLPhoto;
+            DateInscription = dateInscription;
+            MontantCompte = montantCompte;
+            DateDerniereConnexion = dateDerniereConnexion;
+            Consentement = consentement;
+            Siret = siret;
+        }
     }
 }
