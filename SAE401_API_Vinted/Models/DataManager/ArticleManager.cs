@@ -136,5 +136,13 @@ namespace SAE401_API_Vinted.Models.DataManager
             entityToUpdate.RetourDesArticles = entity.RetourDesArticles;
             await vintiesDbContext.SaveChangesAsync();
         }
+
+        public async Task PutLikeAsync(int id , int compteurLike)
+        {
+            Article article = GetByIdAsync(id).Result.Value;
+            article.CompteurLike = compteurLike;
+            await vintiesDbContext.SaveChangesAsync();
+
+        }
     }
 }

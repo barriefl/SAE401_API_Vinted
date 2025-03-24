@@ -16,6 +16,7 @@ builder.Services.AddScoped<IDataRepository<Offre>, OffreManager>();
 builder.Services.AddScoped<IDataRepository<Avis>, AvisManager>();
 builder.Services.AddScoped<IGetDataRepository<Couleur>, CouleurManager>();
 builder.Services.AddScoped<IGetDataRepository<Categorie>, CategorieManager>();
+builder.Services.AddScoped<IDataRepository<Image>, ImageManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("VintedDBContext")));
@@ -35,7 +36,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost", policy =>
     {
-        policy.WithOrigins("http://localhost:5183")  // Autoriser ton frontend
+        policy.WithOrigins("http://localhost:5177")  // Autoriser ton frontend
               .AllowAnyMethod()                     // Autoriser toutes les méthodes HTTP (GET, POST, etc.)
               .AllowAnyHeader();                    // Autoriser tous les en-têtes
     });

@@ -124,5 +124,14 @@ namespace SAE401_API_Vinted.Controllers
             return NoContent();
         }
 
+        [HttpPut("{id}")]
+        [ActionName("PutLike")]
+        public async Task<IActionResult> PutArticleLike(int id, int compteur)
+        {
+            await dataRepositoryArticle.PutLikeAsync(id, compteur);
+            return NoContent();
+
+        }
+
     }
 }
