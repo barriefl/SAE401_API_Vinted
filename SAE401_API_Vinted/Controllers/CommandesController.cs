@@ -71,6 +71,54 @@ namespace SAE401_API_Vinted.Controllers
             return CreatedAtAction("GetById", new { id = commande.CommandeID }, commande); 
         }
 
+        [HttpGet]
+        [ActionName("GetAllTypesEnvoiArticles")]
+        public async Task<ActionResult<IEnumerable<TypeEnvoi>>> GetTypesEnvoiArticles()
+        {
+            return await dataRepositoryCommande.GetAllTypesEnvoiAsync();
+        }
 
+        [HttpGet("{id}")]
+        [ActionName("GetTypeEnvoiArticleById")]
+        public async Task<ActionResult<TypeEnvoi>> GetTypeEnvoiArticle(int id)
+        {
+            var typeEnvoi = await dataRepositoryCommande.GetTypeEnvoiByIdAsync(id);
+
+            if (typeEnvoi == null)
+            {
+                return NotFound();
+            }
+            else if (typeEnvoi.Value == null)
+            {
+                return NotFound();
+            }
+
+            return typeEnvoi;
+        }
+
+        [HttpGet]
+        [ActionName("GetAllFormatsColisArticles")]
+        public async Task<ActionResult<IEnumerable<FormatColis>>> GetFormatsColisArticles()
+        {
+            return await dataRepositoryCommande.GetAllFormatsColisAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetFormatColisArticleById")]
+        public async Task<ActionResult<FormatColis>> GetFormatColisArticle(int id)
+        {
+            var formatColis = await dataRepositoryCommande.GetFormatColisByIdAsync(id);
+
+            if (formatColis == null)
+            {
+                return NotFound();
+            }
+            else if (formatColis.Value == null)
+            {
+                return NotFound();
+            }
+
+            return formatColis;
+        }
     }
 }

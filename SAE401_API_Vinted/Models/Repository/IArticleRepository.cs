@@ -17,5 +17,9 @@ namespace SAE401_API_Vinted.Models.Repository
         Task<ActionResult<Taille>> GetTailleByIdAsync(int id);
         Task<ActionResult<IEnumerable<Marque>>> GetAllMarquesAsync();
         Task<ActionResult<Marque>> GetMarqueByIdAsync(int id);
+        Task<ActionResult<IEnumerable<EtatArticle>>> GetAllEtatsArticlesAsync();
+        Task<ActionResult<EtatArticle>> GetEtatArticleByIdAsync(int id);
+        Task<ActionResult<IEnumerable<EtatVente>>> GetAllEtatsVentesAsync();
+        Task<ActionResult<EtatVente>> GetEtatVenteByIdAsync(int id);
     }
 }

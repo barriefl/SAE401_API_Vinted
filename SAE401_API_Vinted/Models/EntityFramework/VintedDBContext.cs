@@ -39,7 +39,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         public virtual DbSet<Favoris> Favoris { get; set; }
 
-        public virtual DbSet<FormatColis> FormatColis { get; set; }
+        public virtual DbSet<FormatColis> FormatsColis { get; set; }
 
         public virtual DbSet<Horaire> Horaires { get; set; }
 
@@ -92,6 +92,8 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         public virtual DbSet<TypeAvis> TypesAvis { get; set; }
 
         public virtual DbSet<TypeCompte> TypesComptes { get; set; }
+
+        public virtual DbSet<TypeEnvoi> TypesEnvoi { get; set; }
 
         public virtual DbSet<TypeRetour> TypesRetours { get; set; }
 
