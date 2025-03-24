@@ -70,7 +70,7 @@ namespace SAE401_API_Vinted.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [ActionName("Put")]
-        public async Task<IActionResult> Vintie(int id, Vintie vintie)
+        public async Task<IActionResult> PutVintie(int id, Vintie vintie)
         {
             if (id != vintie.VintieId)
             {
@@ -79,6 +79,10 @@ namespace SAE401_API_Vinted.Controllers
 
             var vintieToUpdate = await dataRepositoryVintie.GetByIdAsync(id);
             if (vintieToUpdate == null)
+            {
+                return NotFound();
+            }
+            else if(vintieToUpdate.Value == null)
             {
                 return NotFound();
             }

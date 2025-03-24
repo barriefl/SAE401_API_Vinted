@@ -90,6 +90,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            else if(articleToUpdate.Value == null)
+            {
+                return NotFound();
+            }
             else
             {
                 await dataRepositoryArticle.PutAsync(articleToUpdate.Value, article);

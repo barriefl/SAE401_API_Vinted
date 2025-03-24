@@ -123,7 +123,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             //Arrange
 
             //Act
-            var result = controller.GetArticleByTitreDescription("rh'lyeh").Result;
+            var result = controller.GetArticleByTitreDescription("R'lyeh").Result;
 
             //Assert
             Assert.AreEqual(((NotFoundResult)result.Result).StatusCode, StatusCodes.Status404NotFound, "Result ne retourne pas 404 not found");
@@ -284,7 +284,51 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             transaction.Rollback();
         }
-        
+
+        [TestMethod()]
+        public void PutArticle_InvalidArticle_ReturnsNotFound()
+        {
+            //Arrange
+            Article articleTest = new Article()
+            {
+                ArticleId = 2475,
+                CategorieId = 271,
+                VendeurId = 6,
+                EtatVenteArticleId = 1,
+                EtatArticleId = 3,
+                MarqueId = 6,
+                Titre = "Carte pokemon, Milobellus, 38, evolution celeste",
+                Description = "Carte pokemon",
+                DateAjout = new DateTime(2024, 11, 08),
+                PrixHT = 2,
+                CompteurLike = 4,
+                EtatDeArticle = context.EtatsArticles.Where(ea => ea.EtatArticleId == 3).FirstOrDefault(),
+                VendeurDeArticle = context.Vinties.Where(vnt => vnt.VintieId == 6).FirstOrDefault(),
+                MarqueDeArticle = context.Marques.Where(ma => ma.MarqueId == 6).FirstOrDefault(),
+                ArticlesMatieres = context.MatieresArticles.Where(mat => mat.ArticleId == 1).ToList(),
+                EtatVenteDeArticle = context.EtatsVentesArticles.Where(etv => etv.EtatVenteArticleId == 1).FirstOrDefault(),
+                CategorieDeArticle = context.Categories.Where(cat => cat.CategorieId == 271).FirstOrDefault(),
+                ImagesDeArticle = context.Images.Where(img => img.ArticleId == 1).ToList(),
+                SignalementsDeArticle = context.Signalements.Where(sig => sig.ArticleId == 1).ToList(),
+                FavorisArticle = context.Favoris.Where(fav => fav.ArticleId == 1).ToList(),
+                TaillesArticle = context.TaillesArticles.Where(tart => tart.ArticleId == 1).ToList(),
+                CouleursArticle = context.CouleursArticles.Where(cart => cart.ArticleId == 1).ToList(),
+                CommandesArticles = context.Commandes.Where(com => com.ArticleId == 1).ToList(),
+                ConversationsArticle = context.Conversations.Where(conv => conv.ArticleId == 1).ToList(),
+                RetourDesArticles = context.Retours.Where(ret => ret.ArticleId == 1).ToList(),
+            };
+
+            //Act
+            var result = controller.PutArticle(2475, articleTest).Result;
+
+            //Assert
+
+            Assert.IsInstanceOfType(result, typeof(IActionResult), "N'est pas un IActionResult");
+            Assert.AreEqual(((NotFoundResult)result).StatusCode, StatusCodes.Status404NotFound, "N'est pas 404");
+
+            transaction.Rollback();
+        }
+
         [TestMethod()]
         public void PutArticleLike_ValidUpdate_ReturnsNoContent()
         {
@@ -340,8 +384,8 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
-            var utilisateurSupprime = context.Articles.Find(1);
-            Assert.IsNull(utilisateurSupprime);
+            var articleSupprime = context.Articles.Find(1);
+            Assert.IsNull(articleSupprime);
 
             transaction.Rollback();
         }
