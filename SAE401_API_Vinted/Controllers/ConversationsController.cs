@@ -78,7 +78,7 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest(ModelState);
             }
             await dataRepository.PostAsync(conversation);
-            return CreatedAtAction("GetbyId", new { id = conversation.ConversationId }, conversation);
+            return CreatedAtAction("GetById", new { id = conversation.ConversationId }, conversation);
         }
 
         // DELETE: api/Conversations/Delete/5
