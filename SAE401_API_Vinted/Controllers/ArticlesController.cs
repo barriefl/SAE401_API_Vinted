@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SAE401_API_Vinted.Models.EntityFramework;
 using SAE401_API_Vinted.Models.Repository;
 using SAE401_API_Vinted.Models.DataManager;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 
 namespace SAE401_API_Vinted.Controllers
@@ -121,6 +122,14 @@ namespace SAE401_API_Vinted.Controllers
                 return NotFound();
             }
             await dataRepositoryArticle.DeleteAsync(article.Value);
+            return NoContent();
+        }
+
+        [HttpPut("{id}/{compteur}")]
+        [ActionName("PutLike")]
+        public async Task<IActionResult> PutArticleLike(int id, int compteur)
+        {
+            await dataRepositoryArticle.PutLikeAsync(id, compteur);
             return NoContent();
         }
 
