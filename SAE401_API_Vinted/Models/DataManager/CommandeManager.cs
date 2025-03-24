@@ -66,5 +66,29 @@ namespace SAE401_API_Vinted.Models.DataManager
         {
             throw new NotImplementedException();
         }
+
+        public async Task<ActionResult<IEnumerable<TypeEnvoi>>> GetAllTypesEnvoiAsync()
+        {
+            return await vintiesDbContext.TypesEnvoi.ToListAsync();
+        }
+
+        public async Task<ActionResult<TypeEnvoi>> GetTypeEnvoiByIdAsync(int id)
+        {
+            return await vintiesDbContext.TypesEnvoi
+                .Include(c => c.TypeEnvoiCommandes)
+                .FirstOrDefaultAsync(c => c.TypeEnvoiId == id);
+        }
+
+        public async Task<ActionResult<IEnumerable<FormatColis>>> GetAllFormatsColisAsync()
+        {
+            return await vintiesDbContext.FormatsColis.ToListAsync();
+        }
+
+        public async Task<ActionResult<FormatColis>> GetFormatColisByIdAsync(int id)
+        {
+            return await vintiesDbContext.FormatsColis
+                .Include(fc => fc.ADesCommandes)
+                .FirstOrDefaultAsync(fc => fc.Code == id);
+        }
     }
 }
