@@ -115,6 +115,7 @@ namespace SAE401_API_Vinted.Models.DataManager
             entityToUpdate.PointRelaisFavorisVintie = entity.PointRelaisFavorisVintie;
             entityToUpdate.CommandesVinties = entity.CommandesVinties;
             entityToUpdate.ConversationsAcheteur = entity.ConversationsAcheteur;
+            entityToUpdate.RetourDesVintie = entity.RetourDesVintie;
             await vintiesDbContext.SaveChangesAsync();
         }
     }
