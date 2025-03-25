@@ -184,7 +184,7 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest(ModelState);
             }
             await dataRepositoryVintie.PostCompteBancaireAsync(compteBancaire);
-            return CreatedAtAction("GetbyId", new { id = compteBancaire.CompteId }, compteBancaire); // GetById : nom de l’action
+            return CreatedAtAction("GetCompteBancairebyId", new { id = compteBancaire.CompteId }, compteBancaire); // GetById : nom de l’action
         }
 
         // DELETE: api/CompteBancaires/5
