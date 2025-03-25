@@ -168,7 +168,7 @@ namespace SAE401_API_Vinted.Controllers
             }
             else
             {
-                await dataRepositoryVintie.PutAsync(compteBancaireToUpdate.Value, compteBancaire);
+                await dataRepositoryVintie.PutCompteBancaireAsync(compteBancaireToUpdate.Value, compteBancaire);
                 return NoContent();
             }
         }
@@ -184,7 +184,7 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest(ModelState);
             }
             await dataRepositoryVintie.PostCompteBancaireAsync(compteBancaire);
-            return CreatedAtAction("GetbyId", new { id = compteBancaire.CompteBancaireId }, compteBancaire); // GetById : nom de l’action
+            return CreatedAtAction("GetbyId", new { id = compteBancaire.CompteId }, compteBancaire); // GetById : nom de l’action
         }
 
         // DELETE: api/CompteBancaires/5
@@ -192,12 +192,12 @@ namespace SAE401_API_Vinted.Controllers
         [ActionName("DeleteCompteBancaire")]
         public async Task<IActionResult> DeleteCompteBancaire(int id)
         {
-            var compteBancaire = await dataRepositoryCompteBancaire.GetByIdAsync(id);
+            var compteBancaire = await dataRepositoryVintie.GetCompteBancaireByIdAsync(id);
             if (compteBancaire == null)
             {
                 return NotFound();
             }
-            await dataRepositoryCompteBancaire.DeleteAsync(compteBancaire.Value);
+            await dataRepositoryVintie.DeleteCompteBancaireAsync(compteBancaire.Value);
             return NoContent();
         }
     }
