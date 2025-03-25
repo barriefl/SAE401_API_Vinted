@@ -118,5 +118,44 @@ namespace SAE401_API_Vinted.Models.DataManager
             entityToUpdate.RetourDesVintie = entity.RetourDesVintie;
             await vintiesDbContext.SaveChangesAsync();
         }
+
+        public async Task<ActionResult<IEnumerable<TypeCompte>>> GetAllTypesCompteAsync()
+        {
+            return await vintiesDbContext.TypesComptes.ToListAsync();
+        }
+
+        public async Task<ActionResult<TypeCompte>> GetTypeCompteByIdAsync(int id)
+        {
+            return await vintiesDbContext.TypesComptes
+                .Include(tc => tc.VintiesType)
+                .FirstOrDefaultAsync(tc => tc.TypeCompteId == id);
+        }
+
+        public async Task<ActionResult<CompteBancaire>> GetCompteBancaireByIdAsync(int id)
+        {
+            return await vintiesDbContext.ComptesBancaires
+                .FirstOrDefaultAsync(cb => cb.CompteId == id);
+        }
+
+        public async Task PutCompteBancaireAsync(CompteBancaire entityToUpdate, CompteBancaire entity)
+        {
+            vintiesDbContext.Entry(entityToUpdate).State = EntityState.Modified;
+            entityToUpdate.CompteId = entity.CompteId;
+            entityToUpdate.Iban = entity.Iban;
+            entityToUpdate.NomTitulaire = entity.NomTitulaire;
+            entityToUpdate.PrenomTitulaire = entity.PrenomTitulaire;
+            await vintiesDbContext.SaveChangesAsync();
+        }
+
+        public async Task PostCompteBancaireAsync(CompteBancaire entity)
+        {
+            await vintiesDbContext.ComptesBancaires.AddAsync(entity);
+            await vintiesDbContext.SaveChangesAsync();
+        }
+        public async Task DeleteCompteBancaireAsync(CompteBancaire entity)
+        {
+            vintiesDbContext.ComptesBancaires.Remove(entity);
+            await vintiesDbContext.SaveChangesAsync();
+        }
     }
 }
