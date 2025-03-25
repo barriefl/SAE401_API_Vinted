@@ -105,7 +105,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=vinted-db.postgres.database.azure.com;Database=postgres;Username=s4a21;Password=SAE401_Vinted;Ssl Mode=Require;");
+            optionsBuilder.UseNpgsql("Server=localhost; port=5432; Database=VintedDB; uid=postgres; password=postgres;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,10 +1,15 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using SAE401_API_Vinted.Models;
 using SAE401_API_Vinted.Models.DataManager;
 using SAE401_API_Vinted.Models.EntityFramework;
 using SAE401_API_Vinted.Models.Repository;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>
              {
@@ -28,8 +33,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
                 config.AddPolicy(Policies.User, Policies.UserPolicy());
             });
-
-// Add services to the container.
 builder.Services.AddScoped<IArticleRepository<Article>, ArticleManager>();
 builder.Services.AddScoped<IVintieRepository<Vintie>, VintieManager>();
 builder.Services.AddScoped<ICommandeRepository<Commande>, CommandeManager>();
@@ -48,9 +51,14 @@ builder.Services.AddScoped<IJointureRepository<Reside>, ResideManager>();
 builder.Services.AddScoped<IJointureRepository<Appartient>, AppartientManager>();
 builder.Services.AddScoped<IJointureRepository<Preference>, PreferenceManager>();
 builder.Services.AddScoped<IJointureRepository<TailleArticle>, TailleArticleManager>();
+builder.Services.AddScoped<IJointureRepository<Favoris>,  FavorisManager>();
+builder.Services.AddScoped<IJointureRepository<MatiereArticle>, MatiereArticleManager>();
+builder.Services.AddScoped<IJointureRepository<CouleurArticle>, CouleurArticleManager>();
+builder.Services.AddScoped<IJointureRepository<PointRelaisFavoris>, PointRelaisFavorisManager>();
+builder.Services.AddScoped<IGetDataRepository<Expediteur>, ExpediteurManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("AzureVintedDBContext")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("VintedDBContext")));
 
 builder.Services.AddControllers();
 builder.Services.AddControllers()
@@ -59,6 +67,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -67,9 +76,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost", policy =>
     {
-        policy.WithOrigins("http://localhost:5177")  // Autoriser ton frontend
-              .AllowAnyMethod()                     // Autoriser toutes les m�thodes HTTP (GET, POST, etc.)
-              .AllowAnyHeader();                    // Autoriser tous les en-t�tes
+        policy.WithOrigins("http://localhost:5174")  
+              .AllowAnyMethod()                    
+              .AllowAnyHeader();                   
     });
 });
 

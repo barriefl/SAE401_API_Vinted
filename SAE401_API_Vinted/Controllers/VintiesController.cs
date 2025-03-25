@@ -120,5 +120,85 @@ namespace SAE401_API_Vinted.Controllers
             await dataRepositoryVintie.DeleteAsync(vintie.Value);
             return NoContent();
         }
+
+        [HttpGet]
+        [ActionName("GetAllTypeComptes")]
+        public async Task<ActionResult<IEnumerable<TypeCompte>>> GetTypeComptesArticles()
+        {
+            return await dataRepositoryVintie.GetAllTypesCompteAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetTypeCompteById")]
+        public async Task<ActionResult<TypeCompte>> GetTypeCompteArticle(int id)
+        {
+            var typeCompte = await dataRepositoryVintie.GetTypeCompteByIdAsync(id);
+
+            if (typeCompte == null)
+            {
+                return NotFound();
+            }
+            else if (typeCompte.Value == null)
+            {
+                return NotFound();
+            }
+
+            return typeCompte;
+        }
+
+        // PUT: api/Articles/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        [ActionName("PutCompteBancaire")]
+        public async Task<IActionResult> PutCompteBancaire(int id, CompteBancaire compteBancaire)
+        {
+            if (id != compteBancaire.CompteId)
+            {
+                return BadRequest();
+            }
+
+            var compteBancaireToUpdate = await dataRepositoryVintie.GetCompteBancaireByIdAsync(id);
+            if (compteBancaireToUpdate == null)
+            {
+                return NotFound();
+            }
+            else if (compteBancaireToUpdate.Value == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                await dataRepositoryVintie.PutCompteBancaireAsync(compteBancaireToUpdate.Value, compteBancaire);
+                return NoContent();
+            }
+        }
+
+        // POST: api/CompteBancaires
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [ActionName("PostCompteBancaire")]
+        public async Task<ActionResult<CompteBancaire>> PostCompteBancaire(CompteBancaire compteBancaire)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await dataRepositoryVintie.PostCompteBancaireAsync(compteBancaire);
+            return CreatedAtAction("GetbyId", new { id = compteBancaire.CompteId }, compteBancaire); // GetById : nom de l’action
+        }
+
+        // DELETE: api/CompteBancaires/5
+        [HttpDelete("{id}")]
+        [ActionName("DeleteCompteBancaire")]
+        public async Task<IActionResult> DeleteCompteBancaire(int id)
+        {
+            var compteBancaire = await dataRepositoryVintie.GetCompteBancaireByIdAsync(id);
+            if (compteBancaire == null)
+            {
+                return NotFound();
+            }
+            await dataRepositoryVintie.DeleteCompteBancaireAsync(compteBancaire.Value);
+            return NoContent();
+        }
     }
 }
