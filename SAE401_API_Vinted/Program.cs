@@ -9,6 +9,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>
              {
@@ -32,8 +33,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
                 config.AddPolicy(Policies.User, Policies.UserPolicy());
             });
-
-// Add services to the container.
 builder.Services.AddScoped<IArticleRepository<Article>, ArticleManager>();
 builder.Services.AddScoped<IVintieRepository<Vintie>, VintieManager>();
 builder.Services.AddScoped<ICommandeRepository<Commande>, CommandeManager>();
@@ -52,6 +51,8 @@ builder.Services.AddScoped<IJointureRepository<Reside>, ResideManager>();
 builder.Services.AddScoped<IJointureRepository<Appartient>, AppartientManager>();
 builder.Services.AddScoped<IJointureRepository<Preference>, PreferenceManager>();
 builder.Services.AddScoped<IJointureRepository<TailleArticle>, TailleArticleManager>();
+builder.Services.AddScoped<IJointureRepository<Favoris>,  FavorisManager>();
+builder.Services.AddScoped<IJointureRepository<MatiereArticle>, MatiereArticleManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("AzureVintedDBContext")));
