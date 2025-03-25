@@ -14,9 +14,9 @@ namespace SAE401_API_Vinted.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly IGetDataRepository<Categorie> dataRepositoryCategorie;
+        private readonly ICategorieRepository dataRepositoryCategorie;
 
-        public CategoriesController(IGetDataRepository<Categorie> dataRepo)
+        public CategoriesController(ICategorieRepository dataRepo)
         {
             dataRepositoryCategorie = dataRepo;
         }
@@ -42,6 +42,29 @@ namespace SAE401_API_Vinted.Controllers
             }
 
             return Categorie;
+        }
+
+        [HttpGet]
+        [Route("{idParent}")]
+        [ActionName("GetByParent")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<Categorie>>> GetCategorieByParent(int idParent)
+        {
+            var sousCategories = await dataRepositoryCategorie.GetSousCategories(idParent);
+
+            // If no articles were found, return a 404 Not Found
+            if (sousCategories == null)
+            {
+                return NotFound();
+            }
+            else if (sousCategories.Value.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            // Return the articles wrapped in an Ok result
+            return sousCategories;
         }
     }
 }
