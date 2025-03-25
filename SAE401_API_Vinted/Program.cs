@@ -53,6 +53,7 @@ builder.Services.AddScoped<IJointureRepository<Preference>, PreferenceManager>()
 builder.Services.AddScoped<IJointureRepository<TailleArticle>, TailleArticleManager>();
 builder.Services.AddScoped<IJointureRepository<Favoris>,  FavorisManager>();
 builder.Services.AddScoped<IJointureRepository<MatiereArticle>, MatiereArticleManager>();
+builder.Services.AddScoped<IJointureRepository<CouleurArticle>, CouleurArticleManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("AzureVintedDBContext")));
