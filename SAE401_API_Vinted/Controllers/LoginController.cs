@@ -1,4 +1,4 @@
-using API_TokenJWT.Models;
+using SAE401_API_Vinted.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

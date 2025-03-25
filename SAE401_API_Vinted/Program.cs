@@ -1,7 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using SAE401_API_Vinted.Models;
 using SAE401_API_Vinted.Models.DataManager;
 using SAE401_API_Vinted.Models.EntityFramework;
 using SAE401_API_Vinted.Models.Repository;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +63,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -67,9 +72,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost", policy =>
     {
-        policy.WithOrigins("http://localhost:5177")  // Autoriser ton frontend
-              .AllowAnyMethod()                     // Autoriser toutes les m�thodes HTTP (GET, POST, etc.)
-              .AllowAnyHeader();                    // Autoriser tous les en-t�tes
+        policy.WithOrigins("http://localhost:5174")  
+              .AllowAnyMethod()                    
+              .AllowAnyHeader();                   
     });
 });
 
