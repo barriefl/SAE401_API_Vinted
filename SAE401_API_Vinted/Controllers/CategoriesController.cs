@@ -58,7 +58,7 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
-            else if (sousCategories.Count() == 0)
+            else if (sousCategories.Value.Count() == 0)
             {
                 return NotFound();
             }
