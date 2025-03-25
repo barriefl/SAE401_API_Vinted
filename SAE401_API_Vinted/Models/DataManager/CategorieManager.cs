@@ -34,7 +34,7 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .FirstOrDefaultAsync(c => c.CategorieId == id);
         }
 
-        public async Task<IEnumerable<Categorie>> GetSousCategories(int idParent)
+        public async Task<ActionResult<IEnumerable<Categorie>>> GetSousCategories(int idParent)
         {
             var categories =  await vintiesDbContext.Categories
                 .Where(a => a.IdParent == idParent).ToListAsync();
