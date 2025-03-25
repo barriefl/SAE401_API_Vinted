@@ -52,9 +52,10 @@ builder.Services.AddScoped<IJointureRepository<Reside>, ResideManager>();
 builder.Services.AddScoped<IJointureRepository<Appartient>, AppartientManager>();
 builder.Services.AddScoped<IJointureRepository<Preference>, PreferenceManager>();
 builder.Services.AddScoped<IJointureRepository<TailleArticle>, TailleArticleManager>();
+builder.Services.AddScoped<IGetDataRepository<Expediteur>, ExpediteurManager>();
 
 builder.Services.AddDbContext<VintedDBContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("AzureVintedDBContext")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("VintedDBContext")));
 
 builder.Services.AddControllers();
 builder.Services.AddControllers()
