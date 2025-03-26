@@ -16,14 +16,30 @@ namespace SAE401_API_Vinted.Controllers
     {
         private readonly IJointureRepository<CouleurArticle> dataRepository;
 
+        /// <summary>
+        /// Constructeur pour le contrôleur AppartientsController.
+        /// </summary>
+        /// <param name="dataRepo">Le DataRepository utilisé pour accéder aux données de la table de jointure CouleurArticle.</param>
         public CouleurArticlesController(IJointureRepository<CouleurArticle> dataRepo)
         {
             dataRepository = dataRepo;
         }
 
+        /// <summary>
+        /// Récupère un CouleurArticle.
+        /// </summary>
+        /// <param name="articleId">L'id de l'article.</param>
+        /// <param name="couleurId">L'id de la couleur.</param>
+        /// <returns>Un CouleurArticle sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">Le CouleurArticle a été récupérée avec succès.</response>
+        /// <response code="404">Le CouleurArticle demandée n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/CouleurArticles/GetByIds/5&5
         [HttpGet("{articleId}&{couleurId}")]
         [ActionName("GetByIds")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<CouleurArticle>> GetCouleurArticle(int articleId, int couleurId)
         {
             var couleurArticle = await dataRepository.GetByIdsAsync(articleId, couleurId);
@@ -36,10 +52,21 @@ namespace SAE401_API_Vinted.Controllers
             return couleurArticle;
         }
 
+        /// <summary>
+        /// Créer un CouleurArticle.
+        /// </summary>
+        /// <param name="couleurArticle">L'objet CouleurArticle.</param>
+        /// <returns>Une réponse HTTP 201 Created.</returns>
+        /// <response code="201">Le CouleurArticle a été créée avec succès.</response>
+        /// <response code="400">Le format du CouleurArticle est incorrect.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // POST: api/CouleurArticles/Post
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [ActionName("Post")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<CouleurArticle>> PostCouleurArticle(CouleurArticle couleurArticle)
         {
             if (!ModelState.IsValid)
@@ -50,9 +77,21 @@ namespace SAE401_API_Vinted.Controllers
             return CreatedAtAction("GetByIds", new { articleId = couleurArticle.ArticleId, couleurId = couleurArticle.CouleurId }, couleurArticle);
         }
 
+        /// <summary>
+        /// Supprime un CouleurArticle.
+        /// </summary>
+        /// <param name="articleId">L'id de l'article.</param>
+        /// <param name="couleurId">L'id de la couleur.</param>
+        /// <returns>Une réponse HTTP 204 No Content.</returns>
+        /// <response code="204">Le CouleurArticle a été supprimé avec succès.</response>
+        /// <response code="404">Le CouleurArticle n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // DELETE: api/CouleurArticles/Delete/5&5
         [HttpDelete("{articleId}&{couleurId}")]
         [ActionName("Delete")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteCouleurArticle(int articleId, int couleurId)
         {
             var couleurArticle = await dataRepository.GetByIdsAsync(articleId, couleurId);
