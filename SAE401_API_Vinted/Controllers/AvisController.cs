@@ -14,9 +14,9 @@ namespace SAE401_API_Vinted.Controllers
     [ApiController]
     public class AvisController : ControllerBase
     {
-        private readonly IAvisRepository<Avis> dataRepositoryAvis;
+        private readonly IAvisRepository dataRepositoryAvis;
 
-        public AvisController(IAvisRepository<Avis> dataRepo)
+        public AvisController(IAvisRepository dataRepo)
         {
             dataRepositoryAvis = dataRepo;
         }

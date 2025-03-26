@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class AvisManager : IAvisRepository<Avis>
+    public class AvisManager : IAvisRepository
     {
         readonly VintedDBContext? vintiesDbContext;
 

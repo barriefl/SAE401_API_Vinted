@@ -15,9 +15,9 @@ namespace SAE401_API_Vinted.Controllers
     public class CommandesController : ControllerBase
     {
 
-        private readonly ICommandeRepository<Commande> dataRepositoryCommande;
+        private readonly ICommandeRepository dataRepositoryCommande;
 
-        public CommandesController(ICommandeRepository<Commande> dataRepo)
+        public CommandesController(ICommandeRepository dataRepo)
         {
             dataRepositoryCommande = dataRepo;
         }
