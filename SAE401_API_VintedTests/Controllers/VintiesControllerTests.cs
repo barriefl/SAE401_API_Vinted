@@ -361,5 +361,232 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             transaction.Rollback();
         }
+
+        // TESTS MOCK
+
+        [TestMethod()]
+        public void GetVintieById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        {
+            // Arrange
+            Vintie vintie = new Vintie()
+            {
+                VintieId = 1,
+                TypeCompteId = 1,
+                Pseudo = "lulu94",
+                Nom = "Frazier",
+                Prenom = "Bethany",
+                Civilite = "O",
+                Mail = "matthew-mclaughlin1240@icloud.edu",
+                Pwd = "CEH51JIN7YU",
+                Telephone = "0687574134",
+                DateNaissance = new DateTime(2014, 09, 22),
+                URLPhoto = "evgeny-freyer-women-portrait-women-outdoors-wallpaper-preview.jpg (728 485)",
+                DateInscription = new DateTime(2021, 06, 27),
+                MontantCompte = 178,
+                DateDerniereConnexion = new DateTime(2025, 03, 26),
+                Consentement = true,
+                Siret = null
+            };
+            mockVintieRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(vintie);
+
+            // Act
+            var result = mockVintieController.GetVintie(1).Result;
+
+            // Assert
+            Assert.IsNotNull(result, "Aucun résultat.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Vintie>), "Pas un ActionResult.");
+            Assert.IsNull(result.Result, "Il y a une erreur.");
+            Assert.IsInstanceOfType(result.Value, typeof(Vintie), "Pas un Vintie");
+            Assert.AreEqual(vintie, result.Value, "Vinties pas identiques.");
+        }
+
+        [TestMethod]
+        public void GetVintieById_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        {
+            // Arrange
+
+            // Act
+            var actionResult = mockVintieController.GetVintie(0).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+
+        [TestMethod()]
+        public void GetVintieByPseudo_ExistingTitrePassed_ReturnsRightItem_AvecMoq()
+        {
+            // Arrange
+            Vintie vintie = new Vintie()
+            {
+                VintieId = 1,
+                TypeCompteId = 1,
+                Pseudo = "lulu94",
+                Nom = "Frazier",
+                Prenom = "Bethany",
+                Civilite = "O",
+                Mail = "matthew-mclaughlin1240@icloud.edu",
+                Pwd = "CEH51JIN7YU",
+                Telephone = "0687574134",
+                DateNaissance = new DateTime(2014, 09, 22),
+                URLPhoto = "evgeny-freyer-women-portrait-women-outdoors-wallpaper-preview.jpg (728 485)",
+                DateInscription = new DateTime(2021, 06, 27),
+                MontantCompte = 178,
+                DateDerniereConnexion = new DateTime(2025, 03, 26),
+                Consentement = true,
+                Siret = null
+            };
+            List<Vintie> liste = new List<Vintie>();
+            liste.Add(vintie);
+            mockVintieRepository.Setup(x => x.GetByPseudoAsync("lulu94").Result).Returns(liste);
+
+            // Act
+            var result = mockVintieController.GetVintiesByPseudo("lulu94").Result;
+
+            // Assert
+            Assert.IsNotNull(result, "Aucun résultat.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<IEnumerable<Vintie>>), "Pas un ActionResult.");
+            Assert.IsNull(result.Result, "Il y a une erreur.");
+            Assert.IsInstanceOfType(result.Value, typeof(IEnumerable<Vintie>), "Pas un Vintie");
+            CollectionAssert.AreEqual(liste, result.Value.ToList(), "Vinties pas identiques.");
+        }
+
+        [TestMethod]
+        public void GetVintieByPseudo_UnknownTitrePassed_ReturnsNotFoundResult_Moq()
+        {
+            // Arrange
+
+            // Act
+            var actionResult = mockVintieController.GetVintiesByPseudo("lulu94").Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+        
+        [TestMethod]
+        public void PostArticle_ModelValidated_CreationOK_moq()
+        {
+            // Arrange
+            Vintie vintie = new Vintie()
+            {
+                VintieId = 1,
+                TypeCompteId = 1,
+                Pseudo = "lulu94",
+                Nom = "Frazier",
+                Prenom = "Bethany",
+                Civilite = "O",
+                Mail = "matthew-mclaughlin1240@icloud.edu",
+                Pwd = "CEH51JIN7YU",
+                Telephone = "0687574134",
+                DateNaissance = new DateTime(2014, 09, 22),
+                URLPhoto = "evgeny-freyer-women-portrait-women-outdoors-wallpaper-preview.jpg (728 485)",
+                DateInscription = new DateTime(2021, 06, 27),
+                MontantCompte = 178,
+                DateDerniereConnexion = new DateTime(2025, 03, 26),
+                Consentement = true,
+                Siret = null
+            };
+
+            // Act
+            var result = mockVintieController.PostVintie(vintie).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Vintie>), "Pas un ActionResult<Vintie>");
+            Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Pas un CreatedAtActionResult");
+
+            var createdAtRouteResult = result.Result as CreatedAtActionResult;
+
+            Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(Vintie), "Pas un Vintie");
+            Assert.AreEqual(vintie, createdAtRouteResult.Value, "Vinties pas identiques");
+        }
+
+        [TestMethod()]
+        public void PutVintie_ValidUpdate_ReturnsNoContent_Moq()
+        {
+            // Arrange
+            Vintie vintieInitial = new Vintie()
+            {
+                VintieId = 1,
+                TypeCompteId = 1,
+                Pseudo = "lulu94",
+                Nom = "Frazier",
+                Prenom = "Bethany",
+                Civilite = "O",
+                Mail = "matthew-mclaughlin1240@icloud.edu",
+                Pwd = "CEH51JIN7YU",
+                Telephone = "0687574134",
+                DateNaissance = new DateTime(2014, 09, 22),
+                URLPhoto = "evgeny-freyer-women-portrait-women-outdoors-wallpaper-preview.jpg (728 485)",
+                DateInscription = new DateTime(2021, 06, 27),
+                MontantCompte = 178,
+                DateDerniereConnexion = new DateTime(2025, 03, 26),
+                Consentement = true,
+                Siret = null
+            };
+
+            Vintie vintieModifie = new Vintie()
+            {
+                VintieId = 1,
+                TypeCompteId = 1,
+                Pseudo = "lulu94",
+                Nom = "Frazier",
+                Prenom = "Bethany",
+                Civilite = "F",
+                Mail = "matthew-mclaughlin1240@icloud.edu",
+                Pwd = "CEH51JIN7YU",
+                Telephone = "0687574134",
+                DateNaissance = new DateTime(2014, 09, 22),
+                URLPhoto = "evgeny-freyer-women-portrait-women-outdoors-wallpaper-preview.jpg (728 485)",
+                DateInscription = new DateTime(2021, 06, 27),
+                MontantCompte = 99,
+                DateDerniereConnexion = new DateTime(2025, 03, 26),
+                Consentement = true,
+                Siret = null
+            };
+            mockVintieRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(vintieModifie);
+
+            // Act
+            var actionResult = mockVintieController.PutVintie(1, vintieModifie).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");
+
+            var Result = mockVintieController.GetVintie(1).Result;
+
+            Assert.IsNotNull(Result);
+            Assert.IsNotNull(Result.Value);
+            Assert.AreEqual(vintieModifie, Result.Value as Vintie);
+        }
+
+        [TestMethod]
+        public void DeleteVintieTest_OK_AvecMoq()
+        {
+            // Arrange
+            Vintie vintie = new Vintie()
+            {
+                VintieId = 1,
+                TypeCompteId = 1,
+                Pseudo = "lulu94",
+                Nom = "Frazier",
+                Prenom = "Bethany",
+                Civilite = "O",
+                Mail = "matthew-mclaughlin1240@icloud.edu",
+                Pwd = "CEH51JIN7YU",
+                Telephone = "0687574134",
+                DateNaissance = new DateTime(2014, 09, 22),
+                URLPhoto = "evgeny-freyer-women-portrait-women-outdoors-wallpaper-preview.jpg (728 485)",
+                DateInscription = new DateTime(2021, 06, 27),
+                MontantCompte = 178,
+                DateDerniereConnexion = new DateTime(2025, 03, 26),
+                Consentement = true,
+                Siret = null
+            };
+            mockVintieRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(vintie);
+
+            // Act
+            var actionResult = mockVintieController.DeleteVintie(1).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
+        }
     }
 }
