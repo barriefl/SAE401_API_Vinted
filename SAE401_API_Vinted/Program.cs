@@ -35,9 +35,6 @@ builder.Services.AddAuthorization(config =>
 });
 // IDataRepository.
 builder.Services.AddScoped<IDataRepository<Retour>, RetourManager>();
-builder.Services.AddScoped<IDataRepository<Conversation>, ConversationManager>();
-builder.Services.AddScoped<IDataRepository<Message>, MessageManager>();
-builder.Services.AddScoped<IDataRepository<Offre>, OffreManager>();
 builder.Services.AddScoped<IDataRepository<Image>, ImageManager>();
 // IGetDataRepository.
 builder.Services.AddScoped<IGetDataRepository<Expediteur>, ExpediteurManager>();
@@ -45,12 +42,11 @@ builder.Services.AddScoped<IGetDataRepository<TypeTaille>, TypeTailleManager>();
 // IModelRepository.
 builder.Services.AddScoped<IAdresseRepository, AdresseManager>();
 builder.Services.AddScoped<IArticleRepository, ArticleManager>();
+builder.Services.AddScoped<IConversationRepository, ConversationManager>();
 builder.Services.AddScoped<IVintieRepository, VintieManager>();
 builder.Services.AddScoped<ICommandeRepository, CommandeManager>();
 builder.Services.AddScoped<IAvisRepository, AvisManager>();
 builder.Services.AddScoped<ICategorieRepository, CategorieManager>();
-builder.Services.AddScoped<IDataRepository<Image>, ImageManager>();
-builder.Services.AddScoped<IDataRepository<Adresse>, AdresseManager>();
 builder.Services.AddScoped<IPointRelaisRepository, PointRelaisManager>();
 // IJointureRepository.
 builder.Services.AddScoped<IJointureRepository<Possede>, PossedeManager>();
