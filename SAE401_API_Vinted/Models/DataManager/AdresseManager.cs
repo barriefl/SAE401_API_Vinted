@@ -5,7 +5,7 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class AdresseManager : IDataRepository<Adresse>
+    public class AdresseManager : IAdresseRepository
     {
         readonly VintedDBContext? vintiesDbContext;
 
@@ -55,6 +55,18 @@ namespace SAE401_API_Vinted.Models.DataManager
             entityToUpdate.AResidents = entity.AResidents;
             entityToUpdate.ADesPointRelais = entity.ADesPointRelais;
             await vintiesDbContext.SaveChangesAsync();
+        }
+
+        public async Task<ActionResult<IEnumerable<TypeAdresse>>> GetAllTypesAdresseAsync()
+        {
+            return await vintiesDbContext.TypesAdresses.ToListAsync();
+        }
+
+        public async Task<ActionResult<TypeAdresse>> GetTypeAdresseByIdAsync(int id)
+        {
+            return await vintiesDbContext.TypesAdresses
+                .Include(c => c.PossedesType).ThenInclude(c => c.APourAdresse)
+                .FirstOrDefaultAsync(c => c.TypeAdresseId == id);
         }
     }
 }

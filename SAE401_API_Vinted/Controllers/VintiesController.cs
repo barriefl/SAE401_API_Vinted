@@ -123,14 +123,14 @@ namespace SAE401_API_Vinted.Controllers
 
         [HttpGet]
         [ActionName("GetAllTypeComptes")]
-        public async Task<ActionResult<IEnumerable<TypeCompte>>> GetTypeComptesArticles()
+        public async Task<ActionResult<IEnumerable<TypeCompte>>> GetTypeComptesVinties()
         {
             return await dataRepositoryVintie.GetAllTypesCompteAsync();
         }
 
         [HttpGet("{id}")]
         [ActionName("GetTypeCompteById")]
-        public async Task<ActionResult<TypeCompte>> GetTypeCompteArticle(int id)
+        public async Task<ActionResult<TypeCompte>> GetTypeCompteVintie(int id)
         {
             var typeCompte = await dataRepositoryVintie.GetTypeCompteByIdAsync(id);
 

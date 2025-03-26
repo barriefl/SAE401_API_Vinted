@@ -15,6 +15,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
+/*
+
+        public async Task PutCompteBancaireAsync(CompteBancaire entityToUpdate, CompteBancaire entity)
+
+        public async Task PostCompteBancaireAsync(CompteBancaire entity)
+
+        public async Task DeleteCompteBancaireAsync(CompteBancaire entity)
+
+*/
 namespace SAE401_API_Vinted.Controllers.Tests
 {
     [TestClass()]
@@ -70,6 +79,21 @@ namespace SAE401_API_Vinted.Controllers.Tests
             CollectionAssert.AreEqual(result.Value.ToList(), lesVinties, "Les listes de vinties ne sont pas égales");
         }
 
+        [TestMethod()]
+        public void GetTypeComptesVintiesTest()
+        {
+            //Arrange
+            var lesTypesComptes = context.TypesComptes.ToList();
+
+            //Act
+            var result = controller.GetTypeComptesVinties().Result;
+
+            //Assert
+            Assert.IsNotNull(result, "Aucun type compte retournés");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<IEnumerable<TypeCompte>>), "Result n'est pas un action result");
+            CollectionAssert.AreEqual(result.Value.ToList(), lesTypesComptes, "Les listes de type compte ne sont pas égales");
+        }
+
 
         [TestMethod()]
         public void GetVintieByIdTest_ExistingId()
@@ -93,6 +117,33 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             //Act
             var result = controller.GetVintie(4273).Result;
+
+            //Assert
+            Assert.AreEqual(((NotFoundResult)result.Result).StatusCode, StatusCodes.Status404NotFound, "Result ne retourne pas 404 not found");
+        }
+
+        [TestMethod()]
+        public void GetTypeCompteVintieTest_ExistingId()
+        {
+            //Arrange
+            TypeCompte typeCompte = context.TypesComptes.Where(a => a.TypeCompteId == 1).FirstOrDefault();
+
+            //Act
+            var result = controller.GetTypeCompteVintie(1).Result;
+
+            //Assert
+            Assert.IsNotNull(result, "Type compte non retourné");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<TypeCompte>), "Result n'est pas un action result");
+            Assert.AreEqual(result.Value, typeCompte, "Les types compte ne sont pas égaux");
+        }
+
+        [TestMethod()]
+        public void GetTypeCompteVintieTest_UnkownId()
+        {
+            //Arrange
+
+            //Act
+            var result = controller.GetTypeCompteVintie(4273).Result;
 
             //Assert
             Assert.AreEqual(((NotFoundResult)result.Result).StatusCode, StatusCodes.Status404NotFound, "Result ne retourne pas 404 not found");
@@ -161,6 +212,82 @@ namespace SAE401_API_Vinted.Controllers.Tests
             transaction.Rollback();
         }
         
+        [TestMethod()]
+        public void PostArticle_ModelValidated_CreationNonOk()
+        {
+            //Arrange
+            Vintie vintieTest = new Vintie()
+            {
+                VintieId = 4273,
+                TypeCompteId = 1,
+                Pseudo = "Sample Text",
+                Nom = "Text",
+                Prenom = "Sample",
+                Civilite = "M",
+                Mail = "SampleText@gmail.com",
+                Pwd = "PWD.secur1234",
+                Telephone = "0606060606",
+                DateNaissance = new DateTime(2000, 1, 24),
+                URLPhoto = "https://theuselessweb.com/",
+                DateInscription = DateTime.Now,
+                MontantCompte = -42,
+                DateDerniereConnexion = DateTime.Now,
+                Consentement = true,
+                Siret = null
+            };
+
+            //Act
+            if (vintieTest.MontantCompte < 0)
+            {
+                controller.ModelState.AddModelError("MontantCompte", "Le solde d'un compte ne peut pas être négatif");
+            }
+
+            var result = controller.PostVintie(vintieTest).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Vintie>), "Result n'est pas un action result");
+            Assert.IsInstanceOfType(result.Result, typeof(BadRequestObjectResult), "Result n'est pas un BadRequestObjectResult");
+
+            transaction.Rollback();
+        }
+
+        [TestMethod()]
+        public void PostVintie_ModelValidated_CreationOk()
+        {
+            //Arrange
+            Vintie vintieTest = new Vintie()
+            {
+                VintieId = 4273,
+                TypeCompteId = 1,
+                Pseudo = "Sample Text",
+                Nom = "Text",
+                Prenom = "Sample",
+                Civilite = "M",
+                Mail = "SampleText@gmail.com",
+                Pwd = "PWD.secur1234",
+                Telephone = "0606060606",
+                DateNaissance = new DateTime(2000, 1, 24),
+                URLPhoto = "https://theuselessweb.com/",
+                DateInscription = DateTime.Now,
+                MontantCompte = 0,
+                DateDerniereConnexion = DateTime.Now,
+                Consentement = true,
+                Siret = null
+            };
+
+            //Act
+            var result = controller.PostVintie(vintieTest).Result;
+
+            //Assert
+            Vintie vintieToGet = context.Vinties.Where(v => v.Pseudo == "Sample Text").FirstOrDefault();
+
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Vintie>), "Result n'est pas un action result");
+            Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Result n'est pas un CreatedAtActionResult");
+            Assert.AreEqual(vintieTest, vintieToGet, "Les vinties ne sont pas identiques");
+
+            transaction.Rollback();
+        }
+
         [TestMethod()]
         public void PostArticle_ModelValidated_CreationNonOk()
         {

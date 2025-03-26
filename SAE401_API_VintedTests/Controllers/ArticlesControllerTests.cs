@@ -26,9 +26,9 @@ namespace SAE401_API_Vinted.Controllers.Tests
     {
         private VintedDBContext context;
         private ArticlesController controller;
-        private IArticleRepository<Article> articleRepository;
+        private IArticleRepository articleRepository;
 
-        private Mock<IArticleRepository<Article>> mockArticleRepository;
+        private Mock<IArticleRepository> mockArticleRepository;
         private ArticlesController mockArticleController;
 
         private IDbContextTransaction transaction;
@@ -41,7 +41,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             articleRepository = new ArticleManager(context);
             controller = new ArticlesController(articleRepository);
 
-            mockArticleRepository = new Mock<IArticleRepository<Article>>();
+            mockArticleRepository = new Mock<IArticleRepository>();
             mockArticleController = new ArticlesController(mockArticleRepository.Object);
 
             transaction = context.Database.BeginTransaction();

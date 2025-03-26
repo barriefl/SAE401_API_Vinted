@@ -6,7 +6,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class CommandeManager : ICommandeRepository<Commande>
+    public class CommandeManager : ICommandeRepository
     {
         readonly VintedDBContext? vintiesDbContext;
 

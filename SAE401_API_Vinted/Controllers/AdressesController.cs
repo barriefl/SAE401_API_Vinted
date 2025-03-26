@@ -14,7 +14,7 @@ namespace SAE401_API_Vinted.Controllers
     [ApiController]
     public class AdressesController : ControllerBase
     {
-        private readonly IDataRepository<Adresse> dataRepository;
+        private readonly IAdresseRepository dataRepositoryAdresse;
 
         /// <summary>
         /// Constructeur pour le contrôleur AdressesController.
@@ -22,7 +22,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <param name="AdressesManager">Le DataRepository utilisé pour accéder aux adresses.</param>
         public AdressesController(IDataRepository<Adresse> dataRepo)
         {
-            dataRepository = dataRepo;
+            dataRepositoryAdresse = dataRepo;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Adresse>>> GetAdresses()
         {
-            return await dataRepository.GetAllAsync();
+            return await dataRepositoryAdresse.GetAllAsync();
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Adresse>> GetAdresse(int id)
         {
-            var adresse = await dataRepository.GetByIdAsync(id);
+            var adresse = await dataRepositoryAdresse.GetByIdAsync(id);
 
             if (adresse == null)
             {
@@ -91,7 +91,7 @@ namespace SAE401_API_Vinted.Controllers
                 return BadRequest();
             }
 
-            var adresseToUpdate = await dataRepository.GetByIdAsync(id);
+            var adresseToUpdate = await dataRepositoryAdresse.GetByIdAsync(id);
 
             if (adresseToUpdate == null)
             {
@@ -99,7 +99,7 @@ namespace SAE401_API_Vinted.Controllers
             }
             else
             {
-                await dataRepository.PutAsync(adresseToUpdate.Value, adresse);
+                await dataRepositoryAdresse.PutAsync(adresseToUpdate.Value, adresse);
                 return NoContent();
             }
         }
@@ -125,7 +125,7 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await dataRepository.PostAsync(adresse);
+            await dataRepositoryAdresse.PostAsync(adresse);
             return CreatedAtAction("GetById", new { id = adresse.AdresseID }, adresse);
         }
 
@@ -145,13 +145,38 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAdresse(int id)
         {
-            var adresse = await dataRepository.GetByIdAsync(id);
+            var adresse = await dataRepositoryAdresse.GetByIdAsync(id);
             if (adresse == null)
             {
                 return NotFound();
             }
-            await dataRepository.DeleteAsync(adresse.Value);
+            await dataRepositoryAdresse.DeleteAsync(adresse.Value);
             return NoContent();
+        }
+
+        [HttpGet]
+        [ActionName("GetAllTypesAdresse")]
+        public async Task<ActionResult<IEnumerable<TypeAdresse>>> GetTypeAdresses()
+        {
+            return await dataRepositoryAdresse.GetAllTypesAdresseAsync();
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetTypeAdresseById")]
+        public async Task<ActionResult<TypeAdresse>> GetTypeAdresse(int id)
+        {
+            var typeAdresse = await dataRepositoryAdresse.GetTypeAdresseByIdAsync(id);
+
+            if (typeAdresse == null)
+            {
+                return NotFound();
+            }
+            else if (typeAdresse.Value == null)
+            {
+                return NotFound();
+            }
+
+            return typeAdresse;
         }
     }
 }

@@ -30,5 +30,23 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty("CompteIdNavigation")]
         public virtual ICollection<Appartient> AppartientCompte { get; set; } = new List<Appartient>();
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CompteBancaire bancaire &&
+                   CompteId == bancaire.CompteId &&
+                   Iban == bancaire.Iban &&
+                   NomTitulaire == bancaire.NomTitulaire &&
+                   PrenomTitulaire == bancaire.PrenomTitulaire &&
+                   EqualityComparer<ICollection<CarteBancaire>>.Default.Equals(CartesCompte, bancaire.CartesCompte) &&
+                   EqualityComparer<ICollection<Appartient>>.Default.Equals(AppartientCompte, bancaire.AppartientCompte);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(CompteId);
+        }
+
+
     }
 }
