@@ -39,11 +39,11 @@ builder.Services.AddScoped<IDataRepository<Conversation>, ConversationManager>()
 builder.Services.AddScoped<IDataRepository<Message>, MessageManager>();
 builder.Services.AddScoped<IDataRepository<Offre>, OffreManager>();
 builder.Services.AddScoped<IDataRepository<Image>, ImageManager>();
-builder.Services.AddScoped<IDataRepository<Adresse>, AdresseManager>();
 // IGetDataRepository.
 builder.Services.AddScoped<IGetDataRepository<Expediteur>, ExpediteurManager>();
 builder.Services.AddScoped<IGetDataRepository<TypeTaille>, TypeTailleManager>();
 // IModelRepository.
+builder.Services.AddScoped<IAdresseRepository, AdresseManager>();
 builder.Services.AddScoped<IArticleRepository<Article>, ArticleManager>();
 builder.Services.AddScoped<IVintieRepository<Vintie>, VintieManager>();
 builder.Services.AddScoped<ICommandeRepository<Commande>, CommandeManager>();
