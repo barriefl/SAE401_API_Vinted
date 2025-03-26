@@ -464,8 +464,8 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.IsNotNull(result, "Aucun résultat.");
             Assert.IsInstanceOfType(result, typeof(ActionResult<IEnumerable<Article>>), "Pas un ActionResult.");
             Assert.IsNull(result.Result, "Il y a une erreur.");
-            Assert.IsInstanceOfType(result.Value, typeof(IEnumerable<Article>), "Pas un Utilisateur");
-            CollectionAssert.AreEqual(liste, result.Value.ToList(), "Utilisateurs pas identiques.");
+            Assert.IsInstanceOfType(result.Value, typeof(IEnumerable<Article>), "Pas un Article");
+            CollectionAssert.AreEqual(liste, result.Value.ToList(), "Articles pas identiques.");
         }
 
         [TestMethod]
@@ -513,7 +513,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void PutUtilisateur_ValidUpdate_ReturnsNoContent_Moq()
+        public void PutArticle_ValidUpdate_ReturnsNoContent_Moq()
         {
             // Arrange
             Article articleInitial = new Article()
@@ -609,7 +609,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod]
-        public void DeleteUtilisateurTest_OK_AvecMoq()
+        public void DeleteArticleTest_OK_AvecMoq()
         {
             // Arrange
             Article article = new Article()
