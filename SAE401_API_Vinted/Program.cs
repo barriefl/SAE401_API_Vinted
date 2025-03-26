@@ -10,43 +10,48 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Tokens.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-             .AddJwtBearer(options =>
-             {
-                 options.RequireHttpsMetadata = false;
-                 options.SaveToken = true;
-                 options.TokenValidationParameters = new TokenValidationParameters
-                 {
-                     ValidateIssuer = true,
-                     ValidateAudience = true,
-                     ValidateLifetime = true,
-                     ValidateIssuerSigningKey = true,
-                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                     ValidAudience = builder.Configuration["Jwt:Audience"],
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"])),
-                     ClockSkew = TimeSpan.Zero
-                 };
-             });
-
-            builder.Services.AddAuthorization(config =>
-            {
-                config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-                config.AddPolicy(Policies.User, Policies.UserPolicy());
-            });
-builder.Services.AddScoped<IArticleRepository<Article>, ArticleManager>();
-builder.Services.AddScoped<IVintieRepository<Vintie>, VintieManager>();
-builder.Services.AddScoped<ICommandeRepository<Commande>, CommandeManager>();
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"])),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+builder.Services.AddAuthorization(config =>
+{
+    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+    config.AddPolicy(Policies.User, Policies.UserPolicy());
+});
+// IDataRepository.
 builder.Services.AddScoped<IDataRepository<Retour>, RetourManager>();
 builder.Services.AddScoped<IDataRepository<Conversation>, ConversationManager>();
 builder.Services.AddScoped<IDataRepository<Message>, MessageManager>();
 builder.Services.AddScoped<IDataRepository<Offre>, OffreManager>();
-builder.Services.AddScoped<IAvisRepository<Avis>, AvisManager>();
-builder.Services.AddScoped<ICategorieRepository, CategorieManager>();
 builder.Services.AddScoped<IDataRepository<Image>, ImageManager>();
 builder.Services.AddScoped<IDataRepository<Adresse>, AdresseManager>();
-builder.Services.AddScoped<IPointRelaisRepository<PointRelais>, PointRelaisManager>();
-builder.Services.AddScoped<IJointureRepository<Possede>, PossedeManager>();
+// IGetDataRepository.
+builder.Services.AddScoped<IGetDataRepository<Expediteur>, ExpediteurManager>();
 builder.Services.AddScoped<IGetDataRepository<TypeTaille>, TypeTailleManager>();
+// IModelRepository.
+builder.Services.AddScoped<IArticleRepository<Article>, ArticleManager>();
+builder.Services.AddScoped<IVintieRepository<Vintie>, VintieManager>();
+builder.Services.AddScoped<ICommandeRepository<Commande>, CommandeManager>();
+builder.Services.AddScoped<IAvisRepository<Avis>, AvisManager>();
+builder.Services.AddScoped<ICategorieRepository, CategorieManager>();
+builder.Services.AddScoped<IPointRelaisRepository<PointRelais>, PointRelaisManager>();
+// IJointureRepository.
+builder.Services.AddScoped<IJointureRepository<Possede>, PossedeManager>();
 builder.Services.AddScoped<IJointureRepository<Reside>, ResideManager>();
 builder.Services.AddScoped<IJointureRepository<Appartient>, AppartientManager>();
 builder.Services.AddScoped<IJointureRepository<Preference>, PreferenceManager>();
@@ -55,11 +60,10 @@ builder.Services.AddScoped<IJointureRepository<Favoris>,  FavorisManager>();
 builder.Services.AddScoped<IJointureRepository<MatiereArticle>, MatiereArticleManager>();
 builder.Services.AddScoped<IJointureRepository<CouleurArticle>, CouleurArticleManager>();
 builder.Services.AddScoped<IJointureRepository<PointRelaisFavoris>, PointRelaisFavorisManager>();
-builder.Services.AddScoped<IGetDataRepository<Expediteur>, ExpediteurManager>();
-
+// DbContext.
 builder.Services.AddDbContext<VintedDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("VintedDBContext")));
-
+// Controllers.
 builder.Services.AddControllers();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
