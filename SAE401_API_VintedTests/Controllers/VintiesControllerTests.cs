@@ -26,9 +26,9 @@ namespace SAE401_API_Vinted.Controllers.Tests
     {
         private VintedDBContext context;
         private VintiesController controller;
-        private IVintieRepository<Vintie> vintieRepository;
+        private IVintieRepository vintieRepository;
 
-        private Mock<IVintieRepository<Vintie>> mockVintieRepository;
+        private Mock<IVintieRepository> mockVintieRepository;
         private VintiesController mockVintieController;
 
         private IDbContextTransaction transaction;
@@ -41,7 +41,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             vintieRepository = new VintieManager(context);
             controller = new VintiesController(vintieRepository);
 
-            mockVintieRepository = new Mock<IVintieRepository<Vintie>>();
+            mockVintieRepository = new Mock<IVintieRepository>();
             mockVintieController = new VintiesController(mockVintieRepository.Object);
 
             transaction = context.Database.BeginTransaction();

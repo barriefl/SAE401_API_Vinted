@@ -14,9 +14,9 @@ namespace SAE401_API_Vinted.Controllers
     [ApiController]
     public class VintiesController : ControllerBase
     {
-        private readonly IVintieRepository<Vintie> dataRepositoryVintie;
+        private readonly IVintieRepository dataRepositoryVintie;
 
-        public VintiesController(IVintieRepository<Vintie> dataRepo)
+        public VintiesController(IVintieRepository dataRepo)
         {
             dataRepositoryVintie = dataRepo;
         }
