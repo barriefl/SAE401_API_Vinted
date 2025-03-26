@@ -45,7 +45,7 @@ builder.Services.AddScoped<IGetDataRepository<TypeTaille>, TypeTailleManager>();
 // IModelRepository.
 builder.Services.AddScoped<IAdresseRepository, AdresseManager>();
 builder.Services.AddScoped<IArticleRepository, ArticleManager>();
-builder.Services.AddScoped<IVintieRepository<Vintie>, VintieManager>();
+builder.Services.AddScoped<IVintieRepository, VintieManager>();
 builder.Services.AddScoped<ICommandeRepository, CommandeManager>();
 builder.Services.AddScoped<IAvisRepository, AvisManager>();
 builder.Services.AddScoped<ICategorieRepository, CategorieManager>();

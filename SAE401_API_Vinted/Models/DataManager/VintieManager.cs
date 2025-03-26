@@ -6,7 +6,7 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class VintieManager : IVintieRepository<Vintie>
+    public class VintieManager : IVintieRepository
     {
         readonly VintedDBContext? vintiesDbContext;
 
