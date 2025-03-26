@@ -1013,9 +1013,9 @@ namespace SAE401_API_Vinted.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_ofr", x => x.msg_id);
+                    table.PrimaryKey("pk_msg", x => x.msg_id);
                     table.ForeignKey(
-                        name: "fk_ofr_msg",
+                        name: "FK_t_e_offre_ofr_t_e_message_msg_msg_id",
                         column: x => x.msg_id,
                         principalTable: "t_e_message_msg",
                         principalColumn: "msg_id",
