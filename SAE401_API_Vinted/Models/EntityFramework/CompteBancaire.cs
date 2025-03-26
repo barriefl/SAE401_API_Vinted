@@ -7,6 +7,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     [Table("t_e_comptebancaire_cob")]
     public class CompteBancaire
     {
+        public CompteBancaire()
+        {
+        }
+
         [Key]
         [Column("cob_id")]
         public int CompteId { get; set; }
@@ -30,5 +34,39 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty("CompteIdNavigation")]
         public virtual ICollection<Appartient> AppartientCompte { get; set; } = new List<Appartient>();
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CompteBancaire bancaire &&
+                   CompteId == bancaire.CompteId &&
+                   Iban == bancaire.Iban &&
+                   NomTitulaire == bancaire.NomTitulaire &&
+                   PrenomTitulaire == bancaire.PrenomTitulaire &&
+                   EqualityComparer<ICollection<CarteBancaire>>.Default.Equals(CartesCompte, bancaire.CartesCompte) &&
+                   EqualityComparer<ICollection<Appartient>>.Default.Equals(AppartientCompte, bancaire.AppartientCompte);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(CompteId);
+        }
+
+        public CompteBancaire(int compteId, string iban, string nomTitulaire, string prenomTitulaire, ICollection<CarteBancaire> cartesCompte, ICollection<Appartient> appartientCompte)
+        {
+            CompteId = compteId;
+            Iban = iban;
+            NomTitulaire = nomTitulaire;
+            PrenomTitulaire = prenomTitulaire;
+            CartesCompte = cartesCompte;
+            AppartientCompte = appartientCompte;
+        }
+
+        public CompteBancaire(int compteId, string iban, string nomTitulaire, string prenomTitulaire)
+        {
+            CompteId = compteId;
+            Iban = iban;
+            NomTitulaire = nomTitulaire;
+            PrenomTitulaire = prenomTitulaire;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SAE401_API_Vinted.Controllers;
 using SAE401_API_Vinted.Models.EntityFramework;
 using SAE401_API_Vinted.Models.Repository;
 
@@ -18,6 +19,61 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task DeleteAsync(Vintie entity)
         {
+            ArticleManager manager = new ArticleManager(vintiesDbContext);
+            ArticlesController artCont = new ArticlesController(manager);
+            foreach (var vinReside in entity.VintiesResides)
+            {
+                vintiesDbContext.Reside.Remove(vinReside);
+            }
+            foreach (var conversation in entity.ConversationsAcheteur)
+            {
+                foreach (var message in conversation.Messages)
+                {
+                    vintiesDbContext.Messages.Remove(message);
+                }
+                //ILFAUDRAT DELETE CHAQUE MESSAGE EN UTILISANT LA FONCTION DU CONTROLLER
+                vintiesDbContext.Conversations.Remove(conversation);
+            }
+            foreach (var vinArt in entity.ArticlesDuVendeur.ToList())
+            {
+                var res = artCont.DeleteArticle(vinArt.ArticleId).Result;
+            }
+            foreach (var vinApp in entity.AppartienentVintie)
+            {
+                vintiesDbContext.Appartient.Remove(vinApp);
+            }
+            foreach (var vinavisAch in entity.ADesAvisAcheteur)
+            {
+                vintiesDbContext.Avis.Remove(vinavisAch);
+            }
+            foreach (var vinAvisVen in entity.ADesAvisVendeur)
+            {
+                vintiesDbContext.Avis.Remove(vinAvisVen);
+            }
+            foreach (var vinPref in entity.PreferencesVintie)
+            {
+                vintiesDbContext.Preferences.Remove(vinPref);
+            }
+            foreach (var signalement in entity.SignalementsDeArticle)
+            {
+                vintiesDbContext.Signalements.Remove(signalement);
+            }
+            foreach (var favoris in entity.FavorisDeVintie)
+            {
+                vintiesDbContext.Favoris.Remove(favoris);
+            }
+            foreach (var ptRelFav in entity.PointRelaisFavorisVintie)
+            {
+                vintiesDbContext.PointsRelaisFavoris.Remove(ptRelFav);
+            }
+            foreach (var commande in entity.CommandesVinties)
+            {
+                vintiesDbContext.Commandes.Remove(commande);
+            }
+            foreach (var retour in entity.RetourDesVintie)
+            {
+                vintiesDbContext.Retours.Remove(retour);
+            }
             vintiesDbContext.Vinties.Remove(entity);
             await vintiesDbContext.SaveChangesAsync();
         }
@@ -46,7 +102,7 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .Include(a => a.FavorisDeVintie)
                 .Include(a => a.PointRelaisFavorisVintie)
                 .Include(a => a.CommandesVinties)
-                .Include(a => a.ConversationsAcheteur)
+                .Include(a => a.ConversationsAcheteur).ThenInclude(a =>a.Messages)
                 .Include(a => a.RetourDesVintie)
                 .FirstOrDefaultAsync(u => u.VintieId == id);
         }
@@ -116,6 +172,45 @@ namespace SAE401_API_Vinted.Models.DataManager
             entityToUpdate.CommandesVinties = entity.CommandesVinties;
             entityToUpdate.ConversationsAcheteur = entity.ConversationsAcheteur;
             entityToUpdate.RetourDesVintie = entity.RetourDesVintie;
+            await vintiesDbContext.SaveChangesAsync();
+        }
+
+        public async Task<ActionResult<IEnumerable<TypeCompte>>> GetAllTypesCompteAsync()
+        {
+            return await vintiesDbContext.TypesComptes.ToListAsync();
+        }
+
+        public async Task<ActionResult<TypeCompte>> GetTypeCompteByIdAsync(int id)
+        {
+            return await vintiesDbContext.TypesComptes
+                .Include(tc => tc.VintiesType)
+                .FirstOrDefaultAsync(tc => tc.TypeCompteId == id);
+        }
+
+        public async Task<ActionResult<CompteBancaire>> GetCompteBancaireByIdAsync(int id)
+        {
+            return await vintiesDbContext.ComptesBancaires
+                .FirstOrDefaultAsync(cb => cb.CompteId == id);
+        }
+
+        public async Task PutCompteBancaireAsync(CompteBancaire entityToUpdate, CompteBancaire entity)
+        {
+            vintiesDbContext.Entry(entityToUpdate).State = EntityState.Modified;
+            entityToUpdate.CompteId = entity.CompteId;
+            entityToUpdate.Iban = entity.Iban;
+            entityToUpdate.NomTitulaire = entity.NomTitulaire;
+            entityToUpdate.PrenomTitulaire = entity.PrenomTitulaire;
+            await vintiesDbContext.SaveChangesAsync();
+        }
+
+        public async Task PostCompteBancaireAsync(CompteBancaire entity)
+        {
+            await vintiesDbContext.ComptesBancaires.AddAsync(entity);
+            await vintiesDbContext.SaveChangesAsync();
+        }
+        public async Task DeleteCompteBancaireAsync(CompteBancaire entity)
+        {
+            vintiesDbContext.ComptesBancaires.Remove(entity);
             await vintiesDbContext.SaveChangesAsync();
         }
     }

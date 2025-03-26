@@ -3,9 +3,9 @@ using SAE401_API_Vinted.Models.EntityFramework;
 
 namespace SAE401_API_Vinted.Models.Repository
 {
-    public interface ICommandeRepository<TEntity> : IDataRepository<TEntity>
+    public interface ICommandeRepository : IDataRepository<Commande>
     {
-        Task<ActionResult<IEnumerable<TEntity>>> GetByVintieIdAsync(int id);
+        Task<ActionResult<IEnumerable<Commande>>> GetByVintieIdAsync(int id);
         Task<ActionResult<IEnumerable<TypeEnvoi>>> GetAllTypesEnvoiAsync();
         Task<ActionResult<TypeEnvoi>> GetTypeEnvoiByIdAsync(int id);
         Task<ActionResult<IEnumerable<FormatColis>>> GetAllFormatsColisAsync();

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class ArticleManager : IArticleRepository<Article>
+    public class ArticleManager : IArticleRepository
     {
         readonly VintedDBContext? vintiesDbContext;
 
@@ -84,7 +84,7 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .Include(a => a.SignalementsDeArticle)
                 .Include(a => a.CouleursArticle)
                 .Include(a => a.CommandesArticles)
-                .Include(a => a.ConversationsArticle)
+                .Include(a => a.ConversationsArticle).ThenInclude(a => a.Messages)
                 .Include(a => a.RetourDesArticles)
                 .Include(a =>  a.TaillesArticle).ThenInclude(a => a.TailleIdNavigation)
                 .FirstOrDefaultAsync(e => e.ArticleId == id);
