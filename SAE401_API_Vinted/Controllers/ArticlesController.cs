@@ -261,6 +261,52 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         /// <summary>
+        /// Récupère toutes les matières.
+        /// </summary>
+        /// <returns>Une liste de matières sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La liste des matières a été récupérée avec succès.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Articles/GetAllMatieres
+        [HttpGet]
+        [ActionName("GetAllMatieres")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<Matiere>>> GetMatieres()
+        {
+            return await dataRepositoryArticle.GetAllMatieresAsync();
+        }
+
+        /// <summary>
+        /// Récupère une matière.
+        /// </summary>
+        /// <param name="id">L'id de la matière.</param>
+        /// <returns>Une matière sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La matière a été récupérée avec succès.</response>
+        /// <response code="404">La matière demandée n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Articles/GetMatiereById/5
+        [HttpGet("{id}")]
+        [ActionName("GetMatiereById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Matiere>> GetMatiere(int id)
+        {
+            var matiere = await dataRepositoryArticle.GetMatiereByIdAsync(id);
+
+            if (matiere == null)
+            {
+                return NotFound();
+            }
+            else if (matiere.Value == null)
+            {
+                return NotFound();
+            }
+
+            return matiere;
+        }
+
+        /// <summary>
         /// Récupère toutes les tailles.
         /// </summary>
         /// <returns>Une liste de tailles sous forme de réponse HTTP 200 OK.</returns>

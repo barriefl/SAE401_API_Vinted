@@ -156,5 +156,201 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             transaction.Rollback();
         }
+
+        [TestMethod()]
+        public void PutArticle_InvalidUpdate_ReturnsBadRequest()
+        {
+            //Arrange
+            Image imageTest = new Image()
+            {
+                ImageId = 1,
+                ArticleId = 1,
+                Url = "Test",
+                ArticleDeImage = context.Articles.Where(a => a.ArticleId == 1).FirstOrDefault()
+            };
+
+            //Act
+            var result = controller.PutImage(2, imageTest).Result;
+
+            //Assert
+
+            Assert.IsInstanceOfType(result, typeof(IActionResult), "N'est pas un IActionResult");
+            Assert.AreEqual(((BadRequestResult)result).StatusCode, StatusCodes.Status400BadRequest, "N'est pas 400");
+
+            transaction.Rollback();
+        }
+
+        [TestMethod()]
+        public void PutImage_InvalidImage_ReturnsNotFound()
+        {
+            //Arrange
+            Image imageTest = new Image()
+            {
+                ImageId = 2475,
+                ArticleId = 1,
+                Url = "Test",
+                ArticleDeImage = context.Articles.Where(a => a.ArticleId == 1).FirstOrDefault()
+            };
+
+            //Act
+            var result = controller.PutImage(2475, imageTest).Result;
+
+            //Assert
+
+            Assert.IsInstanceOfType(result, typeof(IActionResult), "N'est pas un IActionResult");
+            Assert.AreEqual(((NotFoundResult)result).StatusCode, StatusCodes.Status404NotFound, "N'est pas 404");
+
+            transaction.Rollback();
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(System.AggregateException))]
+        public void PutImage_InvalidUpdate_ReturnsSystemAggregateException()
+        {
+            //Arrange
+            Image imageTest = new Image()
+            {
+                ImageId = 1,
+                ArticleId = 0,
+                Url = "Test",
+                ArticleDeImage = context.Articles.Where(a => a.ArticleId == 1).FirstOrDefault()
+            };
+
+            //Act
+            var result = controller.PutImage(1, imageTest).Result;
+
+            //Assert
+
+        }
+
+        [TestMethod()]
+        public void DeleteImageTest_OK()
+        {
+            //Arrange
+
+            //Act
+            var result = controller.DeleteImage(1).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(NoContentResult));
+            var imageSupprimee = context.Images.Find(1);
+            Assert.IsNull(imageSupprimee);
+
+            transaction.Rollback();
+        }
+
+
+        // TESTS MOCK
+
+        [TestMethod()]
+        public void GetImageById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        {
+            // Arrange
+            Image image = new Image()
+            {
+                ImageId = 1,
+                ArticleId = 1,
+                Url = "Test",
+                ArticleDeImage = context.Articles.Where(a => a.ArticleId == 1).FirstOrDefault()
+            };
+            mockImageRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(image);
+
+            // Act
+            var result = mockImageController.GetImage(1).Result;
+
+            // Assert
+            Assert.IsNotNull(result, "Aucun résultat.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Image>), "Pas un ActionResult.");
+            Assert.IsNull(result.Result, "Il y a une erreur.");
+            Assert.IsInstanceOfType(result.Value, typeof(Image), "Pas une Image");
+            Assert.AreEqual(image, result.Value, "Images pas identiques.");
+        }
+
+        [TestMethod]
+        public void GetImageById_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        {
+            // Arrange
+
+            // Act
+            var actionResult = mockImageController.GetImage(0).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public void PostImage_ModelValidated_CreationOK_moq()
+        {
+            // Arrange
+            Image image = new Image()
+            {
+                ImageId = 1,
+                ArticleId = 1,
+                Url = "Test",
+            };
+
+            // Act
+            var result = mockImageController.PostImage(image).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Image>), "Pas un ActionResult<Image>");
+            Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Pas un CreatedAtActionResult");
+
+            var createdAtRouteResult = result.Result as CreatedAtActionResult;
+
+            Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(Image), "Pas une Image");
+            Assert.AreEqual(image, createdAtRouteResult.Value, "Images pas identiques");
+        }
+
+        [TestMethod()]
+        public void PutImage_ValidUpdate_ReturnsNoContent_Moq()
+        {
+            // Arrange
+            Image imageInitiale = new Image()
+            {
+                ImageId = 1,
+                ArticleId = 1,
+                Url = "Test",
+            };
+
+            Image imageModifiee = new Image()
+            {
+                ImageId = 1,
+                ArticleId = 1,
+                Url = "Test2",
+            };
+            mockImageRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(imageModifiee);
+
+            // Act
+            var actionResult = mockImageController.PutImage(1, imageModifiee).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");
+
+            var Result = mockImageController.GetImage(1).Result;
+
+            Assert.IsNotNull(Result);
+            Assert.IsNotNull(Result.Value);
+            Assert.AreEqual(imageModifiee, Result.Value as Image, "Image non modifiée !");
+        }
+
+        [TestMethod]
+        public void DeleteImageTest_OK_AvecMoq()
+        {
+            // Arrange
+            Image image = new Image()
+            {
+                ImageId = 1,
+                ArticleId = 1,
+                Url = "Test",
+            };
+            mockImageRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(image);
+
+            // Act
+            var actionResult = mockImageController.DeleteImage(1).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");
+        }
     }
 }

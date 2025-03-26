@@ -63,6 +63,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            if (adresse.Value == null)
+            {
+                return NotFound();
+            }
 
             return adresse;
         }
