@@ -17,9 +17,9 @@ namespace SAE401_API_Vinted.Controllers
     public class PointsRelaisController : ControllerBase
     {
 
-        private readonly IPointRelaisRepository<PointRelais> dataRepositoryPointRelais;
+        private readonly IPointRelaisRepository dataRepositoryPointRelais;
 
-        public PointsRelaisController(IPointRelaisRepository<PointRelais> dataRepo)
+        public PointsRelaisController(IPointRelaisRepository dataRepo)
         {
             dataRepositoryPointRelais = dataRepo;
         }

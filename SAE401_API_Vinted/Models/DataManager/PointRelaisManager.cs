@@ -5,7 +5,7 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class PointRelaisManager : IPointRelaisRepository<PointRelais>
+    public class PointRelaisManager : IPointRelaisRepository
     {
         readonly VintedDBContext? vintiesDbContext;
 

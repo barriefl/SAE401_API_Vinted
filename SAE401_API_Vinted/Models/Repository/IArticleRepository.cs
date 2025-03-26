@@ -3,9 +3,9 @@ using SAE401_API_Vinted.Models.EntityFramework;
 
 namespace SAE401_API_Vinted.Models.Repository
 {
-    public interface IArticleRepository<TEntity> : IDataRepository<TEntity>
+    public interface IArticleRepository : IDataRepository<Article>
     {
-        Task<ActionResult<IEnumerable<TEntity>>> GetByStringAsync(string text);
+        Task<ActionResult<IEnumerable<Article>>> GetByStringAsync(string text);
 
         Task PutLikeAsync(int id, int compteur);
 
