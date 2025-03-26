@@ -105,7 +105,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=51.83.36.122; port=5432; Database=VintedDB; uid=marant; password=xTXzwm;");
+            optionsBuilder.UseNpgsql("");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

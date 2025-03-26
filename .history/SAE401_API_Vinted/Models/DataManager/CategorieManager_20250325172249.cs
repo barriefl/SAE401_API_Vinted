@@ -2,11 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using SAE401_API_Vinted.Models.EntityFramework;
 using SAE401_API_Vinted.Models.Repository;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SAE401_API_Vinted.Models.DataManager
 {
-    public class CategorieManager : ICategorieRepository
+    public class CategorieManager : IGetDataRepository<Categorie>
     {
         readonly VintedDBContext? vintiesDbContext;
 
@@ -29,16 +28,9 @@ namespace SAE401_API_Vinted.Models.DataManager
             return await vintiesDbContext.Categories
                 .Include(c => c.CategorieParentIdNavigation)
                     .ThenInclude(c => c.CategorieParentIdNavigation)
-                .Include(c => c.TypesTaillesCategories)
-                .Include(c => c.CategoriesArticles)
+                // .Include(c => c.TypesTaillesCategories)
+                // .Include(c => c.CategoriesArticles)
                 .FirstOrDefaultAsync(c => c.CategorieId == id);
-        }
-
-        public async Task<ActionResult<IEnumerable<Categorie>>> GetSousCategories(int idParent)
-        {
-            var categories =  await vintiesDbContext.Categories
-                .Where(a => a.IdParent == idParent).ToListAsync();
-            return categories;
         }
     }
 }
