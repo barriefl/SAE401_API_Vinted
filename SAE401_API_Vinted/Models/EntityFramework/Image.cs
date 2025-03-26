@@ -22,5 +22,38 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [ForeignKey(nameof(ArticleId))]
         [InverseProperty(nameof(Article.ImagesDeArticle))]
         public virtual Article ArticleDeImage { get; set; } = null!;
+
+        public Image()
+        {
+        }
+
+        public Image(int articleId, string url, Article articleDeImage)
+        {
+            ArticleId = articleId;
+            Url = url;
+            ArticleDeImage = articleDeImage;
+        }
+
+        public Image(int imageId, int articleId, string url, Article articleDeImage)
+        {
+            ImageId = imageId;
+            ArticleId = articleId;
+            Url = url;
+            ArticleDeImage = articleDeImage;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Image image &&
+                   ImageId == image.ImageId &&
+                   ArticleId == image.ArticleId &&
+                   Url == image.Url &&
+                   EqualityComparer<Article>.Default.Equals(ArticleDeImage, image.ArticleDeImage);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ImageId, ArticleId, Url, ArticleDeImage);
+        }
     }
 }
