@@ -1374,7 +1374,9 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnName("ofr_montant");
 
                     b.Property<int>("StatusOffreId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
+                        .HasDefaultValue(1)
                         .HasColumnName("sto_id");
 
                     b.HasIndex("StatusOffreId");

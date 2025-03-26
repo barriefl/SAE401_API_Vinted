@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SAE401_API_Vinted.Migrations
 {
     /// <inheritdoc />
-    public partial class CreationDBVinted : Migration
+    public partial class CreationDBVintedRemote : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -1008,14 +1008,14 @@ namespace SAE401_API_Vinted.Migrations
                 columns: table => new
                 {
                     msg_id = table.Column<int>(type: "integer", nullable: false),
-                    sto_id = table.Column<int>(type: "integer", nullable: false),
+                    sto_id = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
                     ofr_montant = table.Column<double>(type: "numeric(6,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_ofr", x => x.msg_id);
                     table.ForeignKey(
-                        name: "fk_ofr_msg",
+                        name: "f",
                         column: x => x.msg_id,
                         principalTable: "t_e_message_msg",
                         principalColumn: "msg_id",

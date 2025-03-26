@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SAE401_API_Vinted.Models.EntityFramework;
@@ -12,11 +11,9 @@ using SAE401_API_Vinted.Models.EntityFramework;
 namespace SAE401_API_Vinted.Migrations
 {
     [DbContext(typeof(VintedDBContext))]
-    [Migration("20250319162500_CreationDBVinted")]
-    partial class CreationDBVinted
+    partial class VintedDBContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1377,7 +1374,9 @@ namespace SAE401_API_Vinted.Migrations
                         .HasColumnName("ofr_montant");
 
                     b.Property<int>("StatusOffreId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
+                        .HasDefaultValue(1)
                         .HasColumnName("sto_id");
 
                     b.HasIndex("StatusOffreId");

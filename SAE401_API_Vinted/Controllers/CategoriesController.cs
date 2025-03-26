@@ -16,22 +16,44 @@ namespace SAE401_API_Vinted.Controllers
     {
         private readonly ICategorieRepository dataRepositoryCategorie;
 
+        /// <summary>
+        /// Constructeur pour le contrôleur CategoriesController.
+        /// </summary>
+        /// <param name="dataRepo">Le DataRepository utilisé pour accéder aux adresses.</param>
         public CategoriesController(ICategorieRepository dataRepo)
         {
             dataRepositoryCategorie = dataRepo;
         }
 
+        /// <summary>
+        /// Récupère toutes les catégories.
+        /// </summary>
+        /// <returns>Une liste de catégories sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La liste des catégories a été récupérée avec succès.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/Categories
         [HttpGet]
-        [ActionName("GetAll")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Categorie>>> GetCategories()
         {
             return await dataRepositoryCategorie.GetAllAsync();
         }
 
-        // GET: api/Categories/5
+        /// <summary>
+        /// Récupère une catégorie.
+        /// </summary>
+        /// <param name="id">L'id de la catégorie.</param>
+        /// <returns>Une catégorie sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La catégorie a été récupérée avec succès.</response>
+        /// <response code="404">La catégorie demandée n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Categories/GetById/5
         [HttpGet("{id}")]
         [ActionName("GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Categorie>> GetCategorie(int id)
         {
             var Categorie = await dataRepositoryCategorie.GetByIdAsync(id);
@@ -44,16 +66,25 @@ namespace SAE401_API_Vinted.Controllers
             return Categorie;
         }
 
+        /// <summary>
+        /// Récupère une catégorie par son idParent.
+        /// </summary>
+        /// <param name="idParent">L'id parent de la catégorie.</param>
+        /// <returns>Une catégorie sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La catégorie a été récupérée avec succès.</response>
+        /// <response code="404">La catégorie demandée n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Adresses/GetByIdParent/5
         [HttpGet]
         [Route("{idParent}")]
-        [ActionName("GetByParent")]
+        [ActionName("GetByIdParent")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Categorie>>> GetCategorieByParent(int idParent)
         {
             var sousCategories = await dataRepositoryCategorie.GetSousCategories(idParent);
 
-            // If no articles were found, return a 404 Not Found
             if (sousCategories == null)
             {
                 return NotFound();
@@ -63,7 +94,6 @@ namespace SAE401_API_Vinted.Controllers
                 return NotFound();
             }
 
-            // Return the articles wrapped in an Ok result
             return sousCategories;
         }
     }

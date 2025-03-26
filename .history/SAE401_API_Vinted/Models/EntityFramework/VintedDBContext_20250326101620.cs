@@ -108,6 +108,12 @@ namespace SAE401_API_Vinted.Models.EntityFramework
             optionsBuilder.UseNpgsql("Host=51.83.36.122; port=5432; Database=VintedDB; uid=marant; password=xTXzwm;");
         }
 
+/*************  ✨ Codeium Command ⭐  *************/
+        /// <summary>
+        /// Configures the entity framework model
+        /// </summary>
+        /// <param name="modelBuilder">The entity framework model builder</param>
+/******  92b1f310-f0fd-4773-87f6-0a49a225ac00  *******/
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
