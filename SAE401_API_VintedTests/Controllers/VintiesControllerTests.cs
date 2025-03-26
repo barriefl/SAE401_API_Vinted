@@ -145,6 +145,33 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
+        public void GetCompteBancaireVintieTest_ExistingId()
+        {
+            //Arrange
+            CompteBancaire compte = context.ComptesBancaires.Where(a => a.CompteId == 1).FirstOrDefault();
+
+            //Act
+            var result = controller.GetComptebancaireVintie(1).Result;
+
+            //Assert
+            Assert.IsNotNull(result, "Type compte non retourné");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<CompteBancaire>), "Result n'est pas un action result");
+            Assert.AreEqual(result.Value, compte, "Les comptes bancaire ne sont pas égaux");
+        }
+
+        [TestMethod()]
+        public void GetCompteBancaireVintieTest_UnkownId()
+        {
+            //Arrange
+
+            //Act
+            var result = controller.GetComptebancaireVintie(0).Result;
+
+            //Assert
+            Assert.AreEqual(((NotFoundResult)result.Result).StatusCode, StatusCodes.Status404NotFound, "Result ne retourne pas 404 not found");
+        }
+
+        [TestMethod()]
         public void GetVintieByPseudoTest()
         {
             //Arrange
@@ -554,15 +581,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         // TESTS MOCK
-        /*
 
-        public async Task<IActionResult> PutCompteBancaire(int id, CompteBancaire compteBancaire)
-        
-        public async Task<ActionResult<CompteBancaire>> PostCompteBancaire(CompteBancaire compteBancaire)
-        
-        public async Task<IActionResult> DeleteCompteBancaire(int id)
-        
-        */
         [TestMethod()]
         public void GetVintieById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
         {
@@ -640,6 +659,42 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             // Act
             var actionResult = mockVintieController.GetTypeCompteVintie(0).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+
+        [TestMethod()]
+        public void GetCompteBancaireVintieById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        {
+            // Arrange
+            CompteBancaire compte = new CompteBancaire()
+            {
+                CompteId = 1,
+                Iban = "FR5210096180040564321980301",
+                NomTitulaire = "Text",
+                PrenomTitulaire = "Sample"
+            };
+            mockVintieRepository.Setup(x => x.GetCompteBancaireByIdAsync(1).Result).Returns(compte);
+
+            // Act
+            var result = mockVintieController.GetComptebancaireVintie(1).Result;
+
+            // Assert
+            Assert.IsNotNull(result, "Aucun résultat.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<CompteBancaire>), "Pas un ActionResult.");
+            Assert.IsNull(result.Result, "Il y a une erreur.");
+            Assert.IsInstanceOfType(result.Value, typeof(CompteBancaire), "Pas un Type Compte");
+            Assert.AreEqual(compte, result.Value, "Types compte pas identiques.");
+        }
+
+        [TestMethod]
+        public void GetCompteBancaireVintieById_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        {
+            // Arrange
+
+            // Act
+            var actionResult = mockVintieController.GetComptebancaireVintie(0).Result;
 
             // Assert
             Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
@@ -842,11 +897,11 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");
             
             // faire méthode get compte by id
-            //var Result = mockVintieController.GetCom(1).Result;
-            /*
+            var Result = mockVintieController.GetComptebancaireVintie(1).Result;
+            
             Assert.IsNotNull(Result);
             Assert.IsNotNull(Result.Value);
-            Assert.AreEqual(vintieModifie, Result.Value as CompteBancaire);*/
+            Assert.AreEqual(compteModifie, Result.Value as CompteBancaire);
         }
 
         [TestMethod]
@@ -876,6 +931,26 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             // Act
             var actionResult = mockVintieController.DeleteVintie(1).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
+        }
+
+        [TestMethod]
+        public void DeleteCompteBancaireVintieTest_OK_AvecMoq()
+        {
+            // Arrange
+            CompteBancaire compte = new CompteBancaire()
+            {
+                CompteId = 1,
+                Iban = "FR5210096180040564321980301",
+                NomTitulaire = "Text",
+                PrenomTitulaire = "Sample"
+            };
+            mockVintieRepository.Setup(x => x.GetCompteBancaireByIdAsync(1).Result).Returns(compte);
+
+            // Act
+            var actionResult = mockVintieController.DeleteCompteBancaire(1).Result;
 
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
