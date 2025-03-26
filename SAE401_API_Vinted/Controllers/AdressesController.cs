@@ -19,7 +19,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <summary>
         /// Constructeur pour le contrôleur AdressesController.
         /// </summary>
-        /// <param name="AdressesManager">Le DataRepository utilisé pour accéder aux adresses.</param>
+        /// <param name="dataRepo">Le DataRepository utilisé pour accéder aux adresses.</param>
         public AdressesController(IAdresseRepository dataRepo)
         {
             dataRepositoryAdresse = dataRepo;
