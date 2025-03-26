@@ -49,8 +49,6 @@ builder.Services.AddScoped<IVintieRepository, VintieManager>();
 builder.Services.AddScoped<ICommandeRepository, CommandeManager>();
 builder.Services.AddScoped<IAvisRepository, AvisManager>();
 builder.Services.AddScoped<ICategorieRepository, CategorieManager>();
-builder.Services.AddScoped<IDataRepository<Image>, ImageManager>();
-builder.Services.AddScoped<IDataRepository<Adresse>, AdresseManager>();
 builder.Services.AddScoped<IPointRelaisRepository, PointRelaisManager>();
 // IJointureRepository.
 builder.Services.AddScoped<IJointureRepository<Possede>, PossedeManager>();
