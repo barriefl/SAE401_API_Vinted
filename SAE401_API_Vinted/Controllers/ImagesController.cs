@@ -66,6 +66,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            else if (imageToUpdate.Value == null)
+            {
+                return NotFound();
+            }
             else
             {
                 await dataRepositoryImage.PutAsync(imageToUpdate.Value, image);
