@@ -63,6 +63,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            else if (commande.Value == null)
+            {
+                return NotFound();
+            }
 
             return commande;
         }
@@ -95,6 +99,10 @@ namespace SAE401_API_Vinted.Controllers
             var commandeToUpdate = await dataRepositoryCommande.GetByIdAsync(id);
 
             if (commandeToUpdate == null)
+            {
+                return NotFound();
+            }
+            else if (commandeToUpdate.Value == null)
             {
                 return NotFound();
             }
