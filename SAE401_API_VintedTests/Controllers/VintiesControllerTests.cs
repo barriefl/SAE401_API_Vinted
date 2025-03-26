@@ -252,44 +252,32 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void PostVintie_ModelValidated_CreationOk()
+        public void PostCompteBancaire_ModelValidated_CreationOk()
         {
             //Arrange
-            Vintie vintieTest = new Vintie()
+            CompteBancaire compteBancaire = new CompteBancaire()
             {
-                VintieId = 4273,
-                TypeCompteId = 1,
-                Pseudo = "Sample Text",
-                Nom = "Text",
-                Prenom = "Sample",
-                Civilite = "M",
-                Mail = "SampleText@gmail.com",
-                Pwd = "PWD.secur1234",
-                Telephone = "0606060606",
-                DateNaissance = new DateTime(2000, 1, 24),
-                URLPhoto = "https://theuselessweb.com/",
-                DateInscription = DateTime.Now,
-                MontantCompte = 0,
-                DateDerniereConnexion = DateTime.Now,
-                Consentement = true,
-                Siret = null
+                CompteId = 4273,
+                Iban = "FR7630006000010123456789012",
+                NomTitulaire = "Text",
+                PrenomTitulaire = "Sample"
             };
 
             //Act
-            var result = controller.PostVintie(vintieTest).Result;
+            var result = controller.PostCompteBancaire(compteBancaire).Result;
 
             //Assert
-            Vintie vintieToGet = context.Vinties.Where(v => v.Pseudo == "Sample Text").FirstOrDefault();
+            CompteBancaire compteToGet = context.ComptesBancaires.Where(co => co.CompteId == 4273).FirstOrDefault();
 
             Assert.IsInstanceOfType(result, typeof(ActionResult<Vintie>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Result n'est pas un CreatedAtActionResult");
-            Assert.AreEqual(vintieTest, vintieToGet, "Les vinties ne sont pas identiques");
+            Assert.AreEqual(compteBancaire, compteToGet, "Les comptes ne sont pas identiques");
 
             transaction.Rollback();
         }
 
         [TestMethod()]
-        public void PostArticle_ModelValidated_CreationNonOk()
+        public void PostCompteBancaire_ModelValidated_CreationNonOk()
         {
             //Arrange
             Vintie vintieTest = new Vintie()

@@ -7,6 +7,10 @@ namespace SAE401_API_Vinted.Models.EntityFramework
     [Table("t_e_comptebancaire_cob")]
     public class CompteBancaire
     {
+        public CompteBancaire()
+        {
+        }
+
         [Key]
         [Column("cob_id")]
         public int CompteId { get; set; }
@@ -47,6 +51,22 @@ namespace SAE401_API_Vinted.Models.EntityFramework
             return HashCode.Combine(CompteId);
         }
 
+        public CompteBancaire(int compteId, string iban, string nomTitulaire, string prenomTitulaire, ICollection<CarteBancaire> cartesCompte, ICollection<Appartient> appartientCompte)
+        {
+            CompteId = compteId;
+            Iban = iban;
+            NomTitulaire = nomTitulaire;
+            PrenomTitulaire = prenomTitulaire;
+            CartesCompte = cartesCompte;
+            AppartientCompte = appartientCompte;
+        }
 
+        public CompteBancaire(int compteId, string iban, string nomTitulaire, string prenomTitulaire)
+        {
+            CompteId = compteId;
+            Iban = iban;
+            NomTitulaire = nomTitulaire;
+            PrenomTitulaire = prenomTitulaire;
+        }
     }
 }
