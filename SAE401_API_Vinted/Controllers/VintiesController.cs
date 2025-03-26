@@ -146,6 +146,24 @@ namespace SAE401_API_Vinted.Controllers
             return typeCompte;
         }
 
+        [HttpGet("{id}")]
+        [ActionName("GetCompteBancaireById")]
+        public async Task<ActionResult<CompteBancaire>> GetComptebancaireVintie(int id)
+        {
+            var compteBancaire = await dataRepositoryVintie.GetCompteBancaireByIdAsync(id);
+
+            if (compteBancaire == null)
+            {
+                return NotFound();
+            }
+            else if (compteBancaire.Value == null)
+            {
+                return NotFound();
+            }
+
+            return compteBancaire;
+        }
+
         // PUT: api/Articles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

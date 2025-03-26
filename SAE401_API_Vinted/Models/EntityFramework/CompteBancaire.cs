@@ -41,9 +41,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
                    CompteId == bancaire.CompteId &&
                    Iban == bancaire.Iban &&
                    NomTitulaire == bancaire.NomTitulaire &&
-                   PrenomTitulaire == bancaire.PrenomTitulaire &&
-                   EqualityComparer<ICollection<CarteBancaire>>.Default.Equals(CartesCompte, bancaire.CartesCompte) &&
-                   EqualityComparer<ICollection<Appartient>>.Default.Equals(AppartientCompte, bancaire.AppartientCompte);
+                   PrenomTitulaire == bancaire.PrenomTitulaire;
         }
 
         public override int GetHashCode()

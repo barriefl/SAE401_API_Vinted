@@ -18,5 +18,22 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty("VintieCodeNavigation")]
         public virtual ICollection<Vintie> VintiesType { get; set; } = new List<Vintie>();
+
+        public TypeCompte()
+        {
+        }
+
+        public TypeCompte(int typeCompteId, string libelle, ICollection<Vintie> vintiesType)
+        {
+            TypeCompteId = typeCompteId;
+            Libelle = libelle;
+            VintiesType = vintiesType;
+        }
+
+        public TypeCompte(int typeCompteId, string libelle)
+        {
+            TypeCompteId = typeCompteId;
+            Libelle = libelle;
+        }
     }
 }
