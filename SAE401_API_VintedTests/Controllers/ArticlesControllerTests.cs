@@ -161,7 +161,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void PostArticle_ModelValidated_CreationNonOk()
+        public void PostArticle_ModeNonlValidated_CreationNonOk()
         {
             //Arrange
             Article articleTest = new Article()

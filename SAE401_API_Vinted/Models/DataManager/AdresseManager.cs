@@ -18,6 +18,18 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task DeleteAsync(Adresse entity)
         {
+            foreach (var pointRelais in entity.ADesPointRelais) 
+            { 
+                vintiesDbContext.PointsRelais.Remove(pointRelais);
+            }
+            foreach (var resident in entity.AResidents) 
+            { 
+                vintiesDbContext.Reside.Remove(resident);
+            }
+            foreach (var possede in entity.PossedesAdresse) 
+            {
+                vintiesDbContext.Possede.Remove(possede);
+            }
             vintiesDbContext.Adresses.Remove(entity);
             await vintiesDbContext.SaveChangesAsync();
         }

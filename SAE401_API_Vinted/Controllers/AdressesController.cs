@@ -102,6 +102,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            else if (adresseToUpdate.Value == null)
+            {
+                return NotFound();
+            }
             else
             {
                 await dataRepositoryAdresse.PutAsync(adresseToUpdate.Value, adresse);

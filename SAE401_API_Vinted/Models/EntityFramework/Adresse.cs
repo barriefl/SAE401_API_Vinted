@@ -32,6 +32,39 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(PointRelais.AdressePointRelais))]
         public virtual ICollection<PointRelais> ADesPointRelais { get; set; } = new List<PointRelais>();
-        
+
+        public Adresse()
+        {
+        }
+
+        public Adresse(int adresseID, int villeID, string libelle, Ville villeAdresse, ICollection<Possede> possedesAdresse, ICollection<Reside> aResidents, ICollection<PointRelais> aDesPointRelais)
+        {
+            AdresseID = adresseID;
+            VilleID = villeID;
+            Libelle = libelle;
+            VilleAdresse = villeAdresse;
+            PossedesAdresse = possedesAdresse;
+            AResidents = aResidents;
+            ADesPointRelais = aDesPointRelais;
+        }
+
+        public Adresse(int adresseID, int villeID, string libelle)
+        {
+            AdresseID = adresseID;
+            VilleID = villeID;
+            Libelle = libelle;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Adresse adresse &&
+                   AdresseID == adresse.AdresseID &&
+                   VilleID == adresse.VilleID &&
+                   Libelle == adresse.Libelle &&
+                   EqualityComparer<Ville>.Default.Equals(VilleAdresse, adresse.VilleAdresse) &&
+                   EqualityComparer<ICollection<Possede>>.Default.Equals(PossedesAdresse, adresse.PossedesAdresse) &&
+                   EqualityComparer<ICollection<Reside>>.Default.Equals(AResidents, adresse.AResidents) &&
+                   EqualityComparer<ICollection<PointRelais>>.Default.Equals(ADesPointRelais, adresse.ADesPointRelais);
+        }
     }
 }

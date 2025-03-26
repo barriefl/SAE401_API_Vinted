@@ -235,7 +235,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
         
         [TestMethod()]
-        public void PostArticle_ModelValidated_CreationNonOk()
+        public void PostArticle_ModelNonValidated_CreationNonOk()
         {
             //Arrange
             Vintie vintieTest = new Vintie()
@@ -299,7 +299,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void PostCompteBancaire_ModelValidated_CreationNonOk()
+        public void PostCompteBancaire_ModelNonValidated_CreationNonOk()
         {
             //Arrange
             CompteBancaire compteBancaire = new CompteBancaire()
