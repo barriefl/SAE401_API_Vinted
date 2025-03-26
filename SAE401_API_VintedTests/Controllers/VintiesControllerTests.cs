@@ -18,11 +18,6 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 /*
 
         public async Task PutCompteBancaireAsync(CompteBancaire entityToUpdate, CompteBancaire entity)
-
-        public async Task PostCompteBancaireAsync(CompteBancaire entity)
-
-        public async Task DeleteCompteBancaireAsync(CompteBancaire entity)
-
 */
 namespace SAE401_API_Vinted.Controllers.Tests
 {
@@ -269,7 +264,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             //Assert
             CompteBancaire compteToGet = context.ComptesBancaires.Where(co => co.CompteId == 4273).FirstOrDefault();
 
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Vintie>), "Result n'est pas un action result");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<CompteBancaire>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Result n'est pas un CreatedAtActionResult");
             Assert.AreEqual(compteBancaire, compteToGet, "Les comptes ne sont pas identiques");
 
@@ -280,36 +275,24 @@ namespace SAE401_API_Vinted.Controllers.Tests
         public void PostCompteBancaire_ModelValidated_CreationNonOk()
         {
             //Arrange
-            Vintie vintieTest = new Vintie()
+            CompteBancaire compteBancaire = new CompteBancaire()
             {
-                VintieId = 4273,
-                TypeCompteId = 1,
-                Pseudo = "Sample Text",
-                Nom = "Text",
-                Prenom = "Sample",
-                Civilite = "M",
-                Mail = "SampleText@gmail.com",
-                Pwd = "PWD.secur1234",
-                Telephone = "0606060606",
-                DateNaissance = new DateTime(2000, 1, 24),
-                URLPhoto = "https://theuselessweb.com/",
-                DateInscription = DateTime.Now,
-                MontantCompte = -42,
-                DateDerniereConnexion = DateTime.Now,
-                Consentement = true,
-                Siret = null
+                CompteId = 4273,
+                Iban = "FR763",
+                NomTitulaire = "Text",
+                PrenomTitulaire = "Sample"
             };
 
             //Act
-            if (vintieTest.MontantCompte < 0)
+            if (compteBancaire.Iban.Length != 27)
             {
-                controller.ModelState.AddModelError("MontantCompte", "Le solde d'un compte ne peut pas être négatif");
+                controller.ModelState.AddModelError("Iban", "L'IBAN doit contenir 27 caractères");
             }
 
-            var result = controller.PostVintie(vintieTest).Result;
+            var result = controller.PostCompteBancaire(compteBancaire).Result;
 
             //Assert
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Vintie>), "Result n'est pas un action result");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<CompteBancaire>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(BadRequestObjectResult), "Result n'est pas un BadRequestObjectResult");
 
             transaction.Rollback();
@@ -462,6 +445,83 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
+        public void PutCompteBancaire_ValidUpdate_ReturnsNoContent()
+        {
+            //Arrange
+            CompteBancaire compteModifie = new CompteBancaire()
+            {
+                CompteId = 1,
+                Iban = "FR7630006000010123456789012",
+                NomTitulaire = "Sample Text",
+                PrenomTitulaire = "Bethany",
+                CartesCompte = context.CartesBancaires.Where(cb => cb.CompteId == 1).ToList(),
+                AppartientCompte = context.Appartient.Where(app => app.CompteId == 1).ToList()
+            };
+
+            //Act
+            var result = controller.PutCompteBancaire(1, compteModifie).Result;
+
+            //Assert
+            CompteBancaire compteToGet = context.ComptesBancaires.Where(cob => cob.CompteId == 1).FirstOrDefault();
+
+            Assert.IsInstanceOfType(result, typeof(NoContentResult), "Result n'est pas un NoContentResult");
+            Assert.AreEqual(((NoContentResult)result).StatusCode, StatusCodes.Status204NoContent, "N'est pas 204");
+            Assert.AreEqual(compteModifie, compteToGet, "Le compte n'a pas été modifié !");
+
+            transaction.Rollback();
+        }
+
+        [TestMethod()]
+        public void PutCompteBancaire_InvalidUpdate_ReturnsBadRequest()
+        {
+            //Arrange
+            CompteBancaire compteModifie = new CompteBancaire()
+            {
+                CompteId = 1,
+                Iban = "FR7630006000010123456789012",
+                NomTitulaire = "Sample Text",
+                PrenomTitulaire = "Bethany",
+                CartesCompte = context.CartesBancaires.Where(cb => cb.CompteId == 1).ToList(),
+                AppartientCompte = context.Appartient.Where(app => app.CompteId == 1).ToList()
+            };
+
+            //Act
+            var result = controller.PutCompteBancaire(2, compteModifie).Result;
+
+            //Assert
+
+            Assert.IsInstanceOfType(result, typeof(IActionResult), "N'est pas un IActionResult");
+            Assert.AreEqual(((BadRequestResult)result).StatusCode, StatusCodes.Status400BadRequest, "N'est pas 400");
+
+            transaction.Rollback();
+        }
+
+        [TestMethod()]
+        public void PutCompteBancaire_InvalidVintie_ReturnsNotFound()
+        {
+            //Arrange
+            CompteBancaire compteModifie = new CompteBancaire()
+            {
+                CompteId = 2475,
+                Iban = "FR7630006000010123456789012",
+                NomTitulaire = "Sample Text",
+                PrenomTitulaire = "Bethany",
+                CartesCompte = context.CartesBancaires.Where(cb => cb.CompteId == 1).ToList(),
+                AppartientCompte = context.Appartient.Where(app => app.CompteId == 1).ToList()
+            };
+
+            //Act
+            var result = controller.PutCompteBancaire(2475, compteModifie).Result;
+
+            //Assert
+
+            Assert.IsInstanceOfType(result, typeof(IActionResult), "N'est pas un IActionResult");
+            Assert.AreEqual(((NotFoundResult)result).StatusCode, StatusCodes.Status404NotFound, "N'est pas 404");
+
+            transaction.Rollback();
+        }
+
+        [TestMethod()]
         public void DeleteVintieTest_OK()
         {
             //Arrange
@@ -477,8 +537,32 @@ namespace SAE401_API_Vinted.Controllers.Tests
             transaction.Rollback();
         }
 
-        // TESTS MOCK
+        [TestMethod()]
+        public void DeleteCompteBancaireTest_OK()
+        {
+            //Arrange
 
+            //Act
+            var result = controller.DeleteCompteBancaire(1).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(NoContentResult));
+            var comptesupprime = context.ComptesBancaires.Find(1);
+            Assert.IsNull(comptesupprime);
+
+            transaction.Rollback();
+        }
+
+        // TESTS MOCK
+        /*
+
+        public async Task<IActionResult> PutCompteBancaire(int id, CompteBancaire compteBancaire)
+        
+        public async Task<ActionResult<CompteBancaire>> PostCompteBancaire(CompteBancaire compteBancaire)
+        
+        public async Task<IActionResult> DeleteCompteBancaire(int id)
+        
+        */
         [TestMethod()]
         public void GetVintieById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
         {
@@ -522,6 +606,40 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             // Act
             var actionResult = mockVintieController.GetVintie(0).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+
+        [TestMethod()]
+        public void GetTypeCompteVintieById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        {
+            // Arrange
+            TypeCompte typeCompte = new TypeCompte()
+            {
+                TypeCompteId = 1,
+                Libelle = "Sample Text"
+            };
+            mockVintieRepository.Setup(x => x.GetTypeCompteByIdAsync(1).Result).Returns(typeCompte);
+
+            // Act
+            var result = mockVintieController.GetTypeCompteVintie(1).Result;
+
+            // Assert
+            Assert.IsNotNull(result, "Aucun résultat.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<TypeCompte>), "Pas un ActionResult.");
+            Assert.IsNull(result.Result, "Il y a une erreur.");
+            Assert.IsInstanceOfType(result.Value, typeof(TypeCompte), "Pas un Type Compte");
+            Assert.AreEqual(typeCompte, result.Value, "Types compte pas identiques.");
+        }
+
+        [TestMethod]
+        public void GetTypeCompteVintieById_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        {
+            // Arrange
+
+            // Act
+            var actionResult = mockVintieController.GetTypeCompteVintie(0).Result;
 
             // Assert
             Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
@@ -578,7 +696,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
         
         [TestMethod]
-        public void PostArticle_ModelValidated_CreationOK_moq()
+        public void PostVintie_ModelValidated_CreationOK_moq()
         {
             // Arrange
             Vintie vintie = new Vintie()
@@ -612,6 +730,30 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(Vintie), "Pas un Vintie");
             Assert.AreEqual(vintie, createdAtRouteResult.Value, "Vinties pas identiques");
+        }
+
+        public void PostCompteBancaire_ModelValidated_CreationOK_moq()
+        {
+            // Arrange
+            CompteBancaire compte = new CompteBancaire()
+            {
+                CompteId = 1,
+                Iban = "FR5210096180040564321980301",
+                NomTitulaire = "Text",
+                PrenomTitulaire = "Sample"
+            };
+
+            // Act
+            var result = mockVintieController.PostCompteBancaire(compte).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ActionResult<CompteBancaire>), "Pas un ActionResult<Vintie>");
+            Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Pas un CreatedAtActionResult");
+
+            var createdAtRouteResult = result.Result as CreatedAtActionResult;
+
+            Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(CompteBancaire), "Pas un Compte bancaire");
+            Assert.AreEqual(compte, createdAtRouteResult.Value, "Vinties pas identiques");
         }
 
         [TestMethod()]
@@ -670,6 +812,41 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.IsNotNull(Result);
             Assert.IsNotNull(Result.Value);
             Assert.AreEqual(vintieModifie, Result.Value as Vintie);
+        }
+
+        [TestMethod()]
+        public void PutCompteBancaire_ValidUpdate_ReturnsNoContent_Moq()
+        {
+            // Arrange
+            CompteBancaire compteInitial = new CompteBancaire()
+            {
+                CompteId = 1,
+                Iban = "FR5210096180040564321980301",
+                NomTitulaire = "Text",
+                PrenomTitulaire = "Sample"
+            };
+
+            CompteBancaire compteModifie = new CompteBancaire()
+            {
+                CompteId = 1,
+                Iban = "FR5210096180040564321980301",
+                NomTitulaire = "Lorem",
+                PrenomTitulaire = "Ipsum"
+            };
+            mockVintieRepository.Setup(x => x.GetCompteBancaireByIdAsync(1).Result).Returns(compteModifie);
+
+            // Act
+            var actionResult = mockVintieController.PutCompteBancaire(1, compteModifie).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");
+            
+            // faire méthode get compte by id
+            //var Result = mockVintieController.GetCom(1).Result;
+            /*
+            Assert.IsNotNull(Result);
+            Assert.IsNotNull(Result.Value);
+            Assert.AreEqual(vintieModifie, Result.Value as CompteBancaire);*/
         }
 
         [TestMethod]

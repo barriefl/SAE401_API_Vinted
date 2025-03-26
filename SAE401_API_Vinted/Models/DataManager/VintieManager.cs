@@ -190,6 +190,8 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<CompteBancaire>> GetCompteBancaireByIdAsync(int id)
         {
             return await vintiesDbContext.ComptesBancaires
+                .Include(cob => cob.CartesCompte)
+                .Include(cob => cob.AppartientCompte)
                 .FirstOrDefaultAsync(cb => cb.CompteId == id);
         }
 
@@ -210,6 +212,14 @@ namespace SAE401_API_Vinted.Models.DataManager
         }
         public async Task DeleteCompteBancaireAsync(CompteBancaire entity)
         {
+            foreach (var cobAppartient in entity.AppartientCompte)
+            {
+                vintiesDbContext.Appartient.Remove(cobAppartient);
+            }
+            foreach (var cobCB in entity.CartesCompte)
+            {
+                vintiesDbContext.CartesBancaires.Remove(cobCB);
+            }
             vintiesDbContext.ComptesBancaires.Remove(entity);
             await vintiesDbContext.SaveChangesAsync();
         }
