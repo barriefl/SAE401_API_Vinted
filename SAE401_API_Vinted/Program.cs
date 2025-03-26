@@ -43,7 +43,7 @@ builder.Services.AddScoped<IDataRepository<Offre>, OffreManager>();
 builder.Services.AddScoped<IAvisRepository<Avis>, AvisManager>();
 builder.Services.AddScoped<ICategorieRepository, CategorieManager>();
 builder.Services.AddScoped<IDataRepository<Image>, ImageManager>();
-builder.Services.AddScoped<IDataRepository<Adresse>, AdresseManager>();
+builder.Services.AddScoped<IAdresseRepository, AdresseManager>();
 builder.Services.AddScoped<IPointRelaisRepository<PointRelais>, PointRelaisManager>();
 builder.Services.AddScoped<IJointureRepository<Possede>, PossedeManager>();
 builder.Services.AddScoped<IGetDataRepository<TypeTaille>, TypeTailleManager>();
