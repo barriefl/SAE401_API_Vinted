@@ -19,7 +19,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
     {
         private VintedDBContext context;
         private AvisController controller;
-        private IDataRepository<Avis> avisRepository;
+        private IAvisRepository<Avis> avisRepository;
 
         [TestInitialize]
         public void Initialize()
