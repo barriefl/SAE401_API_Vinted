@@ -18,5 +18,35 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(Possede.APourType))]
         public virtual ICollection<Possede> PossedesType { get; set; } = new List<Possede>();
+
+        public override bool Equals(object? obj)
+        {
+            return obj is TypeAdresse adresse &&
+                   TypeAdresseId == adresse.TypeAdresseId &&
+                   Libelle == adresse.Libelle &&
+                   EqualityComparer<ICollection<Possede>>.Default.Equals(PossedesType, adresse.PossedesType);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(TypeAdresseId);
+        }
+
+        public TypeAdresse()
+        {
+        }
+
+        public TypeAdresse(int typeAdresseId, string libelle, ICollection<Possede> possedesType)
+        {
+            TypeAdresseId = typeAdresseId;
+            Libelle = libelle;
+            PossedesType = possedesType;
+        }
+
+        public TypeAdresse(int typeAdresseId, string libelle)
+        {
+            TypeAdresseId = typeAdresseId;
+            Libelle = libelle;
+        }
     }
 }

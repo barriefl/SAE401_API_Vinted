@@ -286,5 +286,152 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             transaction.Rollback();
         }
+
+        // TESTS MOCK
+
+        [TestMethod()]
+        public void GetAdresseById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        {
+            // Arrange
+            Adresse adresse = new Adresse()
+            {
+                AdresseID = 1,
+                VilleID = 34,
+                Libelle = "45 Route de la Frasse"
+            };
+            mockAdresseRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(adresse);
+
+            // Act
+            var result = mockAdresseController.GetAdresse(1).Result;
+
+            // Assert
+            Assert.IsNotNull(result, "Aucun résultat.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Adresse>), "Pas un ActionResult.");
+            Assert.IsNull(result.Result, "Il y a une erreur.");
+            Assert.IsInstanceOfType(result.Value, typeof(Adresse), "Pas une Adresse");
+            Assert.AreEqual(adresse, result.Value, "Adresses pas identiques.");
+        }
+
+        [TestMethod]
+        public void GetAdresseById_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        {
+            // Arrange
+
+            // Act
+            var actionResult = mockAdresseController.GetAdresse(0).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+
+        [TestMethod()]
+        public void GetTypeAdresseById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        {
+            // Arrange
+            TypeAdresse typeAdresse = new TypeAdresse()
+            {
+                TypeAdresseId = 1,
+                Libelle = "Sample Text"
+            };
+
+            mockAdresseRepository.Setup(x => x.GetTypeAdresseByIdAsync(1).Result).Returns(typeAdresse);
+
+            // Act
+            var result = mockAdresseController.GetTypeAdresse(1).Result;
+
+            // Assert
+            Assert.IsNotNull(result, "Aucun résultat.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<TypeAdresse>), "Pas un ActionResult.");
+            Assert.IsNull(result.Result, "Il y a une erreur.");
+            Assert.IsInstanceOfType(result.Value, typeof(TypeAdresse), "Pas un Type Adresse");
+            Assert.AreEqual(typeAdresse, result.Value, "Type d'adresse pas identiques.");
+        }
+
+        [TestMethod]
+        public void GetTypeAdresseById_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        {
+            // Arrange
+
+            // Act
+            var actionResult = mockAdresseController.GetTypeAdresse(0).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public void PostAdresse_ModelValidated_CreationOK_moq()
+        {
+            // Arrange
+            Adresse adresse = new Adresse()
+            {
+                AdresseID = 1,
+                VilleID = 34,
+                Libelle = "45 Route de la Frasse"
+            };
+
+            // Act
+            var result = mockAdresseController.PostAdresse(adresse).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Adresse>), "Pas un ActionResult<Adresse>");
+            Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Pas un CreatedAtActionResult");
+
+            var createdAtRouteResult = result.Result as CreatedAtActionResult;
+
+            Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(Adresse), "Pas une Adresse");
+            Assert.AreEqual(adresse, createdAtRouteResult.Value, "Adresses pas identiques");
+        }
+
+        [TestMethod()]
+        public void PutAdresse_ValidUpdate_ReturnsNoContent_Moq()
+        {
+            // Arrange
+            Adresse adresseInitiale = new Adresse()
+            {
+                AdresseID = 1,
+                VilleID = 34,
+                Libelle = "45 Route de la Frasse"
+            };
+
+            Adresse adresseModifie = new Adresse()
+            {
+                AdresseID = 1,
+                VilleID = 34,
+                Libelle = "445 Route de la Frasse"
+            };
+            mockAdresseRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(adresseModifie);
+
+            // Act
+            var actionResult = mockAdresseController.PutAdresse(1, adresseModifie).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");
+
+            var Result = mockAdresseController.GetAdresse(1).Result;
+
+            Assert.IsNotNull(Result);
+            Assert.IsNotNull(Result.Value);
+            Assert.AreEqual(adresseModifie, Result.Value as Adresse);
+        }
+
+        [TestMethod]
+        public void DeleteArticleTest_OK_AvecMoq()
+        {
+            // Arrange
+            Adresse adresse = new Adresse()
+            {
+                AdresseID = 1,
+                VilleID = 34,
+                Libelle = "45 Route de la Frasse"
+            };
+            mockAdresseRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(adresse);
+
+            // Act
+            var actionResult = mockAdresseController.DeleteAdresse(1).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
+        }
     }
 }
