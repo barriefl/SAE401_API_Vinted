@@ -63,7 +63,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         public void GetArticlesTest()
         {
             //Arrange
-            var lesArticles = context.Articles.ToList();
+            var lesArticles = context.Articles.OrderBy(a => a.ArticleId).ToList();
 
             //Act
             var result = controller.GetArticles().Result;

@@ -62,6 +62,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            if (Categorie.Value == null)
+            {
+                return NotFound();
+            }
 
             return Categorie;
         }
