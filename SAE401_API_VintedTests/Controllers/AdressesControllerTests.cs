@@ -52,7 +52,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             //Assert
             Assert.IsNotNull(context, "Problème de création du context");
-            Assert.IsNotNull(controller, "Problème de création su controller");
+            Assert.IsNotNull(controller, "Problème de création du controller");
         }
 
         [TestMethod()]
