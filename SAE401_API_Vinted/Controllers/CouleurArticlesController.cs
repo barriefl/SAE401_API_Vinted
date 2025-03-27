@@ -57,7 +57,7 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="couleurArticle">L'objet CouleurArticle.</param>
         /// <returns>Une réponse HTTP 201 Created.</returns>
-        /// <response code="201">Le CouleurArticle a été créée avec succès.</response>
+        /// <response code="201">Le CouleurArticle a été créé avec succès.</response>
         /// <response code="400">Le format du CouleurArticle est incorrect.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // POST: api/CouleurArticles/Post
