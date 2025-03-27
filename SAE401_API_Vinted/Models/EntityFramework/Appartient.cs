@@ -23,5 +23,37 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [ForeignKey(nameof(VintieId))]
         [InverseProperty(nameof(Vintie.AppartienentVintie))]
         public virtual Vintie VintieIdNavigation { get; set; } = null!;
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Appartient appartient &&
+                   CompteId == appartient.CompteId &&
+                   VintieId == appartient.VintieId &&
+                   EqualityComparer<CompteBancaire>.Default.Equals(CompteIdNavigation, appartient.CompteIdNavigation) &&
+                   EqualityComparer<Vintie>.Default.Equals(VintieIdNavigation, appartient.VintieIdNavigation);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(CompteId, VintieId);
+        }
+
+        public Appartient()
+        {
+        }
+
+        public Appartient(int compteId, int vintieId, CompteBancaire compteIdNavigation, Vintie vintieIdNavigation)
+        {
+            CompteId = compteId;
+            VintieId = vintieId;
+            CompteIdNavigation = compteIdNavigation;
+            VintieIdNavigation = vintieIdNavigation;
+        }
+
+        public Appartient(int compteId, int vintieId)
+        {
+            CompteId = compteId;
+            VintieId = vintieId;
+        }
     }
 }
