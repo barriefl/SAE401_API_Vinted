@@ -23,5 +23,37 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [ForeignKey(nameof(CodeType))]
         [InverseProperty(nameof(TypeAdresse.PossedesType))]
         public virtual TypeAdresse APourType { get; set; } = null!;
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Possede possede &&
+                   AdresseId == possede.AdresseId &&
+                   CodeType == possede.CodeType &&
+                   EqualityComparer<Adresse>.Default.Equals(APourAdresse, possede.APourAdresse) &&
+                   EqualityComparer<TypeAdresse>.Default.Equals(APourType, possede.APourType);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(AdresseId, CodeType);
+        }
+
+        public Possede()
+        {
+        }
+
+        public Possede(int adresseId, int codeType, Adresse aPourAdresse, TypeAdresse aPourType)
+        {
+            AdresseId = adresseId;
+            CodeType = codeType;
+            APourAdresse = aPourAdresse;
+            APourType = aPourType;
+        }
+
+        public Possede(int adresseId, int codeType)
+        {
+            AdresseId = adresseId;
+            CodeType = codeType;
+        }
     }
 }
