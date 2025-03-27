@@ -31,8 +31,8 @@ namespace SAE401_API_Vinted.Controllers
         /// <param name="articleId">L'id de l'article.</param>
         /// <param name="vintieId">L'id du vintie.</param>
         /// <returns>Un Favoris sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">Le Favoris a été récupérée avec succès.</response>
-        /// <response code="404">Le Favoris demandée n'existe pas.</response>
+        /// <response code="200">Le Favoris a été récupéré avec succès.</response>
+        /// <response code="404">Le Favoris demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/Favoris/GetByIds/5&5
         [HttpGet("{articleId}&{vintieId}")]
