@@ -93,7 +93,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             var result = controller.PostReside(resideTest).Result;
 
             //Assert
-            Reside resideToGet = context.Reside.Where(a => a.VintieId == 1 && a.AdresseId == 1).FirstOrDefault();
+            Reside resideToGet = context.Reside.Where(r => r.VintieId == 1 && r.AdresseId == 1).FirstOrDefault();
 
             Assert.IsInstanceOfType(result, typeof(ActionResult<Reside>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Result n'est pas un CreatedAtActionResult");
@@ -142,7 +142,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             var result = controller.PostReside(resideTest).Result;
 
             //Assert
-            Reside resideToGet = context.Reside.Where(a => a.VintieId == 2077 && a.AdresseId == 2042).FirstOrDefault();
+            Reside resideToGet = context.Reside.Where(r => r.VintieId == 2077 && r.AdresseId == 2042).FirstOrDefault();
 
             Assert.IsInstanceOfType(result, typeof(ActionResult<Reside>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(BadRequestObjectResult), "Result n'est pas un BadRequestObjectResult");
@@ -151,7 +151,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void DeleteAppartientTest_OK()
+        public void DeleteResideTest_OK()
         {
             //Arrange
 
@@ -160,8 +160,8 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
-            var appartientSupprime = context.Appartient.Find(137, 1);
-            Assert.IsNull(appartientSupprime);
+            var resideSupprime = context.Reside.Find(137, 1);
+            Assert.IsNull(resideSupprime);
 
             transaction.Rollback();
         }
@@ -202,6 +202,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
         }
 
+        [TestMethod]
         public void PostReside_ModelValidated_CreationOK_moq()
         {
             // Arrange
