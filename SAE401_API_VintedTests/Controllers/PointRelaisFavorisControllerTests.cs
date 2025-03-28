@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -11,20 +13,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace SAE401_API_Vinted.Controllers.Tests
 {
     [TestClass()]
-    public class AppartientsControllerTests
+    public class PointRelaisFavorisControllerTests
     {
         private VintedDBContext context;
-        private AppartientsController controller;
-        private IJointureRepository<Appartient> appartientRepository;
+        private PointRelaisFavorisController controller;
+        private IJointureRepository<PointRelaisFavoris> ptRelaisFavRepository;
 
-        private Mock<IJointureRepository<Appartient>> mockAppartientRepository;
-        private AppartientsController mockAppartientController;
+        private Mock<IJointureRepository<PointRelaisFavoris>> mockPtRelaisFavRepository;
+        private PointRelaisFavorisController mockPtRelaisFavController;
 
         private IDbContextTransaction transaction;
 
@@ -33,17 +33,17 @@ namespace SAE401_API_Vinted.Controllers.Tests
         {
             var builder = new DbContextOptionsBuilder<VintedDBContext>().UseNpgsql();
             context = new VintedDBContext();
-            appartientRepository = new AppartientManager(context);
-            controller = new AppartientsController(appartientRepository);
+            ptRelaisFavRepository = new PointRelaisFavorisManager(context);
+            controller = new PointRelaisFavorisController(ptRelaisFavRepository);
 
-            mockAppartientRepository = new Mock<IJointureRepository<Appartient>>();
-            mockAppartientController = new AppartientsController(mockAppartientRepository.Object);
+            mockPtRelaisFavRepository = new Mock<IJointureRepository<PointRelaisFavoris>>();
+            mockPtRelaisFavController = new PointRelaisFavorisController(mockPtRelaisFavRepository.Object);
 
             transaction = context.Database.BeginTransaction();
         }
 
         [TestMethod]
-        public void AppartientsControllerTest()
+        public void PointRelaisFavorisControllerTest()
         {
             //Arrange
 
@@ -55,80 +55,80 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void GetAppartientByIdsTest_ExistingId()
+        public void GetPointRelaisFavorisByIdsTest_ExistingId()
         {
             //Arrange
-            Appartient appartient = context.Appartient.Where(a => a.CompteId == 1 && a.VintieId == 1).FirstOrDefault();
+            PointRelaisFavoris ptRelaisFav = context.PointsRelaisFavoris.Where(prf => prf.VintieId == 41 && prf.PointRelaisId == 3).FirstOrDefault();
 
             //Act
-            var result = controller.GetAppartient(1, 1).Result;
+            var result = controller.GetPointRelaisFavoris(41, 3).Result;
 
             //Assert
-            Assert.IsNotNull(result, "Appartient non retourné");
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Appartient>), "Result n'est pas un action result");
-            Assert.AreEqual(result.Value, appartient, "Les Appartients ne sont pas égales");
+            Assert.IsNotNull(result, "Point Relais Favoris non retourné");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<PointRelaisFavoris>), "Result n'est pas un action result");
+            Assert.AreEqual(result.Value, ptRelaisFav, "Les Points Relais Favoris ne sont pas égales");
         }
 
         [TestMethod()]
-        public void GetAppartientByIdsTest_UnkownId()
+        public void GetPointRelaisFavorisByIdsTest_UnkownId()
         {
             //Arrange
 
             //Act
-            var result = controller.GetAppartient(1, 3724).Result;
+            var result = controller.GetPointRelaisFavoris(2049, 2077).Result;
 
             //Assert
             Assert.AreEqual(((NotFoundResult)result.Result).StatusCode, StatusCodes.Status404NotFound, "Result ne retourne pas 404 not found");
         }
 
         [TestMethod()]
-        public void PostAppartient_ModelValidated_CreationOk()
+        public void PostPointRelaisFavoris_ModelValidated_CreationOk()
         {
             //Arrange
-            Appartient appartientTest = new Appartient()
+            PointRelaisFavoris ptRelaisFavTest = new PointRelaisFavoris()
             {
-                CompteId = 1,
-                VintieId = 2
+                VintieId = 1,
+                PointRelaisId = 1
             };
 
             //Act
-            var result = controller.PostAppartient(appartientTest).Result;
+            var result = controller.PostPointRelaisFavoris(ptRelaisFavTest).Result;
 
             //Assert
-            Appartient appartientToGet = context.Appartient.Where(a => a.VintieId == 2 && a.CompteId == 1).FirstOrDefault();
+            PointRelaisFavoris ptRelaisFavToGet = context.PointsRelaisFavoris.Where(prf => prf.VintieId == 1 && prf.PointRelaisId == 1).FirstOrDefault();
 
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Appartient>), "Result n'est pas un action result");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<PointRelaisFavoris>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Result n'est pas un CreatedAtActionResult");
-            Assert.AreEqual(appartientTest, appartientToGet, "Les appartients ne sont pas identiques");
+            Assert.AreEqual(ptRelaisFavTest, ptRelaisFavToGet, "Les Points Relais Favoris ne sont pas identiques");
 
             transaction.Rollback();
         }
 
         [TestMethod()]
-        public void PostAppartient_ModeNonlValidated_CreationNonOk()
+        public void PostPointRelaisFavoris_ModeNonlValidated_CreationNonOk()
         {
             //Arrange
-            Appartient appartientTest = new Appartient()
+            PointRelaisFavoris ptRelaisFavTest = new PointRelaisFavoris()
             {
-                CompteId = 2042,
-                VintieId = 2077
+                VintieId = 2049,
+                PointRelaisId = 2077
             };
 
             bool errorVintie = true;
-            bool errorCompte = true;
+            bool errorPtRelais = true;
             //Act
-            foreach ( Vintie vin in context.Vinties.ToList())
+            foreach (Vintie vin in context.Vinties.ToList())
             {
-                if (vin.VintieId == appartientTest.VintieId) 
-                { 
-                    errorVintie = false; 
+                if (vin.VintieId == ptRelaisFavTest.VintieId)
+                {
+                    errorVintie = false;
                 }
             }
-            foreach (CompteBancaire compte in context.ComptesBancaires.ToList())
+            foreach (PointRelais ptRelais in context.PointsRelais.ToList())
             {
-                if (compte.CompteId == appartientTest.CompteId)
+                if (ptRelais.PointRelaisID == ptRelaisFavTest.PointRelaisId)
                 {
-                    errorCompte = false;
+                    errorPtRelais = false;
                 }
             }
 
@@ -136,40 +136,40 @@ namespace SAE401_API_Vinted.Controllers.Tests
             {
                 controller.ModelState.AddModelError("VintieId", "Le Vintie demandé n'existe pas");
             }
-            if (errorCompte)
+            if (errorPtRelais)
             {
-                controller.ModelState.AddModelError("CompteId", "Le Compte demandé n'existe pas");
+                controller.ModelState.AddModelError("PtRelaisId", "Le Point Relais demandé n'existe pas");
             }
 
-            var result = controller.PostAppartient(appartientTest).Result;
+            var result = controller.PostPointRelaisFavoris(ptRelaisFavTest).Result;
 
             //Assert
-            Appartient appartientToGet = context.Appartient.Where(a => a.VintieId == 2077 && a.CompteId == 2042).FirstOrDefault();
+            PointRelaisFavoris ptRelaisFavToGet = context.PointsRelaisFavoris.Where(prf => prf.VintieId == 2049 && prf.PointRelaisId == 2077).FirstOrDefault();
 
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Appartient>), "Result n'est pas un action result");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<PointRelaisFavoris>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(BadRequestObjectResult), "Result n'est pas un BadRequestObjectResult");
 
             transaction.Rollback();
         }
 
         [TestMethod()]
-        public void DeleteAppartientTest_OK()
+        public void DeletePointRelaisFavorisTest_OK()
         {
             //Arrange
 
             //Act
-            var result = controller.DeleteAppartient(1,1).Result;
+            var result = controller.DeletePointRelaisFavoris(41, 3).Result;
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
-            var appartientSupprime = context.Appartient.Find(1, 1);
-            Assert.IsNull(appartientSupprime);
+            var ptRelaisFavSupprime = context.PointsRelaisFavoris.Find(41, 3);
+            Assert.IsNull(ptRelaisFavSupprime);
 
             transaction.Rollback();
         }
 
         // TESTS MOCK
-
+        /*
         [TestMethod()]
         public void GetAppartientByIds_ExistingIdPassed_ReturnsRightItem_AvecMoq()
         {
@@ -243,6 +243,6 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
-        }
+        }*/
     }
 }

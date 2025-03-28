@@ -19,7 +19,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <summary>
         /// Constructeur pour le contrôleur CategoriesController.
         /// </summary>
-        /// <param name="dataRepo">Le DataRepository utilisé pour accéder aux adresses.</param>
+        /// <param name="dataRepo">Le DataRepository utilisé pour accéder aux catégories.</param>
         public CategoriesController(ICategorieRepository dataRepo)
         {
             dataRepositoryCategorie = dataRepo;

@@ -28,7 +28,7 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         /// <summary>
-        /// Récupère toutes les types de taille.
+        /// Récupère tous les types de taille.
         /// </summary>
         /// <returns>Une liste de types de taille sous forme de réponse HTTP 200 OK.</returns>
         /// <response code="200">La liste des types de taille a été récupérée avec succès.</response>
@@ -37,7 +37,7 @@ namespace SAE401_API_Vinted.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<TypeTaille>>> GeTypesTaille()
+        public async Task<ActionResult<IEnumerable<TypeTaille>>> GetTypesTaille()
         {
             return await dataRepositoryTypeTaille.GetAllAsync();
         }

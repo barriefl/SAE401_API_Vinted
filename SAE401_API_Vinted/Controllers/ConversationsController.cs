@@ -76,7 +76,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <param name="id">L'id de la conversation.</param>
         /// <param name="conversation">L'objet conversation.</param>
         /// <returns>Une réponse HTTP 204 NoContent.</returns>
-        /// <response code="204">La conversation a été modifié avec succès.</response>
+        /// <response code="204">La conversation a été modifiée avec succès.</response>
         /// <response code="400">L'id donné ne correspond pas à l'id de la conversation.</response>
         /// <response code="404">La conversation n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
@@ -198,7 +198,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <param name="message">L'objet message.</param>
         /// <param name="idConversation">L'id de la conversation.</param>
         /// <returns>Une réponse HTTP 201 Created.</returns>
-        /// <response code="201">Le message a été créée avec succès.</response>
+        /// <response code="201">Le message a été créé avec succès.</response>
         /// <response code="400">Le format du message est incorrect.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // POST: api/Conversations/PostMessage
@@ -265,7 +265,7 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="id">L'id du message.</param>
         /// <returns>Une réponse HTTP 204 No Content.</returns>
-        /// <response code="204">Le message a été supprimée avec succès.</response>
+        /// <response code="204">Le message a été supprimé avec succès.</response>
         /// <response code="404">Le message n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // DELETE: api/Conversations/DeleteMessage/5
@@ -347,7 +347,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <param name="id">L'id de l'offre.</param>
         /// <param name="offre">L'objet offre.</param>
         /// <returns>Une réponse HTTP 204 NoContent.</returns>
-        /// <response code="204">L'offre a été modifié avec succès.</response>
+        /// <response code="204">L'offre a été modifiée avec succès.</response>
         /// <response code="400">L'id donné ne correspond pas à l'id de l'offre.</response>
         /// <response code="404">L'offre n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>

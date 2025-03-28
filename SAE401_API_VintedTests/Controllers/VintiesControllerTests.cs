@@ -787,6 +787,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.AreEqual(vintie, createdAtRouteResult.Value, "Vinties pas identiques");
         }
 
+        [TestMethod]
         public void PostCompteBancaire_ModelValidated_CreationOK_moq()
         {
             // Arrange
