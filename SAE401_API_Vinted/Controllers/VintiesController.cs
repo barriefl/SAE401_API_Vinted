@@ -268,7 +268,6 @@ namespace SAE401_API_Vinted.Controllers
             return compteBancaire;
         }
 
-
         /// <summary>
         /// Modifie un compte bancaire.
         /// </summary>

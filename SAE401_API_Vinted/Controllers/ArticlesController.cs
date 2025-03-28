@@ -49,8 +49,8 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="id">L'id de l'article.</param>
         /// <returns>Un article sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">L'article a été récupérée avec succès.</response>
-        /// <response code="404">L'article demandée n'existe pas.</response>
+        /// <response code="200">L'article a été récupéré avec succès.</response>
+        /// <response code="404">L'article demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/Articles/GetArticleById/5
         [HttpGet("{id}")]
@@ -79,9 +79,10 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="text">Le texte contenu dans l'article.</param>
         /// <returns>Un article sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">L'article a été récupérée avec succès.</response>
-        /// <response code="404">L'article demandée n'existe pas.</response>
+        /// <response code="200">L'article a été récupéré avec succès.</response>
+        /// <response code="404">L'article demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // PUT: api/Articles/GetArticleByTitre/Text
         [HttpGet]
         [Route("{text}")]
         [ActionName("GetArticleByTitre")]

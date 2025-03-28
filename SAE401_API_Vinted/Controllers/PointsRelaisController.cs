@@ -97,7 +97,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <response code="200">Le jour a été récupéré avec succès.</response>
         /// <response code="404">Le jour demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
-        // GET: api/Expediteurs/GetById/5
+        // GET: api/Expediteurs/GetJourById/5
         [HttpGet("{id}")]
         [ActionName("GetJourById")]
         [ProducesResponseType(StatusCodes.Status200OK)]

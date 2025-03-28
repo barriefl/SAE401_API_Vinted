@@ -29,7 +29,7 @@ namespace SAE401_API_Vinted.Controllers
         /// Récupère tous les avis.
         /// </summary>
         /// <returns>Une liste d'avis sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">La liste d'avis a été récupérée avec succès.</response>
+        /// <response code="200">La liste d'avis a été récupéré avec succès.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/Avis/GetAllAvis
         [HttpGet]
@@ -46,8 +46,8 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="id">L'id de l'avis.</param>
         /// <returns>Un avis sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">L'avis a été récupérée avec succès.</response>
-        /// <response code="404">L'avis demandée n'existe pas.</response>
+        /// <response code="200">L'avis a été récupéré avec succès.</response>
+        /// <response code="404">L'avis demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/Avis/GetAvisById/5
         [HttpGet("{id}")]
@@ -84,7 +84,6 @@ namespace SAE401_API_Vinted.Controllers
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // PUT: api/Avis/PutAvis/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-
         [HttpPut("{id}")]
         [ActionName("PutAvis")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -116,7 +115,7 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="avis">L'objet avis.</param>
         /// <returns>Une réponse HTTP 201 Created.</returns>
-        /// <response code="201">L'avis a été créée avec succès.</response>
+        /// <response code="201">L'avis a été créé avec succès.</response>
         /// <response code="400">Le format de l'avis est incorrect.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // POST: api/Avis/PostAvis
@@ -142,7 +141,7 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="id">L'id de l'avis.</param>
         /// <returns>Une réponse HTTP 204 No Content.</returns>
-        /// <response code="204">L'avis a été supprimée avec succès.</response>
+        /// <response code="204">L'avis a été supprimé avec succès.</response>
         /// <response code="404">L'avis n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // DELETE: api/Avis/DeleteAvis/5
@@ -183,8 +182,8 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="id">L'id du type d'avis.</param>
         /// <returns>Un type d'avis sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">Le type d'avis a été récupérée avec succès.</response>
-        /// <response code="404">Le type d'avis demandée n'existe pas.</response>
+        /// <response code="200">Le type d'avis a été récupéré avec succès.</response>
+        /// <response code="404">Le type d'avis demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/Adresses/GetTypeAvisById/5
         [HttpGet("{id}")]

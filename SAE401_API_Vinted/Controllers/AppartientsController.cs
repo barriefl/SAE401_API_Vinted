@@ -31,8 +31,8 @@ namespace SAE401_API_Vinted.Controllers
         /// <param name="compteId">L'id du compte bancaire.</param>
         /// <param name="vintieId">L'id du vintie.</param>
         /// <returns>Une adresse sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">L'appartient a été récupérée avec succès.</response>
-        /// <response code="404">L'appartient demandée n'existe pas.</response>
+        /// <response code="200">L'appartient a été récupéré avec succès.</response>
+        /// <response code="404">L'appartient demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/Appartients/GetByIds/5&5
         [HttpGet("{compteId}&{vintieId}")]
@@ -61,7 +61,7 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="appartient">L'objet appartient.</param>
         /// <returns>Une réponse HTTP 201 Created.</returns>
-        /// <response code="201">L'appartient a été créée avec succès.</response>
+        /// <response code="201">L'appartient a été créé avec succès.</response>
         /// <response code="400">Le format de l'appartient est incorrect.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // POST: api/Appartients/Post
@@ -87,7 +87,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <param name="compteId">L'id du compte bancaire.</param>
         /// <param name="vintieId">L'id du vintie.</param>
         /// <returns>Une réponse HTTP 204 No Content.</returns>
-        /// <response code="204">L'appartient a été supprimée avec succès.</response>
+        /// <response code="204">L'appartient a été supprimé avec succès.</response>
         /// <response code="404">L'appartient n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // DELETE: api/Appartients/Delete/5&5
