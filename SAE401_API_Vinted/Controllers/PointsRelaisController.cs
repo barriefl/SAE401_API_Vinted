@@ -84,14 +84,14 @@ namespace SAE401_API_Vinted.Controllers
         [ActionName("GetAllJours")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<Jour>>> GetJoursArticles()
+        public async Task<ActionResult<IEnumerable<Jour>>> GetJours()
         {
             return await dataRepositoryPointRelais.GetAllJoursAsync();
         }
 
         [HttpGet("{id}")]
         [ActionName("GetJourById")]
-        public async Task<ActionResult<Jour>> GetJourArticle(int id)
+        public async Task<ActionResult<Jour>> GetJour(int id)
         {
             var jour = await dataRepositoryPointRelais.GetJourByIdAsync(id);
 
