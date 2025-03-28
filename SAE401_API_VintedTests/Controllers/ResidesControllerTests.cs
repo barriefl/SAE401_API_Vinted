@@ -41,6 +41,8 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             transaction = context.Database.BeginTransaction();
         }
+
+        [TestMethod]
         public void ResidesControllerTest()
         {
             //Arrange
