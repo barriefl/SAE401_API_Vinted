@@ -20,6 +20,10 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task DeleteAsync(Conversation entity)
         {
+            foreach (var message in entity.Messages)
+            {
+                vintiesDbContext.Messages.Remove(message);
+            }
             vintiesDbContext.Conversations.Remove(entity);
             await vintiesDbContext.SaveChangesAsync();
         }

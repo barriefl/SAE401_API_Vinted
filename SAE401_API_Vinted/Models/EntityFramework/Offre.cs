@@ -18,5 +18,41 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [ForeignKey(nameof(StatusOffreId))]
         [InverseProperty(nameof(StatusOffre.StatusOffres))]
         public virtual StatusOffre EstStatusOffre { get; set; } = null!;
+
+
+        public Offre()
+        {
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Offre offre &&
+                   base.Equals(obj) &&
+                   MessageId == offre.MessageId &&
+                   ConversationId == offre.ConversationId &&
+                   ExpediteurId == offre.ExpediteurId &&
+                   Contenu == offre.Contenu &&
+                   DateEnvoi == offre.DateEnvoi &&
+                   EqualityComparer<Conversation>.Default.Equals(ConversationMessage, offre.ConversationMessage) &&
+                   StatusOffreId == offre.StatusOffreId &&
+                   Montant == offre.Montant &&
+                   EqualityComparer<StatusOffre>.Default.Equals(EstStatusOffre, offre.EstStatusOffre);
+        }
+
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(base.GetHashCode());
+            hash.Add(MessageId);
+            hash.Add(ConversationId);
+            hash.Add(ExpediteurId);
+            hash.Add(Contenu);
+            hash.Add(DateEnvoi);
+            hash.Add(ConversationMessage);
+            hash.Add(StatusOffreId);
+            hash.Add(Montant);
+            hash.Add(EstStatusOffre);
+            return hash.ToHashCode();
+        }
     }
 }

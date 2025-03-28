@@ -63,7 +63,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             var result = controller.GetImage(1).Result;
 
             //Assert
-            Assert.IsNotNull(result, "Image non retourné");
+            Assert.IsNotNull(result, "Image non retournée");
             Assert.IsInstanceOfType(result, typeof(ActionResult<Image>), "Result n'est pas un action result");
             Assert.AreEqual(result.Value, image, "Les images ne sont pas égales");
         }
@@ -158,7 +158,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void PutArticle_InvalidUpdate_ReturnsBadRequest()
+        public void PutImage_InvalidUpdate_ReturnsBadRequest()
         {
             //Arrange
             Image imageTest = new Image()

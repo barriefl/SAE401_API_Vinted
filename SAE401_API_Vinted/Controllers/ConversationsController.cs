@@ -62,6 +62,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            else if (conversation.Value == null)
+            {
+                return NotFound();
+            }
 
             return conversation;
         }
@@ -94,6 +98,10 @@ namespace SAE401_API_Vinted.Controllers
             var conversationToUpdate = await dataRepository.GetByIdAsync(id);
 
             if (conversationToUpdate == null)
+            {
+                return NotFound();
+            }
+            else if (conversationToUpdate.Value == null)
             {
                 return NotFound();
             }
@@ -168,11 +176,15 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Message>> GetMessageByIdAsync(int id)
+        public async Task<ActionResult<Message>> GetMessage(int id)
         {
             var message = await dataRepository.GetMessageByIdAsync(id);
 
             if (message == null)
+            {
+                return NotFound();
+            }
+            else if (message.Value == null)
             {
                 return NotFound();
             }
@@ -237,6 +249,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            else if (messageToUpdate.Value == null)
+            {
+                return NotFound();
+            }
             else
             {
                 await dataRepository.PutMessageAsync(messageToUpdate.Value, message);
@@ -288,6 +304,10 @@ namespace SAE401_API_Vinted.Controllers
             var offre = await dataRepository.GetOffreByIdAsync(id);
 
             if (offre == null)
+            {
+                return NotFound();
+            }
+            else if (offre.Value == null)
             {
                 return NotFound();
             }
@@ -349,6 +369,10 @@ namespace SAE401_API_Vinted.Controllers
             var offreToUpdate = await dataRepository.GetOffreByIdAsync(id);
 
             if (offreToUpdate == null)
+            {
+                return NotFound();
+            }
+            else if (offreToUpdate.Value == null)
             {
                 return NotFound();
             }
