@@ -77,7 +77,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <param name="id">L'id de l'adresse.</param>
         /// <param name="adresse">L'objet adresse.</param>
         /// <returns>Une réponse HTTP 204 NoContent.</returns>
-        /// <response code="204">L'adresse a été modifié avec succès.</response>
+        /// <response code="204">L'adresse a été modifiée avec succès.</response>
         /// <response code="400">L'id donné ne correspond pas à l'id de l'adresse.</response>
         /// <response code="404">L'adresse n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
@@ -184,8 +184,8 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="id">L'id du type d'adresse.</param>
         /// <returns>Un type d'adresse sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">Le type d'adresse a été récupérée avec succès.</response>
-        /// <response code="404">Le type d'adresse demandée n'existe pas.</response>
+        /// <response code="200">Le type d'adresse a été récupéré avec succès.</response>
+        /// <response code="404">Le type d'adresse demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         [HttpGet("{id}")]
         [ActionName("GetTypeAdresseById")]

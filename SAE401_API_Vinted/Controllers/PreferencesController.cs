@@ -57,7 +57,7 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="prefence">L'objet Preference.</param>
         /// <returns>Une réponse HTTP 201 Created.</returns>
-        /// <response code="201">La Preference a été créé avec succès.</response>
+        /// <response code="201">La Preference a été créée avec succès.</response>
         /// <response code="400">Le format de la Preference est incorrect.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // POST: api/Preferences/Post

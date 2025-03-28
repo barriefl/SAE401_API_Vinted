@@ -26,13 +26,13 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         /// <summary>
-        /// Récupère un MatiereArticle.
+        /// Récupère une MatiereArticle.
         /// </summary>
         /// <param name="matiereId">L'id de la matière.</param>
         /// <param name="articleId">L'id de l'article.</param>
-        /// <returns>Un MatiereArticle sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">Le MatiereArticle a été récupéré avec succès.</response>
-        /// <response code="404">Le MatiereArticle demandé n'existe pas.</response>
+        /// <returns>Une MatiereArticle sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La MatiereArticle a été récupérée avec succès.</response>
+        /// <response code="404">La MatiereArticle demandée n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/MatiereArticles/GetByIds/5&5
         [HttpGet("{matiereId}&{articleId}")]
@@ -53,11 +53,11 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         /// <summary>
-        /// Créer un MatiereArticle.
+        /// Créer une MatiereArticle.
         /// </summary>
-        /// <param name="favoris">L'objet MatiereArticle.</param>
+        /// <param name="matiereArticle">L'objet MatiereArticle.</param>
         /// <returns>Une réponse HTTP 201 Created.</returns>
-        /// <response code="201">Le MatiereArticle a été créé avec succès.</response>
+        /// <response code="201">La MatiereArticle a été créée avec succès.</response>
         /// <response code="400">Le format du MatiereArticle est incorrect.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // POST: api/MatiereArticles/Post
@@ -78,13 +78,13 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         /// <summary>
-        /// Supprime un MatiereArticle.
+        /// Supprime une MatiereArticle.
         /// </summary>
         /// <param name="matiereId">L'id de la matière.</param>
         /// <param name="articleId">L'id de l'article.</param>
         /// <returns>Une réponse HTTP 204 No Content.</returns>
-        /// <response code="204">Le MatiereArticle a été supprimé avec succès.</response>
-        /// <response code="404">Le MatiereArticle n'existe pas.</response>
+        /// <response code="204">La MatiereArticle a été supprimée avec succès.</response>
+        /// <response code="404">La MatiereArticle n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // DELETE: api/MatiereArticles/Delete/5&5
         [HttpDelete("{matiereId}&{articleId}")]

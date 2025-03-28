@@ -17,7 +17,7 @@ namespace SAE401_API_Vinted.Controllers
         private readonly ICommandeRepository dataRepositoryCommande;
 
         /// <summary>
-        /// Constructeur pour le contrôleur AdressesController.
+        /// Constructeur pour le contrôleur CommandesController.
         /// </summary>
         /// <param name="dataRepo">Le DataRepository utilisé pour accéder aux commandes.</param>
         public CommandesController(ICommandeRepository dataRepo)
@@ -77,7 +77,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <param name="id">L'id de la commande.</param>
         /// <param name="commande">L'objet commande.</param>
         /// <returns>Une réponse HTTP 204 NoContent.</returns>
-        /// <response code="204">La commande a été modifié avec succès.</response>
+        /// <response code="204">La commande a été modifiée avec succès.</response>
         /// <response code="400">L'id donné ne correspond pas à l'id de la commande.</response>
         /// <response code="404">La commande n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
@@ -159,8 +159,8 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="id">L'id du type d'envoi d'article.</param>
         /// <returns>Un type d'envoi d'article sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">Le type d'envoi d'article a été récupérée avec succès.</response>
-        /// <response code="404">Le type d'envoi d'article demandée n'existe pas.</response>
+        /// <response code="200">Le type d'envoi d'article a été récupéré avec succès.</response>
+        /// <response code="404">Le type d'envoi d'article demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/Commandes/GetTypeEnvoiArticleById/5
         [HttpGet("{id}")]
@@ -205,8 +205,8 @@ namespace SAE401_API_Vinted.Controllers
         /// </summary>
         /// <param name="id">L'id du format de colis.</param>
         /// <returns>Un format de colis sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">Le format de colis a été récupérée avec succès.</response>
-        /// <response code="404">Le format de colis demandée n'existe pas.</response>
+        /// <response code="200">Le format de colis a été récupéré avec succès.</response>
+        /// <response code="404">Le format de colis demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/Commandes/GetFormatColisById/5
         [HttpGet("{id}")]

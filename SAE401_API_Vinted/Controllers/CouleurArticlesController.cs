@@ -17,7 +17,7 @@ namespace SAE401_API_Vinted.Controllers
         private readonly IJointureRepository<CouleurArticle> dataRepository;
 
         /// <summary>
-        /// Constructeur pour le contrôleur AppartientsController.
+        /// Constructeur pour le contrôleur CouleurArticlesController.
         /// </summary>
         /// <param name="dataRepo">Le DataRepository utilisé pour accéder aux données de la table de jointure CouleurArticle.</param>
         public CouleurArticlesController(IJointureRepository<CouleurArticle> dataRepo)
@@ -26,13 +26,13 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         /// <summary>
-        /// Récupère un CouleurArticle.
+        /// Récupère une CouleurArticle.
         /// </summary>
         /// <param name="articleId">L'id de l'article.</param>
         /// <param name="couleurId">L'id de la couleur.</param>
-        /// <returns>Un CouleurArticle sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">Le CouleurArticle a été récupérée avec succès.</response>
-        /// <response code="404">Le CouleurArticle demandée n'existe pas.</response>
+        /// <returns>Une CouleurArticle sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La CouleurArticle a été récupérée avec succès.</response>
+        /// <response code="404">La CouleurArticle demandée n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // GET: api/CouleurArticles/GetByIds/5&5
         [HttpGet("{articleId}&{couleurId}")]
@@ -53,11 +53,11 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         /// <summary>
-        /// Créer un CouleurArticle.
+        /// Créer une CouleurArticle.
         /// </summary>
         /// <param name="couleurArticle">L'objet CouleurArticle.</param>
         /// <returns>Une réponse HTTP 201 Created.</returns>
-        /// <response code="201">Le CouleurArticle a été créé avec succès.</response>
+        /// <response code="201">La CouleurArticle a été créée avec succès.</response>
         /// <response code="400">Le format du CouleurArticle est incorrect.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // POST: api/CouleurArticles/Post
@@ -78,13 +78,13 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         /// <summary>
-        /// Supprime un CouleurArticle.
+        /// Supprime une CouleurArticle.
         /// </summary>
         /// <param name="articleId">L'id de l'article.</param>
         /// <param name="couleurId">L'id de la couleur.</param>
         /// <returns>Une réponse HTTP 204 No Content.</returns>
-        /// <response code="204">Le CouleurArticle a été supprimé avec succès.</response>
-        /// <response code="404">Le CouleurArticle n'existe pas.</response>
+        /// <response code="204">La CouleurArticle a été supprimée avec succès.</response>
+        /// <response code="404">La CouleurArticle n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // DELETE: api/CouleurArticles/Delete/5&5
         [HttpDelete("{articleId}&{couleurId}")]
