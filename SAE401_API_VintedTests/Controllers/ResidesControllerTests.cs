@@ -78,55 +78,55 @@ namespace SAE401_API_Vinted.Controllers.Tests
             //Assert
             Assert.AreEqual(((NotFoundResult)result.Result).StatusCode, StatusCodes.Status404NotFound, "Result ne retourne pas 404 not found");
         }
-        /*
+        
         [TestMethod()]
         public void PostReside_ModelValidated_CreationOk()
         {
             //Arrange
             Reside resideTest = new Reside()
             {
-                AdresseId = adresseId;
-                VintieId = vintieId;
-            }
+                AdresseId = 1,
+                VintieId = 1
+            };
 
             //Act
-            var result = controller.PostAppartient(appartientTest).Result;
+            var result = controller.PostReside(resideTest).Result;
 
             //Assert
-            Appartient appartientToGet = context.Appartient.Where(a => a.VintieId == 2 && a.CompteId == 1).FirstOrDefault();
+            Reside resideToGet = context.Reside.Where(a => a.VintieId == 1 && a.AdresseId == 1).FirstOrDefault();
 
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Appartient>), "Result n'est pas un action result");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Reside>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Result n'est pas un CreatedAtActionResult");
-            Assert.AreEqual(appartientTest, appartientToGet, "Les appartients ne sont pas identiques");
+            Assert.AreEqual(resideTest, resideToGet, "Les resides ne sont pas identiques");
 
             transaction.Rollback();
         }
 
         [TestMethod()]
-        public void PostAppartient_ModeNonlValidated_CreationNonOk()
+        public void PostReside_ModeNonlValidated_CreationNonOk()
         {
             //Arrange
-            Appartient appartientTest = new Appartient()
+            Reside resideTest = new Reside()
             {
-                CompteId = 2042,
+                AdresseId = 2042,
                 VintieId = 2077
             };
 
+            bool errorAdresse = true;
             bool errorVintie = true;
-            bool errorCompte = true;
             //Act
             foreach (Vintie vin in context.Vinties.ToList())
             {
-                if (vin.VintieId == appartientTest.VintieId)
+                if (vin.VintieId == resideTest.VintieId)
                 {
                     errorVintie = false;
                 }
             }
-            foreach (CompteBancaire compte in context.ComptesBancaires.ToList())
+            foreach (Adresse adresse in context.Adresses.ToList())
             {
-                if (compte.CompteId == appartientTest.CompteId)
+                if (adresse.AdresseID == resideTest.AdresseId)
                 {
-                    errorCompte = false;
+                    errorAdresse = false;
                 }
             }
 
@@ -134,17 +134,17 @@ namespace SAE401_API_Vinted.Controllers.Tests
             {
                 controller.ModelState.AddModelError("VintieId", "Le Vintie demandé n'existe pas");
             }
-            if (errorCompte)
+            if (errorAdresse)
             {
-                controller.ModelState.AddModelError("CompteId", "Le Compte demandé n'existe pas");
+                controller.ModelState.AddModelError("AdresseId", "L'adresse demandée n'existe pas");
             }
 
-            var result = controller.PostAppartient(appartientTest).Result;
+            var result = controller.PostReside(resideTest).Result;
 
             //Assert
-            Appartient appartientToGet = context.Appartient.Where(a => a.VintieId == 2077 && a.CompteId == 2042).FirstOrDefault();
+            Reside resideToGet = context.Reside.Where(a => a.VintieId == 2077 && a.AdresseId == 2042).FirstOrDefault();
 
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Appartient>), "Result n'est pas un action result");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Reside>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(BadRequestObjectResult), "Result n'est pas un BadRequestObjectResult");
 
             transaction.Rollback();
@@ -156,90 +156,90 @@ namespace SAE401_API_Vinted.Controllers.Tests
             //Arrange
 
             //Act
-            var result = controller.DeleteAppartient(1, 1).Result;
+            var result = controller.DeleteReside(137, 1).Result;
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
-            var appartientSupprime = context.Appartient.Find(1, 1);
+            var appartientSupprime = context.Appartient.Find(137, 1);
             Assert.IsNull(appartientSupprime);
 
             transaction.Rollback();
         }
 
         // TESTS MOCK
-
+        
         [TestMethod()]
-        public void GetAppartientByIds_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        public void GeResideByIds_ExistingIdPassed_ReturnsRightItem_AvecMoq()
         {
             // Arrange
-            Appartient appartient = new Appartient()
+            Reside reside = new Reside()
             {
-                CompteId = 1,
+                AdresseId = 1,
                 VintieId = 1
             };
-            mockAppartientRepository.Setup(x => x.GetByIdsAsync(1, 1).Result).Returns(appartient);
+            mockResideRepository.Setup(x => x.GetByIdsAsync(1, 1).Result).Returns(reside);
 
             // Act
-            var result = mockAppartientController.GetAppartient(1, 1).Result;
+            var result = mockResideController.GetReside(1, 1).Result;
 
             // Assert
             Assert.IsNotNull(result, "Aucun résultat.");
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Appartient>), "Pas un ActionResult.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Reside>), "Pas un ActionResult.");
             Assert.IsNull(result.Result, "Il y a une erreur.");
-            Assert.IsInstanceOfType(result.Value, typeof(Appartient), "Pas un Appartient");
-            Assert.AreEqual(appartient, result.Value, "Appartients pas identiques.");
+            Assert.IsInstanceOfType(result.Value, typeof(Reside), "Pas un Reside");
+            Assert.AreEqual(reside, result.Value, "Resides pas identiques.");
         }
 
         [TestMethod]
-        public void GetAppartientByIds_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        public void GetResideByIds_UnknownIdPassed_ReturnsNotFoundResult_Moq()
         {
             // Arrange
 
             // Act
-            var actionResult = mockAppartientController.GetAppartient(0, 0).Result;
+            var actionResult = mockResideController.GetReside(0, 0).Result;
 
             // Assert
             Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
         }
 
-        public void PostAppartient_ModelValidated_CreationOK_moq()
+        public void PostReside_ModelValidated_CreationOK_moq()
         {
             // Arrange
-            Appartient appartient = new Appartient()
+            Reside reside = new Reside()
             {
-                CompteId = 1,
+                AdresseId = 1,
                 VintieId = 1
             };
 
             // Act
-            var result = mockAppartientController.PostAppartient(appartient).Result;
+            var result = mockResideController.PostReside(reside).Result;
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Appartient>), "Pas un ActionResult<Appartient>");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Reside>), "Pas un ActionResult<Reside>");
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Pas un CreatedAtActionResult");
 
             var createdAtRouteResult = result.Result as CreatedAtActionResult;
 
-            Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(Appartient), "Pas un Appartient");
-            Assert.AreEqual(appartient, createdAtRouteResult.Value, "Articles pas identiques");
+            Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(Reside), "Pas un Reside");
+            Assert.AreEqual(reside, createdAtRouteResult.Value, "Resides pas identiques");
         }
 
         [TestMethod]
-        public void DeleteAppartientTest_OK_AvecMoq()
+        public void DeleteResideTest_OK_AvecMoq()
         {
             // Arrange
-            Appartient appartient = new Appartient()
+            Reside reside = new Reside()
             {
-                CompteId = 1,
+                AdresseId = 1,
                 VintieId = 1
             };
-            mockAppartientRepository.Setup(x => x.GetByIdsAsync(1, 1).Result).Returns(appartient);
+            mockResideRepository.Setup(x => x.GetByIdsAsync(1, 1).Result).Returns(reside);
 
             // Act
-            var actionResult = mockAppartientController.DeleteAppartient(1, 1).Result;
+            var actionResult = mockResideController.DeleteReside(1, 1).Result;
 
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
-        }*/
+        }
     }
 }

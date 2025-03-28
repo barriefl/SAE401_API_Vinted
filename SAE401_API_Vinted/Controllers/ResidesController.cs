@@ -48,6 +48,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            if (reside.Value == null)
+            {
+                return NotFound();
+            }
 
             return reside;
         }
@@ -67,7 +71,7 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Reside>> PostPossede(Reside reside)
+        public async Task<ActionResult<Reside>> PostReside(Reside reside)
         {
             if (!ModelState.IsValid)
             {
@@ -92,7 +96,7 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeletePossede(int adresseId, int vintieId)
+        public async Task<IActionResult> DeleteReside(int adresseId, int vintieId)
         {
             var reside = await dataRepository.GetByIdsAsync(adresseId, vintieId);
             if (reside == null)
