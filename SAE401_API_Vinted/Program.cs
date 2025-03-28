@@ -72,7 +72,14 @@ builder.Services.AddControllers()
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+    doc =>
+    {
+        // Configure Swagger to use the XML documentation file.
+        var xmlFile = Path.ChangeExtension(typeof(Program).Assembly.Location, ".xml");
+        doc.IncludeXmlComments(xmlFile);
+    }
+);
 
 builder.Services.AddCors(options =>
 {
