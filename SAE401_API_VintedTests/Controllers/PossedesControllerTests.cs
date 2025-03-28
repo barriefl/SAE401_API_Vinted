@@ -204,6 +204,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
         }
 
+        [TestMethod]
         public void PostPossede_ModelValidated_CreationOK_moq()
         {
             // Arrange
