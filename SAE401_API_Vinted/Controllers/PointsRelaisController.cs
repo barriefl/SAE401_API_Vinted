@@ -74,12 +74,12 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         /// <summary>
-        /// Récupère tous les ??? .
+        /// Récupère tous les jours de la semaine.
         /// </summary>
-        /// <returns>Une liste de points relais sous forme de réponse HTTP 200 OK.</returns>
-        /// <response code="200">La liste des points relais a été récupérée avec succès.</response>
+        /// <returns>Une liste de jours sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La liste de jours a été récupérée avec succès.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
-        // GET: api/PointsRelais/GetAllPointsRelais
+        // GET: api/PointsRelais/GetAllJours
         [HttpGet]
         [ActionName("GetAllJours")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -89,8 +89,20 @@ namespace SAE401_API_Vinted.Controllers
             return await dataRepositoryPointRelais.GetAllJoursAsync();
         }
 
+        /// <summary>
+        /// Récupère un jour de la semaine.
+        /// </summary>
+        /// <param name="id">L'id du jour.</param>
+        /// <returns>Un jour sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">Le jour a été récupéré avec succès.</response>
+        /// <response code="404">Le jour demandé n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Expediteurs/GetById/5
         [HttpGet("{id}")]
         [ActionName("GetJourById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Jour>> GetJour(int id)
         {
             var jour = await dataRepositoryPointRelais.GetJourByIdAsync(id);
