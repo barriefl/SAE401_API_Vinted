@@ -76,17 +76,18 @@ namespace SAE401_API_Vinted.Models.DataManager
             return await vintiesDbContext.Articles
                 .Include(a =>  a.ArticlesMatieres).ThenInclude(a => a.MatiereDeArticle)
                 .Include(a => a.EtatDeArticle)
-                .Include(a => a.VendeurDeArticle)
+                .Include(a => a.VendeurDeArticle).ThenInclude(a => a.ADesAvisVendeur)
                 .Include(a => a.MarqueDeArticle)
                 .Include(a => a.EtatVenteDeArticle)
                 .Include(a => a.CategorieDeArticle)
                 .Include(a => a.ImagesDeArticle)
                 .Include(a => a.SignalementsDeArticle)
-                .Include(a => a.CouleursArticle)
+                .Include(a => a.CouleursArticle).ThenInclude(a => a.CouleurConcernee)
                 .Include(a => a.CommandesArticles)
                 .Include(a => a.ConversationsArticle).ThenInclude(a => a.Messages)
                 .Include(a => a.RetourDesArticles)
                 .Include(a =>  a.TaillesArticle).ThenInclude(a => a.TailleIdNavigation)
+                .Include(a => a.FavorisArticle)
                 .FirstOrDefaultAsync(e => e.ArticleId == id);
         }
 
