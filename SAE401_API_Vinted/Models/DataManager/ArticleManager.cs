@@ -3,6 +3,7 @@ using SAE401_API_Vinted.Models.EntityFramework;
 using SAE401_API_Vinted.Models.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace SAE401_API_Vinted.Models.DataManager
@@ -217,5 +218,11 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .FirstOrDefaultAsync(c => c.EtatVenteArticleId == id);
         }
 
+        public async Task<ActionResult<IEnumerable<Article>>> GetArticlesByCategorie(int id)
+        {
+            var articles = await vintiesDbContext.Articles.Include(a => a.ImagesDeArticle)
+                        .Where(a => a.CategorieId == id).ToListAsync();
+            return articles;
+        }
     }
 }

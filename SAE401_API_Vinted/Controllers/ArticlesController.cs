@@ -66,7 +66,7 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
-            else if (article.Value == null) 
+            else if (article.Value == null)
             {
                 return NotFound();
             }
@@ -135,7 +135,7 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
-            else if(articleToUpdate.Value == null)
+            else if (articleToUpdate.Value == null)
             {
                 return NotFound();
             }
@@ -490,5 +490,27 @@ namespace SAE401_API_Vinted.Controllers
 
             return etatVente;
         }
+
+        /// <summary>
+        /// Récupère un article depuis son id Categorie.
+        /// </summary>
+        /// <param name="id">Le texte contenu dans l'article.</param>
+        /// <returns>Un article sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">L'article a été récupéré avec succès.</response>
+        /// <response code="404">L'article demandé n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // PUT: api/Articles/GetArticleByTitre/Text
+        [HttpGet]
+        [Route("{id}")]
+        [ActionName("GetArticlesByCategorie")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<Article>>> GetArticlesByCategorie(int id)
+        {
+            return await dataRepositoryArticle.GetArticlesByCategorie(id);
+        }
+
+
     }
 }

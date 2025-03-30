@@ -21,5 +21,7 @@ namespace SAE401_API_Vinted.Models.Repository
         Task<ActionResult<EtatArticle>> GetEtatArticleByIdAsync(int id);
         Task<ActionResult<IEnumerable<EtatVente>>> GetAllEtatsVentesAsync();
         Task<ActionResult<EtatVente>> GetEtatVenteByIdAsync(int id);
+        Task<ActionResult<IEnumerable<Article>>> GetArticlesByCategorie(int id);
+
     }
 }
