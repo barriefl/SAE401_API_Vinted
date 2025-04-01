@@ -472,6 +472,51 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(System.AggregateException))]
+        public void PutVintie_InvalidUpdate_ReturnsSystemAggregateException()
+        {
+            //Arrange
+            Vintie vintieTest = new Vintie()
+            {
+                VintieId = 1,
+                TypeCompteId = 0,
+                Pseudo = "lulu94",
+                Nom = "Frazier",
+                Prenom = "Bethany",
+                Civilite = "F",
+                Mail = "f.bethany8920@gmail.com",
+                Pwd = "LON85VNQ8FB",
+                Telephone = "0781438374",
+                DateNaissance = new DateTime(2001, 03, 07),
+                URLPhoto = "https://fotomelia.com/wp-content/uploads/2018/05/www-fotomelia-com-65-1560x1040.jpg",
+                DateInscription = new DateTime(2017, 10, 25),
+                MontantCompte = 202,
+                DateDerniereConnexion = new DateTime(2025, 03, 24),
+                Consentement = false,
+                Siret = null,
+                VintieCodeNavigation = context.TypesComptes.Where(tc => tc.TypeCompteId == 1).FirstOrDefault(),
+                VintiesResides = context.Reside.Where(re => re.VintieId == 1).ToList(),
+                ArticlesDuVendeur = context.Articles.Where(art => art.VendeurId == 1).ToList(),
+                AppartienentVintie = context.Appartient.Where(ap => ap.VintieId == 1).ToList(),
+                ADesAvisVendeur = context.Avis.Where(av => av.VendeurId == 1).ToList(),
+                ADesAvisAcheteur = context.Avis.Where(av => av.AcheteurId == 1).ToList(),
+                PreferencesVintie = context.Preferences.Where(pr => pr.VintieId == 1).ToList(),
+                SignalementsDeArticle = context.Signalements.Where(si => si.VintieId == 1).ToList(),
+                FavorisDeVintie = context.Favoris.Where(fav => fav.VintieId == 1).ToList(),
+                PointRelaisFavorisVintie = context.PointsRelaisFavoris.Where(prf => prf.VintieId == 1).ToList(),
+                CommandesVinties = context.Commandes.Where(com => com.VintieId == 1).ToList(),
+                ConversationsAcheteur = context.Conversations.Where(conv => conv.AcheteurId == 1).ToList(),
+                RetourDesVintie = context.Retours.Where(ret => ret.VintieId == 1).ToList()
+            };
+
+            //Act
+            var result = controller.PutVintie(1, vintieTest).Result;
+
+            //Assert
+
+        }
+
+        [TestMethod()]
         public void PutCompteBancaire_ValidUpdate_ReturnsNoContent()
         {
             //Arrange
