@@ -25,5 +25,39 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [InverseProperty(nameof(Taille.TypeTailleIdNavigation))]
         public virtual ICollection<Taille> TaillesTypeTaille { get; set; } = new List<Taille>();
 
+        public override bool Equals(object? obj)
+        {
+            return obj is TypeTaille taille &&
+                   TypeTailleId == taille.TypeTailleId &&
+                   CategorieId == taille.CategorieId &&
+                   Libelle == taille.Libelle &&
+                   EqualityComparer<Categorie>.Default.Equals(CategorieTypeTaille, taille.CategorieTypeTaille) &&
+                   EqualityComparer<ICollection<Taille>>.Default.Equals(TaillesTypeTaille, taille.TaillesTypeTaille);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(TypeTailleId);
+        }
+
+        public TypeTaille()
+        {
+        }
+
+        public TypeTaille(int typeTailleId, int categorieId, string libelle, Categorie categorieTypeTaille, ICollection<Taille> taillesTypeTaille)
+        {
+            TypeTailleId = typeTailleId;
+            CategorieId = categorieId;
+            Libelle = libelle;
+            CategorieTypeTaille = categorieTypeTaille;
+            TaillesTypeTaille = taillesTypeTaille;
+        }
+
+        public TypeTaille(int typeTailleId, int categorieId, string libelle)
+        {
+            TypeTailleId = typeTailleId;
+            CategorieId = categorieId;
+            Libelle = libelle;
+        }
     }
 }
