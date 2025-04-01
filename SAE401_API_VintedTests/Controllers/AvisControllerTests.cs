@@ -30,7 +30,6 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
         private Avis avisTestExist;
 
-        private Avis avisTestNotExist;
 
         private Avis avisTestInvalid;
 
@@ -59,16 +58,6 @@ namespace SAE401_API_Vinted.Controllers.Tests
                 APourAcheteur = context.Vinties.Where(v => v.VintieId == 1).FirstOrDefault(),
                 APourVendeur = context.Vinties.Where(v => v.VintieId == 32).FirstOrDefault(),
                 APourTypeAvis = context.TypesAvis.Where(v => v.TypeAvisID == 1).FirstOrDefault()
-            };
-
-            avisTestNotExist = new Avis()
-            {
-                AvisId = 7342,
-                AcheteurId = 34,
-                VendeurId = 5,
-                CodeTypeAvis = 1,
-                Commentaire = "Commentaire",
-                Note = 5
             };
 
             avisTestInvalid = new Avis()
@@ -190,15 +179,25 @@ namespace SAE401_API_Vinted.Controllers.Tests
         public void PostAvis_ModelValidated_CreationOk()
         {
             //Arrange
+            Avis avisTest = new Avis()
+            {
+                AvisId = 4253,
+                AcheteurId = 1,
+                VendeurId = 32,
+                CodeTypeAvis = 1,
+                Commentaire = "Excellente vente",
+                Note = 5,
+            };
 
             //Act
-            var result = controller.PostAvis(avisTestNotExist).Result;
+            var result = controller.PostAvis(avisTest).Result;
 
             //Assert
+            Avis avisToGet = context.Avis.Where(a => a.AvisId == 4253).FirstOrDefault();
 
-            Assert.IsNotNull(result, "Avis non retourné");
             Assert.IsInstanceOfType(result, typeof(ActionResult<Avis>), "Result n'est pas un action result");
-            Assert.IsInstanceOfType(result.Result, typeof(BadRequestObjectResult), "Result n'est pas un BadRequestObjectResult");
+            Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Result n'est pas un CreatedAtActionResult");
+            Assert.AreEqual(avisTest, avisToGet, "Les avis ne sont pas identiques");
 
             transaction.Rollback();
         }
@@ -238,7 +237,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             Assert.IsInstanceOfType(result, typeof(NoContentResult), "Result n'est pas un NoContentResult");
             Assert.AreEqual(((NoContentResult)result).StatusCode, StatusCodes.Status204NoContent, "N'est pas 204");
-            Assert.AreEqual(avisTestExist, avisToGet, "L'adresse n'a pas été modifié !");
+            Assert.AreEqual(avisTestExist, avisToGet, "L'avis n'a pas été modifié !");
 
             transaction.Rollback();
         }
@@ -264,7 +263,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod]
-        public void GetAdresseById_UnknownIdPassed_ReturnsNotFoundResult_WithMoq()
+        public void GetAvisById_UnknownIdPassed_ReturnsNotFoundResult_WithMoq()
         {
             // Arrange
 
@@ -292,5 +291,8 @@ namespace SAE401_API_Vinted.Controllers.Tests
             avisTestExist.AvisId = ((Avis)result.Value).AvisId;
             Assert.AreEqual(avisTestExist, (Avis)result.Value, "Utilisateurs pas identiques");
         }
+
+
+
     }
 }

@@ -704,23 +704,18 @@ namespace SAE401_API_Vinted.Controllers.Tests
         public void PostOffre_ModelValidated_CreationOk()
         {
             //Arrange
-            Message message = new Message()
-            {
-                MessageId = 4273,
-                ExpediteurId = 41,
-                Contenu = "Bonjour mon cher Monsieur !",
-                DateEnvoi = new DateTime(2025, 03, 14),
-            };
-
             Offre offreTest = new Offre()
             {
                 MessageId = 4273,
-                StatusOffreId = 1,
+                ConversationId = 2,
+                Contenu = "50.00€",
+                DateEnvoi = new DateTime(2025, 03, 14),
+                ExpediteurId = 49,
+                StatusOffreId = 2,
                 Montant = 50.00,
             };
 
             //Act
-            var resultMess = controller.PostMessage(message, 1).Result;
             var result = controller.PostOffre(offreTest, 1).Result;
 
             //Assert

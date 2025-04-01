@@ -42,5 +42,38 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [ForeignKey(nameof(AcheteurId))]
         [InverseProperty(nameof(Vintie.ADesAvisAcheteur))]
         public virtual Vintie APourAcheteur { get; set; } = null!;
+
+        public Avis()
+        {
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Avis avis &&
+                   AvisId == avis.AvisId &&
+                   AcheteurId == avis.AcheteurId &&
+                   VendeurId == avis.VendeurId &&
+                   CodeTypeAvis == avis.CodeTypeAvis &&
+                   Commentaire == avis.Commentaire &&
+                   Note == avis.Note &&
+                   EqualityComparer<TypeAvis>.Default.Equals(APourTypeAvis, avis.APourTypeAvis) &&
+                   EqualityComparer<Vintie>.Default.Equals(APourVendeur, avis.APourVendeur) &&
+                   EqualityComparer<Vintie>.Default.Equals(APourAcheteur, avis.APourAcheteur);
+        }
+
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(AvisId);
+            hash.Add(AcheteurId);
+            hash.Add(VendeurId);
+            hash.Add(CodeTypeAvis);
+            hash.Add(Commentaire);
+            hash.Add(Note);
+            hash.Add(APourTypeAvis);
+            hash.Add(APourVendeur);
+            hash.Add(APourAcheteur);
+            return hash.ToHashCode();
+        }
     }
 }

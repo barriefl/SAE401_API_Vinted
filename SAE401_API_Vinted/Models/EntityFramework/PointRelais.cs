@@ -31,5 +31,26 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [InverseProperty(nameof(PointRelaisFavoris.FavPointRelais))]
         public virtual ICollection<PointRelaisFavoris> PointsRelaisEnFavoris { get; set; } = new List<PointRelaisFavoris>();
+
+        public PointRelais()
+        {
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is PointRelais relais &&
+                   PointRelaisID == relais.PointRelaisID &&
+                   AdresseId == relais.AdresseId &&
+                   Nom == relais.Nom &&
+                   EqualityComparer<ICollection<Commande>>.Default.Equals(ADesCommandes, relais.ADesCommandes) &&
+                   EqualityComparer<Adresse>.Default.Equals(AdressePointRelais, relais.AdressePointRelais) &&
+                   EqualityComparer<ICollection<Horaire>>.Default.Equals(HorairesPointRelais, relais.HorairesPointRelais) &&
+                   EqualityComparer<ICollection<PointRelaisFavoris>>.Default.Equals(PointsRelaisEnFavoris, relais.PointsRelaisEnFavoris);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(PointRelaisID, AdresseId, Nom, ADesCommandes, AdressePointRelais, HorairesPointRelais, PointsRelaisEnFavoris);
+        }
     }
 }
