@@ -55,7 +55,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void GetMatiereArticleByIdsTest_ExistingId()
+        public void GetFavorisByIdsTest_ExistingId()
         {
             //Arrange
             Favoris favoris = context.Favoris.Where(fav => fav.ArticleId == 12 && fav.VintieId == 74).FirstOrDefault();
@@ -64,7 +64,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             var result = controller.GetFavoris(12, 74).Result;
 
             //Assert
-            Assert.IsNotNull(result, "Point Relais Favoris non retourné");
+            Assert.IsNotNull(result, "Favoris non retourné");
             Assert.IsInstanceOfType(result, typeof(ActionResult<Favoris>), "Result n'est pas un action result");
             Assert.AreEqual(result.Value, favoris, "Les Favoris ne sont pas égales");
         }

@@ -48,6 +48,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            if (tailleArticle.Value == null)
+            {
+                return NotFound();
+            }
 
             return tailleArticle;
         }
