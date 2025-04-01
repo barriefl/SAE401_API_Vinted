@@ -224,7 +224,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             var createdAtRouteResult = result.Result as CreatedAtActionResult;
 
             Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(Appartient), "Pas un Appartient");
-            Assert.AreEqual(appartient, createdAtRouteResult.Value, "Articles pas identiques");
+            Assert.AreEqual(appartient, createdAtRouteResult.Value, "Appartients pas identiques");
         }
 
         [TestMethod]

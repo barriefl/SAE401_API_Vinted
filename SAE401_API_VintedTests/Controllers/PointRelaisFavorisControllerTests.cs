@@ -169,80 +169,80 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         // TESTS MOCK
-        /*
+        
         [TestMethod()]
-        public void GetAppartientByIds_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        public void GetPointRelaisFavorisByIds_ExistingIdPassed_ReturnsRightItem_AvecMoq()
         {
             // Arrange
-            Appartient appartient = new Appartient()
+            PointRelaisFavoris ptRelaisFav = new PointRelaisFavoris()
             {
-                CompteId = 1,
-                VintieId = 1
+                VintieId = 1,
+                PointRelaisId = 1
             };
-            mockAppartientRepository.Setup(x => x.GetByIdsAsync(1, 1).Result).Returns(appartient);
+            mockPtRelaisFavRepository.Setup(x => x.GetByIdsAsync(1, 1).Result).Returns(ptRelaisFav);
 
             // Act
-            var result = mockAppartientController.GetAppartient(1, 1).Result;
+            var result = mockPtRelaisFavController.GetPointRelaisFavoris(1, 1).Result;
 
             // Assert
             Assert.IsNotNull(result, "Aucun résultat.");
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Appartient>), "Pas un ActionResult.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<PointRelaisFavoris>), "Pas un ActionResult.");
             Assert.IsNull(result.Result, "Il y a une erreur.");
-            Assert.IsInstanceOfType(result.Value, typeof(Appartient), "Pas un Appartient");
-            Assert.AreEqual(appartient, result.Value, "Appartients pas identiques.");
+            Assert.IsInstanceOfType(result.Value, typeof(PointRelaisFavoris), "Pas un Point relais favoris");
+            Assert.AreEqual(ptRelaisFav, result.Value, "Point relais favoris pas identiques.");
         }
 
         [TestMethod]
-        public void GetAppartientByIds_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        public void GetPointRelaisFavorisByIds_UnknownIdPassed_ReturnsNotFoundResult_Moq()
         {
             // Arrange
 
             // Act
-            var actionResult = mockAppartientController.GetAppartient(0, 0).Result;
+            var actionResult = mockPtRelaisFavController.GetPointRelaisFavoris(0, 0).Result;
 
             // Assert
             Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
         }
 
         [TestMethod]
-        public void PostAppartient_ModelValidated_CreationOK_moq()
+        public void PostPointRelaisFavoris_ModelValidated_CreationOK_moq()
         {
             // Arrange
-            Appartient appartient = new Appartient()
+            PointRelaisFavoris ptRelaisFav = new PointRelaisFavoris()
             {
-                CompteId = 1,
-                VintieId = 1
+                VintieId = 1,
+                PointRelaisId = 1
             };
 
             // Act
-            var result = mockAppartientController.PostAppartient(appartient).Result;
+            var result = mockPtRelaisFavController.PostPointRelaisFavoris(ptRelaisFav).Result;
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ActionResult<Appartient>), "Pas un ActionResult<Appartient>");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<PointRelaisFavoris>), "Pas un ActionResult<PointRelaisFavoris>");
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Pas un CreatedAtActionResult");
 
             var createdAtRouteResult = result.Result as CreatedAtActionResult;
 
-            Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(Appartient), "Pas un Appartient");
-            Assert.AreEqual(appartient, createdAtRouteResult.Value, "Articles pas identiques");
+            Assert.IsInstanceOfType(createdAtRouteResult.Value, typeof(PointRelaisFavoris), "Pas un Point Relais Favoris");
+            Assert.AreEqual(ptRelaisFav, createdAtRouteResult.Value, "Point Relais Favoris pas identiques");
         }
 
         [TestMethod]
         public void DeleteAppartientTest_OK_AvecMoq()
         {
             // Arrange
-            Appartient appartient = new Appartient()
+            PointRelaisFavoris ptRelaisFav = new PointRelaisFavoris()
             {
-                CompteId = 1,
-                VintieId = 1
+                VintieId = 1,
+                PointRelaisId = 1
             };
-            mockAppartientRepository.Setup(x => x.GetByIdsAsync(1, 1).Result).Returns(appartient);
+            mockPtRelaisFavRepository.Setup(x => x.GetByIdsAsync(1, 1).Result).Returns(ptRelaisFav);
 
             // Act
-            var actionResult = mockAppartientController.DeleteAppartient(1, 1).Result;
+            var actionResult = mockPtRelaisFavController.DeletePointRelaisFavoris(1, 1).Result;
 
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
-        }*/
+        }
     }
 }
