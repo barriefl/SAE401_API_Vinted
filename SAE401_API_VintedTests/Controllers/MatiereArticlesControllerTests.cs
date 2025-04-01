@@ -58,19 +58,19 @@ namespace SAE401_API_Vinted.Controllers.Tests
         public void GetMatiereArticleByIdsTest_ExistingId()
         {
             //Arrange
-            MatiereArticle matArt = context.MatieresArticles.Where(prf => prf.MatiereId == 10 && prf.ArticleId == 3).FirstOrDefault();
+            MatiereArticle matArt = context.MatieresArticles.Where(mart => mart.MatiereId == 10 && mart.ArticleId == 3).FirstOrDefault();
 
             //Act
             var result = controller.GetMatiereArticle(10, 3).Result;
 
             //Assert
-            Assert.IsNotNull(result, "Point Relais Favoris non retourné");
+            Assert.IsNotNull(result, "Matière Article non retourné");
             Assert.IsInstanceOfType(result, typeof(ActionResult<MatiereArticle>), "Result n'est pas un action result");
             Assert.AreEqual(result.Value, matArt, "Les Matières Article ne sont pas égales");
         }
 
         [TestMethod()]
-        public void GetMatiereArticleFavorisByIdsTest_UnkownId()
+        public void GetMatiereArticleByIdsTest_UnkownId()
         {
             //Arrange
 
@@ -95,7 +95,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             var result = controller.PostMatiereArticle(matArtTest).Result;
 
             //Assert
-            MatiereArticle matArtToGet = context.MatieresArticles.Where(prf => prf.MatiereId == 1 && prf.ArticleId == 1).FirstOrDefault();
+            MatiereArticle matArtToGet = context.MatieresArticles.Where(mart => mart.MatiereId == 1 && mart.ArticleId == 1).FirstOrDefault();
 
             Assert.IsInstanceOfType(result, typeof(ActionResult<MatiereArticle>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Result n'est pas un CreatedAtActionResult");
@@ -144,7 +144,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             var result = controller.PostMatiereArticle(matArtTest).Result;
 
             //Assert
-            MatiereArticle matArtToGet = context.MatieresArticles.Where(prf => prf.MatiereId == 2049 && prf.ArticleId == 2077).FirstOrDefault();
+            MatiereArticle matArtToGet = context.MatieresArticles.Where(mart => mart.MatiereId == 2049 && mart.ArticleId == 2077).FirstOrDefault();
 
             Assert.IsInstanceOfType(result, typeof(ActionResult<MatiereArticle>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(BadRequestObjectResult), "Result n'est pas un BadRequestObjectResult");
@@ -153,7 +153,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void DeletePointRelaisFavorisTest_OK()
+        public void DeleteMatiereArticleTest_OK()
         {
             //Arrange
 
@@ -228,7 +228,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod]
-        public void DeleteAppartientTest_OK_AvecMoq()
+        public void DeleteMatiereArticleTest_OK_AvecMoq()
         {
             // Arrange
             MatiereArticle matArt = new MatiereArticle()
