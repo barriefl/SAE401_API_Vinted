@@ -48,6 +48,10 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return NotFound();
             }
+            if (matiereArticle.Value == null)
+            {
+                return NotFound();
+            }
 
             return matiereArticle;
         }

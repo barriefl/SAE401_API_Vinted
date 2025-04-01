@@ -24,5 +24,37 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [ForeignKey(nameof(ArticleId))]
         [InverseProperty(nameof(Article.ArticlesMatieres))]
         public virtual Article ArticleMatiere { get; set; } = null!;
+
+        public override bool Equals(object? obj)
+        {
+            return obj is MatiereArticle article &&
+                   MatiereId == article.MatiereId &&
+                   ArticleId == article.ArticleId &&
+                   EqualityComparer<Matiere>.Default.Equals(MatiereDeArticle, article.MatiereDeArticle) &&
+                   EqualityComparer<Article>.Default.Equals(ArticleMatiere, article.ArticleMatiere);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(MatiereId, ArticleId);
+        }
+
+        public MatiereArticle()
+        {
+        }
+
+        public MatiereArticle(int matiereId, int articleId, Matiere matiereDeArticle, Article articleMatiere)
+        {
+            MatiereId = matiereId;
+            ArticleId = articleId;
+            MatiereDeArticle = matiereDeArticle;
+            ArticleMatiere = articleMatiere;
+        }
+
+        public MatiereArticle(int matiereId, int articleId)
+        {
+            MatiereId = matiereId;
+            ArticleId = articleId;
+        }
     }
 }
