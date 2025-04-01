@@ -65,7 +65,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             //Assert
             Assert.IsNotNull(result, "Aucun Type Taille retourné");
             Assert.IsInstanceOfType(result, typeof(ActionResult<IEnumerable<TypeTaille>>), "Result n'est pas un action result");
-            CollectionAssert.AreEqual(result.Value.ToList(), lesTypesTaille, "Les listes d'articles ne sont pas égales");
+            CollectionAssert.AreEqual(result.Value.ToList(), lesTypesTaille, "Les listes de types tailles ne sont pas égales");
         }
         
         [TestMethod()]
