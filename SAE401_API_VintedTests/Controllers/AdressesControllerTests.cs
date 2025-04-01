@@ -44,7 +44,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
         }
 
         [TestMethod()]
-        public void AdresseManagerTest()
+        public void AdresseControllerTest()
         {
             //Arrange
 
