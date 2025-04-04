@@ -74,10 +74,18 @@ namespace SAE401_API_Vinted.Models.DataManager
        
         public async Task<ActionResult<Article>> GetByIdAsync(int id)
         {
+            // 
             return await vintiesDbContext.Articles
-                .Include(a =>  a.ArticlesMatieres).ThenInclude(a => a.MatiereDeArticle)
+                .Include(a => a.ArticlesMatieres).ThenInclude(a => a.MatiereDeArticle)
                 .Include(a => a.EtatDeArticle)
-                .Include(a => a.VendeurDeArticle).ThenInclude(a => a.ADesAvisVendeur)
+                .Include(a => a.VendeurDeArticle)
+                    .ThenInclude(a => a.VintiesResides)
+                        .ThenInclude(a => a.ResideA)
+                            .ThenInclude(a => a.VilleAdresse)
+                                .ThenInclude(a => a.PaysVille)
+                // Exemple pour si on veut un autre .ThenInclude de même niveau.
+                //.Include(a => a.VendeurDeArticle)
+                //    .ThenInclude(a => a.ADesAvisVendeur) 
                 .Include(a => a.MarqueDeArticle)
                 .Include(a => a.EtatVenteDeArticle)
                 .Include(a => a.CategorieDeArticle)
