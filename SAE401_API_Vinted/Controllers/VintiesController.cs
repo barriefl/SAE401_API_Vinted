@@ -4,9 +4,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SAE401_API_Vinted.Models;
 using SAE401_API_Vinted.Models.EntityFramework;
 using SAE401_API_Vinted.Models.Repository;
 
@@ -104,9 +106,12 @@ namespace SAE401_API_Vinted.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Vintie>> GetVintieData(string pseudo)
+        [Authorize(Policy = Policies.User)]
+        public async Task<ActionResult<Vintie>> GetVintieData()
         {
             var vintiepseudo = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Console.WriteLine(vintiepseudo);
+            Console.WriteLine("---------------");
             return Ok(await GetVintiesByPseudo(vintiepseudo));
         }
 

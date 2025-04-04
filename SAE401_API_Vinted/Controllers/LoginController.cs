@@ -10,14 +10,15 @@ using SAE401_API_Vinted.Models.EntityFramework;
 
 namespace SAE401_API_Vinted.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
 
     public class VintieDTO
     {
         public string Pseudo { get; set; }
         public string Pwd { get; set; }
     }
+    [Route("api/[controller]")]
+    [ApiController]
+
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _config;
