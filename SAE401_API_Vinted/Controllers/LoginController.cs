@@ -6,31 +6,36 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using SAE401_API_Vinted.Models.EntityFramework;
 
 namespace SAE401_API_Vinted.Controllers
 {
+
+    public class VintieDTO
+    {
+        public string Pseudo { get; set; }
+        public string Pwd { get; set; }
+    }
     [Route("api/[controller]")]
     [ApiController]
+
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private List<User> appUsers = new List<User>
-        {
-            new User { FullName = "Anthony MARQUES FELIX", UserName = "marquean", Password = "1234", UserRole = "Admin" },
-            new User { FullName = "Marc MACHIN", UserName = "marc", Password = "1234", UserRole = "User" }
-        };
+        private readonly VintedDBContext _context;
 
-        public LoginController(IConfiguration config)
+        public LoginController(IConfiguration config, VintedDBContext dBContext)
         {
             _config = config;
+            _context = dBContext;
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] User login)
+        public IActionResult Login([FromBody] VintieDTO login)
         {
             IActionResult response = Unauthorized();
-            User user = AuthenticateUser(login);
+            Vintie user = AuthenticateUser(login);
             if (user != null)
             {
                 var tokenString = GenerateJwtToken(user);
@@ -42,22 +47,21 @@ namespace SAE401_API_Vinted.Controllers
             }
             return response;
         }
-        private User AuthenticateUser(User user)
+        private Vintie AuthenticateUser(VintieDTO vintie)
         {
-           return appUsers.SingleOrDefault(x => x.UserName.ToUpper() == user.UserName.ToUpper() &&
-           x.Password == user.Password);
+           return _context.Vinties.SingleOrDefault(x => x.Pseudo.ToUpper() == vintie.Pseudo.ToUpper() &&
+           x.Pwd == vintie.Pwd);
         }
 
-        private string GenerateJwtToken(User userInfo)
+        private string GenerateJwtToken(Vintie userInfo)
         {
             var securityKey = new
            SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.UserName),
-                 new Claim("fullName", userInfo.FullName.ToString()),
-                 new Claim("role",userInfo.UserRole),
+                 new Claim(ClaimTypes.NameIdentifier, userInfo.Pseudo),
+                 new Claim("role","User"),
                  new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

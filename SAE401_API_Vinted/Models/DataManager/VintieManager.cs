@@ -107,7 +107,7 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .FirstOrDefaultAsync(u => u.VintieId == id);
         }
 
-        public async Task<ActionResult<IEnumerable<Vintie>>> GetByPseudoAsync(string text)
+        public async Task<ActionResult<Vintie>> GetByPseudoAsync(string text)
         {
             var vinties = await vintiesDbContext.Vinties
             .Where(a => a.Pseudo.ToUpper().Contains(text.ToUpper()))
@@ -129,7 +129,7 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .Include(a => a.CommandesVinties)
                 .Include(a => a.ConversationsAcheteur)
                 .Include(a => a.RetourDesVintie)
-            .ToListAsync();
+            .FirstOrDefaultAsync();
 
             return vinties;
         }

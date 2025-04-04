@@ -5,7 +5,7 @@ namespace SAE401_API_Vinted.Models.Repository
 {
     public interface IVintieRepository: IDataRepository<Vintie>
     {
-        Task<ActionResult<IEnumerable<Vintie>>> GetByPseudoAsync(string text);
+        Task<ActionResult<Vintie>> GetByPseudoAsync(string text);
         Task<ActionResult<IEnumerable<TypeCompte>>> GetAllTypesCompteAsync();
         Task<ActionResult<TypeCompte>> GetTypeCompteByIdAsync(int id);
         Task<ActionResult<CompteBancaire>> GetCompteBancaireByIdAsync(int id);
