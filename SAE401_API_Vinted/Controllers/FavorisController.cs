@@ -10,6 +10,11 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
+    public class FavorisDTO
+    {
+        public int ArticleId { get; set; }
+        public int VintieId { get; set; }
+    }
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class FavorisController : ControllerBase
@@ -71,13 +76,22 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Favoris>> PostFavoris(Favoris favoris)
+        public async Task<ActionResult<Favoris>> PostFavoris(FavorisDTO favorisDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            // Convertir le DTO en entité Favoris
+            var favoris = new Favoris
+            {
+                ArticleId = favorisDto.ArticleId,
+                VintieId = favorisDto.VintieId
+            };
+
             await dataRepository.PostAsync(favoris);
+
             return CreatedAtAction("GetByIds", new { articleId = favoris.ArticleId, vintieId = favoris.VintieId }, favoris);
         }
 
