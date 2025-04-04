@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -85,21 +87,29 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<Vintie>>> GetVintiesByPseudo(string pseudo)
+        public async Task<ActionResult<Vintie>> GetVintiesByPseudo(string pseudo)
         {
-            var vinties = await dataRepositoryVintie.GetByPseudoAsync(pseudo);
+            var vintie = await dataRepositoryVintie.GetByPseudoAsync(pseudo);
 
-            if (vinties == null)
+            if (vintie == null)
             {
                 return NotFound();
             }
-            if (vinties.Value.Count() == 0)
+            if (vintie.Value == null)
             {
                 return NotFound();
             }
 
-            return vinties;
+            return vintie;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<Vintie>> GetVintieData(string pseudo)
+        {
+            var vintiepseudo = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return Ok(await GetVintiesByPseudo(vintiepseudo));
+        }
+
 
         /// <summary>
         /// Modifie un vintie.
