@@ -97,7 +97,7 @@ namespace SAE401_API_Vinted.Models.DataManager
             var articles = await vintiesDbContext.Articles
             .Where(a =>
             a.Titre.ToUpper().Contains(text.ToUpper()) ||
-            a.Description.ToUpper().Contains(text.ToUpper()))
+            a.Description.ToUpper().Contains(text.ToUpper())).Include(a => a.ImagesDeArticle)
             .ToListAsync();
 
             return articles;
