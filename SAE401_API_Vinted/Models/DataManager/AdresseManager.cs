@@ -80,5 +80,28 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .Include(c => c.PossedesType).ThenInclude(c => c.APourAdresse)
                 .FirstOrDefaultAsync(c => c.TypeAdresseId == id);
         }
+
+        public async Task<ActionResult<IEnumerable<Pays>>> GetAllPaysAsync()
+        {
+            return await vintiesDbContext.Pays.ToListAsync();
+        }
+        public async Task<ActionResult<Pays>> GetPaysByIdAsync(int id)
+        {
+            return await vintiesDbContext.Pays
+                .Include(c => c.VillesPays)
+                .FirstOrDefaultAsync(c => c.PaysId == id);
+        }
+
+        public async Task<ActionResult<IEnumerable<Ville>>> GetAllVillesAsync()
+        {
+            return await vintiesDbContext.Villes.ToListAsync();
+        }
+        public async Task<ActionResult<Ville>> GetVilleByIdAsync(int id)
+        {
+            return await vintiesDbContext.Villes
+                .Include(c => c.PaysVille)
+                .Include(c => c.AdressesVilles)
+                .FirstOrDefaultAsync(c => c.VilleId == id);
+        }
     }
 }

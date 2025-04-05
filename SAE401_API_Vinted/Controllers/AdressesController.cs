@@ -187,6 +187,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <response code="200">Le type d'adresse a été récupéré avec succès.</response>
         /// <response code="404">Le type d'adresse demandé n'existe pas.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Adresses/GetTypeAdresseById/5
         [HttpGet("{id}")]
         [ActionName("GetTypeAdresseById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -206,6 +207,98 @@ namespace SAE401_API_Vinted.Controllers
             }
 
             return typeAdresse;
+        }
+
+        /// <summary>
+        /// Récupère tous les pays.
+        /// </summary>
+        /// <returns>Une liste de pays sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La liste des pays a été récupérée avec succès.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Adresses/GetAllPays
+        [HttpGet]
+        [ActionName("GetAllPays")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<Pays>>> GetPays()
+        {
+            return await dataRepositoryAdresse.GetAllPaysAsync();
+        }
+
+        /// <summary>
+        /// Récupère un pays.
+        /// </summary>
+        /// <param name="id">L'id du pays.</param>
+        /// <returns>Une pays sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">Le pays a été récupéré avec succès.</response>
+        /// <response code="404">Le pays demandé n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Adresses/GetPaysById/5
+        [HttpGet("{id}")]
+        [ActionName("GetPaysById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Pays>> GetPays(int id)
+        {
+            var pays = await dataRepositoryAdresse.GetPaysByIdAsync(id);
+
+            if (pays == null)
+            {
+                return NotFound();
+            }
+            else if (pays.Value == null)
+            {
+                return NotFound();
+            }
+
+            return pays;
+        }
+
+        /// <summary>
+        /// Récupère toutes les villes.
+        /// </summary>
+        /// <returns>Une liste de villes sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La liste des villes a été récupérée avec succès.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Adresses/GetAllVilles
+        [HttpGet]
+        [ActionName("GetAllVilles")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<Ville>>> GetVilles()
+        {
+            return await dataRepositoryAdresse.GetAllVillesAsync();
+        }
+
+        /// <summary>
+        /// Récupère une ville.
+        /// </summary>
+        /// <param name="id">L'id de la ville.</param>
+        /// <returns>Une ville sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La ville a été récupérée avec succès.</response>
+        /// <response code="404">La ville demandée n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Adresses/GetVilleById/5
+        [HttpGet("{id}")]
+        [ActionName("GetVilleById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Ville>> GetVille(int id)
+        {
+            var ville = await dataRepositoryAdresse.GetVilleByIdAsync(id);
+
+            if (ville == null)
+            {
+                return NotFound();
+            }
+            else if (ville.Value == null)
+            {
+                return NotFound();
+            }
+
+            return ville;
         }
     }
 }
