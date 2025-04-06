@@ -100,5 +100,59 @@ namespace SAE401_API_Vinted.Controllers
 
             return sousCategories;
         }
+
+        /// <summary>
+        /// Récupère une catégorie par son idParent.
+        /// </summary>
+        /// <param name="idParent">L'id parent de la catégorie.</param>
+        /// <returns>Une catégorie sous forme de réponse HTTP 200 OK.</returns>
+        /// <response code="200">La catégorie a été récupérée avec succès.</response>
+        /// <response code="404">La catégorie demandée n'existe pas.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // GET: api/Adresses/GetByIdParent/5
+        [HttpGet]
+        [ActionName("GetCategorieNoSousCat")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<Categorie>>> GetCategorieNoSousCat()
+        {
+            var sousCategories = await dataRepositoryCategorie.GetCategoriesSansSousCategories();
+
+            if (sousCategories == null)
+            {
+                return NotFound();
+            }
+            else if (sousCategories.Value.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return sousCategories;
+        }
+
+
+        [HttpGet]
+        [Route("{catId}")]
+        [ActionName("GetTaillesByCategorie")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<Taille>>> GetTaillesByCategorie(int catId)
+        {
+            var tailles = await dataRepositoryCategorie.GetTaillesByCategorie(catId);
+
+            if (tailles == null)
+            {
+                return NotFound();
+            }
+            else if (tailles.Value.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return tailles;
+        }
+
     }
 }

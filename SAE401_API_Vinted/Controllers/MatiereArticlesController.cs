@@ -10,6 +10,11 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
+    public class MatiereArticleDTO
+    {
+        public int ArticleId { get; set; }
+        public int MatiereID { get; set; }
+    }
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class MatiereArticlesController : ControllerBase
@@ -71,14 +76,21 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<MatiereArticle>> PostMatiereArticle(MatiereArticle matiereArticle)
+        public async Task<ActionResult<MatiereArticle>> PostMatiereArticle(MatiereArticleDTO matiereArticle)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            await dataRepository.PostAsync(matiereArticle);
-            return CreatedAtAction("GetByIds", new { matiereId = matiereArticle.MatiereId, articleId = matiereArticle.ArticleId }, matiereArticle);
+
+            // Convertir le DTO en entité Favoris
+            var matiere = new MatiereArticle
+            {
+                ArticleId = matiereArticle.ArticleId,
+                MatiereId = matiereArticle.MatiereID
+            };
+            await dataRepository.PostAsync(matiere);
+            return CreatedAtAction("GetByIds", new { matiereId = matiere.MatiereId, articleId = matiere.ArticleId }, matiere);
         }
 
         /// <summary>

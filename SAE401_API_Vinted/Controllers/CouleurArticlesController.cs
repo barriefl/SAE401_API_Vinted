@@ -10,6 +10,11 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
+    public class CouleurArticleDTO
+    {
+        public int ArticleId { get; set; }
+        public int CouleurID { get; set; }
+    }
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class CouleurArticlesController : ControllerBase
@@ -67,14 +72,21 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<CouleurArticle>> PostCouleurArticle(CouleurArticle couleurArticle)
+        public async Task<ActionResult<CouleurArticle>> PostCouleurArticle(CouleurArticleDTO couleurArticle)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            await dataRepository.PostAsync(couleurArticle);
-            return CreatedAtAction("GetByIds", new { articleId = couleurArticle.ArticleId, couleurId = couleurArticle.CouleurId }, couleurArticle);
+
+            // Convertir le DTO en entité Favoris
+            var couleur = new CouleurArticle
+            {
+                ArticleId = couleurArticle.ArticleId,
+                CouleurId = couleurArticle.CouleurID
+            };
+            await dataRepository.PostAsync(couleur);
+            return CreatedAtAction("GetByIds", new { articleId = couleur.ArticleId, couleurId = couleur.CouleurId }, couleur);
         }
 
         /// <summary>

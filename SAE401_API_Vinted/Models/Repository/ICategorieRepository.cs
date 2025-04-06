@@ -7,5 +7,9 @@ namespace SAE401_API_Vinted.Models.Repository
     {
         Task<ActionResult<IEnumerable<Categorie>>> GetSousCategories(int idParent);
 
+        Task<ActionResult<IEnumerable<Categorie>>> GetCategoriesSansSousCategories();
+
+        Task<ActionResult<IEnumerable<Taille>>> GetTaillesByCategorie(int catId);
+
     }
 }

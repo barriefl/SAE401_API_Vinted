@@ -40,5 +40,29 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .Where(a => a.IdParent == idParent).ToListAsync();
             return categories;
         }
+
+        public async Task<ActionResult<IEnumerable<Categorie>>> GetCategoriesSansSousCategories()
+        {
+            var categories = await vintiesDbContext.Categories
+                .Where(c => !vintiesDbContext.Categories
+                    .Any(subCat => subCat.IdParent == c.CategorieId))
+                .OrderBy(c => c.Libelle)
+                .ToListAsync();
+
+            return categories;
+        }
+
+        public async Task<ActionResult<IEnumerable<Taille>>> GetTaillesByCategorie(int catId)
+        {
+            var tailles = await vintiesDbContext.Tailles
+                .Where(t => vintiesDbContext.TypeTailles
+                    .Where(tt => tt.CategorieId == catId)
+                    .Select(tt => tt.TypeTailleId)
+                    .Contains(t.TypeTailleId))
+                .ToListAsync();
+
+            return tailles;
+        }
+
     }
 }

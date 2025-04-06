@@ -44,7 +44,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
 
         [Required]
         [Column("art_prixht")]
-        public int PrixHT { get; set; }
+        public decimal PrixHT { get; set; }
 
         [Required]
         [Column("art_dateajout", TypeName = "date")]

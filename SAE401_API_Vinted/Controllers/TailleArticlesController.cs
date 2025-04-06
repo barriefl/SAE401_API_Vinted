@@ -10,6 +10,11 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
+    public class TailleArticleDTO
+    {
+        public int ArticleId { get; set; }
+        public int TailleID { get; set; }
+    }
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class TailleArticlesController : ControllerBase
@@ -71,14 +76,21 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<TailleArticle>> PostTailleArticle(TailleArticle tailleArticle)
+        public async Task<ActionResult<TailleArticle>> PostTailleArticle(TailleArticleDTO tailleArticle)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            await dataRepository.PostAsync(tailleArticle);
-            return CreatedAtAction("GetByIds", new { articleId = tailleArticle.ArticleId, tailleId = tailleArticle.TailleId }, tailleArticle);
+
+            // Convertir le DTO en entité Favoris
+            var taille = new TailleArticle
+            {
+                ArticleId = tailleArticle.ArticleId,
+                TailleId = tailleArticle.TailleID
+            };
+            await dataRepository.PostAsync(taille);
+            return CreatedAtAction("GetByIds", new { articleId = taille.ArticleId, tailleId = taille.TailleId }, taille);
         }
 
         /// <summary>

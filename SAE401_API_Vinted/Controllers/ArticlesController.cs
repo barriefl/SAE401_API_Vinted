@@ -13,6 +13,21 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace SAE401_API_Vinted.Controllers
 {
+    public class ArticleCreationDto
+    {
+        public string Titre { get; set; }
+        public string Description { get; set; }
+        public decimal PrixHT { get; set; }
+        public int VendeurId { get; set; }  // Assurez-vous d'ajouter cet ID côté frontend
+        public int EtatVenteArticleId { get; set; }
+        public int EtatArticleId { get; set; }
+        public int MarqueId { get; set; }
+        public int CategorieId { get; set; }
+        public List<int> Couleurs { get; set; }  // Liste des IDs des couleurs
+        public List<int> Tailles { get; set; }   // Liste des IDs des tailles
+        public List<int> Matieres { get; set; }  // Liste des IDs des matières
+    }
+
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class ArticlesController : ControllerBase
@@ -161,15 +176,66 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Article>> PostArticle(Article article)
+        [HttpPost]
+        public async Task<IActionResult> PostArticle(ArticleCreationDto dto)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            var article = new Article
+            {
+                Titre = dto.Titre,
+                Description = dto.Description,
+                PrixHT = dto.PrixHT,
+                DateAjout = DateTime.Now, // Ou la date que tu préfères
+                CompteurLike = 0, // Compteur initialisé à 0, ou une autre valeur par défaut
+                CategorieId = dto.CategorieId,
+                VendeurId = dto.VendeurId,  // Assuré que le vendeur est présent
+                EtatVenteArticleId = dto.EtatVenteArticleId,
+                EtatArticleId = dto.EtatArticleId,
+                MarqueId = dto.MarqueId,
+                TaillesArticle = new List<TailleArticle>(), // Initialisation pour les tailles
+                CouleursArticle = new List<CouleurArticle>(), // Initialisation pour les couleurs
+                ArticlesMatieres = new List<MatiereArticle>() // Initialisation pour les couleurs
+            };
             await dataRepositoryArticle.PostAsync(article);
-            return CreatedAtAction("GetArticleById", new { id = article.ArticleId }, article); // GetById : nom de l’action
+
+
+            // Ajout des couleurs à la table de jointure CouleurArticle
+            foreach (var couleurId in dto.Couleurs)
+            {
+                article.CouleursArticle.Add(new CouleurArticle
+                {
+                    CouleurId = couleurId,
+                    ArticleId = article.ArticleId
+                });
+            }
+
+            // Ajouter les tailles à la table de jointure TailleArticle
+            foreach (var tailleId in dto.Tailles)
+            {
+                article.TaillesArticle.Add(new TailleArticle
+                {
+                    TailleId = tailleId,
+                    ArticleId = article.ArticleId
+                });
+            }
+
+            // Ajouter les matières à la table de jointure MatiereArticle
+            foreach (var matiereId in dto.Matieres)
+            {
+                article.ArticlesMatieres.Add(new MatiereArticle
+                {
+                    MatiereId = matiereId,
+                    ArticleId = article.ArticleId
+                });
+            }
+
+            // Ajouter l'article à la base de données
+
+            return CreatedAtAction("GetArticleById", new { id = article.ArticleId }, article);
         }
+
 
         /// <summary>
         /// Supprime un article.
