@@ -433,5 +433,177 @@ namespace SAE401_API_Vinted.Controllers.Tests
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
         }
+
+        //
+        // TESTS DES GET DE PAYS
+        //
+
+        // TESTS UNITAIRES
+
+        [TestMethod()]
+        public void GetPaysTest()
+        {
+            //Arrange
+            var lesPays = context.Pays.ToList();
+
+            //Act
+            var result = controller.GetPays().Result;
+
+            //Assert
+            Assert.IsNotNull(result, "Aucun pays retournés");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<IEnumerable<Pays>>), "Result n'est pas un action result");
+            CollectionAssert.AreEqual(result.Value.ToList(), lesPays, "Les listes des pays ne sont pas égales");
+        }
+
+        [TestMethod()]
+        public void GetPaysByIdTest_ExistingId()
+        {
+            //Arrange
+            Pays pays = context.Pays.Where(a => a.PaysId == 1).FirstOrDefault();
+
+            //Act
+            var result = controller.GetPays(1).Result;
+
+            //Assert
+            Assert.IsNotNull(result, "Pays non retournée");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Pays>), "Result n'est pas un action result");
+            Assert.AreEqual(result.Value, pays, "Les pays ne sont pas égaux");
+        }
+
+        [TestMethod()]
+        public void GetPaysByIdTest_UnkownId()
+        {
+            //Arrange
+
+            //Act
+            var result = controller.GetPays(4273).Result;
+
+            //Assert
+            Assert.AreEqual(((NotFoundResult)result.Result).StatusCode, StatusCodes.Status404NotFound, "Result ne retourne pas 404 not found");
+        }
+
+        // TESTS MOCKS
+
+        [TestMethod()]
+        public void GetPaysById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        {
+            // Arrange
+            Pays pays = new Pays()
+            {
+                PaysId = 1,
+                Libelle = "France"
+            };
+            mockAdresseRepository.Setup(x => x.GetPaysByIdAsync(1).Result).Returns(pays);
+
+            // Act
+            var result = mockAdresseController.GetPays(1).Result;
+
+            // Assert
+            Assert.IsNotNull(result, "Aucun résultat.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Pays>), "Pas un ActionResult.");
+            Assert.IsNull(result.Result, "Il y a un erreur.");
+            Assert.IsInstanceOfType(result.Value, typeof(Pays), "Pas un Pays");
+            Assert.AreEqual(pays, result.Value, "Pays pas identiques.");
+        }
+
+        [TestMethod]
+        public void GetPaysById_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        {
+            // Arrange
+
+            // Act
+            var actionResult = mockAdresseController.GetPays(0).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+
+        //
+        // TESTS DES GET DE VILLE
+        //
+
+        // TESTS UNITAIRES
+
+        [TestMethod()]
+        public void GetVillesTest()
+        {
+            //Arrange
+            var lesVilles = context.Villes.ToList();
+
+            //Act
+            var result = controller.GetVilles().Result;
+
+            //Assert
+            Assert.IsNotNull(result, "Aucune villes retournées");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<IEnumerable<Ville>>), "Result n'est pas un action result");
+            CollectionAssert.AreEqual(result.Value.ToList(), lesVilles, "Les listes des villes ne sont pas égales");
+        }
+
+        [TestMethod()]
+        public void GetVilleByIdTest_ExistingId()
+        {
+            //Arrange
+            Ville ville = context.Villes.Where(a => a.VilleId == 1).FirstOrDefault();
+
+            //Act
+            var result = controller.GetVille(1).Result;
+
+            //Assert
+            Assert.IsNotNull(result, "Ville non retournée");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Ville>), "Result n'est pas un action result");
+            Assert.AreEqual(result.Value, ville, "Les villes ne sont pas égales");
+        }
+
+        [TestMethod()]
+        public void GetVilleByIdTest_UnkownId()
+        {
+            //Arrange
+
+            //Act
+            var result = controller.GetVille(4273).Result;
+
+            //Assert
+            Assert.AreEqual(((NotFoundResult)result.Result).StatusCode, StatusCodes.Status404NotFound, "Result ne retourne pas 404 not found");
+        }
+
+        // TESTS MOCKS
+
+        [TestMethod()]
+        public void GetVilleById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
+        {
+            // Arrange
+            Ville ville = new Ville()
+            {
+                VilleId = 1,
+                PaysId = 75,
+                Nom = "Abancourt",
+                CodePostal = "60180",
+                Latitude = (float)50.23545,
+                Longitude = (float)3.215486
+            };
+            mockAdresseRepository.Setup(x => x.GetVilleByIdAsync(1).Result).Returns(ville);
+
+            // Act
+            var result = mockAdresseController.GetVille(1).Result;
+
+            // Assert
+            Assert.IsNotNull(result, "Aucun résultat.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Ville>), "Pas un ActionResult.");
+            Assert.IsNull(result.Result, "Il y a une erreur.");
+            Assert.IsInstanceOfType(result.Value, typeof(Ville), "Pas une Ville");
+            Assert.AreEqual(ville, result.Value, "Villes pas identiques.");
+        }
+
+        [TestMethod]
+        public void GetVilleById_UnknownIdPassed_ReturnsNotFoundResult_Moq()
+        {
+            // Arrange
+
+            // Act
+            var actionResult = mockAdresseController.GetVille(0).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
     }
 }
