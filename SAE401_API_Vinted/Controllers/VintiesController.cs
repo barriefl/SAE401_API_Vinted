@@ -14,6 +14,19 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
+    public class VintieCreationDTO
+    {
+        public string Pseudo { get; set; } = null!;
+        public string Nom { get; set; } = null!;
+        public string Prenom { get; set; } = null!;
+        public string Civilite { get; set; } = null!;
+        public string Mail { get; set; } = null!;
+        public string Pwd { get; set; } = null!;
+        public string Telephone { get; set; } = null!;
+        public DateTime? DateNaissance { get; set; }
+        public string? URLPhoto { get; set; }
+
+    }
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class VintiesController : ControllerBase
@@ -178,6 +191,38 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return BadRequest(ModelState);
             }
+            await dataRepositoryVintie.PostAsync(vintie);
+            return CreatedAtAction("GetVintieById", new { id = vintie.VintieId }, vintie);
+        }
+
+        [HttpPost]
+        [ActionName("PostVintieDTO")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Vintie>> PostVintieDTO(VintieCreationDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var vintie = new Vintie
+            {
+                TypeCompteId = 1,
+                Pseudo = dto.Pseudo,
+                Nom = dto.Nom,
+                Prenom = dto.Prenom,
+                Civilite = dto.Civilite,
+                Mail = dto.Mail,
+                Pwd = dto.Pwd,
+                Telephone = dto.Telephone,
+                DateNaissance = dto.DateNaissance,
+                URLPhoto = dto.URLPhoto,
+                DateInscription = DateTime.Now,
+                MontantCompte = 0,
+                DateDerniereConnexion = DateTime.Now,
+                Consentement = true,
+            };
             await dataRepositoryVintie.PostAsync(vintie);
             return CreatedAtAction("GetVintieById", new { id = vintie.VintieId }, vintie);
         }

@@ -46,7 +46,7 @@ namespace SAE401_API_Vinted.Models.EntityFramework
         [Column("vnt_pwd")]
         [StringLength(64)]
         [PasswordPropertyText]
-        [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$", ErrorMessage = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial (#?!@$%^&*-) et est composé de 8 à 12 caractères.")]
+        //[RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$", ErrorMessage = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial (#?!@$%^&*-) et est composé de 8 à 12 caractères.")]
         
         public string Pwd { get; set; } = null!;
 
