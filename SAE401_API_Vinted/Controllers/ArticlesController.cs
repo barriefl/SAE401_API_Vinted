@@ -177,7 +177,32 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> PostArticle(ArticleCreationDto dto)
+        public async Task<IActionResult> PostArticle(Article article)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await dataRepositoryArticle.PostAsync(article);
+            return CreatedAtAction("GetArticleById", new { id = article.ArticleId }, article);
+        }
+        /// <summary>
+        /// Créer un article.
+        /// </summary>
+            /// <param name="article">L'objet article.</param>
+            /// <returns>Une réponse HTTP 201 Created.</returns>
+            /// <response code="201">L'article a été créé avec succès.</response>
+            /// <response code="400">Le format de l'article est incorrect.</response>
+            /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+            // POST: api/Articles/PostArticle
+            // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [ActionName("PostArticleDTO")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost]
+        public async Task<IActionResult> PostArticleDTO(ArticleCreationDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
