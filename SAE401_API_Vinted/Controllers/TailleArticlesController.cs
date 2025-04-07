@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SAE401_API_Vinted.Models.EntityFramework;
 using SAE401_API_Vinted.Models.Repository;
 
@@ -76,7 +77,32 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<TailleArticle>> PostTailleArticle(TailleArticleDTO tailleArticle)
+        public async Task<ActionResult<TailleArticle>> PostTailleArticle(TailleArticle tailleArticle)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await dataRepository.PostAsync(tailleArticle);
+            return CreatedAtAction("GetByIds", new { articleId = tailleArticle.ArticleId, tailleId = tailleArticle.TailleId }, tailleArticle);
+        }
+
+        /// <summary>
+        /// Créer une TailleArticle.
+        /// </summary>
+        /// <param name="tailleArticle">L'objet TailleArticle.</param>
+        /// <returns>Une réponse HTTP 201 Created.</returns>
+        /// <response code="201">La TailleArticle a été créée avec succès.</response>
+        /// <response code="400">Le format de la TailleArticle est incorrect.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // POST: api/TailleArticles/Post
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [ActionName("PostDTO")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<TailleArticle>> PostTailleArticleDto(TailleArticleDTO tailleArticle)
         {
             if (!ModelState.IsValid)
             {
