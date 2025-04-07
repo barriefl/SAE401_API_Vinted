@@ -87,7 +87,7 @@ app.UseCors(policy =>
     policy.WithOrigins("https://sae401vinted-gmfsa3e7d8bwa8g6.francecentral-01.azurewebsites.net")
     .AllowAnyMethod()
     .AllowAnyHeader()
-    .AllowCredentials()
+    .AllowAnyOrigin()
 );
 
 // Configure the HTTP request pipeline.
