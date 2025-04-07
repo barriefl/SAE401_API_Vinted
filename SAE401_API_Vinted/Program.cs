@@ -88,6 +88,7 @@ app.UseCors(policy =>
     .AllowAnyMethod()
     .AllowAnyHeader()
     .AllowCredentials()
+    .AllowAnyOrigin()
 );
 
 // Configure the HTTP request pipeline.
