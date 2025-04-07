@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,23 @@ using SAE401_API_Vinted.Models.Repository;
 
 namespace SAE401_API_Vinted.Controllers
 {
+    public class CommandeDTO
+    {
+        public int VintieId { get; set; }
+
+        public int ExpediteurId { get; set; }
+
+        public int CodeFormat { get; set; }
+
+        public int ArticleId { get; set; }
+
+        public int TypeEnvoiId { get; set; }
+
+        public int? PointRelaisID { get; set; }
+
+        public decimal MontantTotal { get; set; }
+    }
+
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class CommandesController : ControllerBase
@@ -136,6 +154,50 @@ namespace SAE401_API_Vinted.Controllers
             }
             await dataRepositoryCommande.PostAsync(commande);
             return CreatedAtAction("GetCommandeById", new { id = commande.CommandeID }, commande); 
+        }
+
+        /// <summary>
+        /// Créer une commande.
+        /// </summary>
+        /// <param name="commande">L'objet commande.</param>
+        /// <returns>Une réponse HTTP 201 Created.</returns>
+        /// <response code="201">La commande a été créée avec succès.</response>
+        /// <response code="400">Le format de la commande est incorrect.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // POST: api/Commandes/PostCommande
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [ActionName("PostCommandeDTO")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Commande>> PostCommandeDTO(CommandeDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var commande = new Commande()
+            {
+                VintieId = dto.VintieId,
+                ExpediteurId = dto.ExpediteurId,
+                CodeFormat = dto.CodeFormat,
+                ArticleId = dto.ArticleId,
+                TypeEnvoiId = dto.TypeEnvoiId,
+                PointRelaisID = dto.PointRelaisID,
+                MontantTotal  = dto.MontantTotal,
+                ACommeFormat = new FormatColis(),
+                ACommePointRelais = new PointRelais(),
+                ExpediteurCommande = new Expediteur(),
+                VintieCommande = new Vintie(),
+                ArticleCommande = new Article(),
+                TypeEnvoiDeCommande = new TypeEnvoi(),
+                TransactionsCommandes = new List<Transaction>()
+            };
+
+            await dataRepositoryCommande.PostAsync(commande);
+            return CreatedAtAction("GetCommandeById", new { id = commande.CommandeID }, commande);
         }
 
         /// <summary>
