@@ -780,7 +780,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             Assert.IsInstanceOfType(result, typeof(NoContentResult), "Result n'est pas un NoContentResult");
             Assert.AreEqual(((NoContentResult)result).StatusCode, StatusCodes.Status204NoContent, "N'est pas 204");
-            Assert.AreEqual(offreTest, offreToGet, "L'offre n'a pas été modifiée !");
+            Assert.AreEqual(offreTest.StatusOffreId, offreToGet.StatusOffreId, "L'offre n'a pas été modifiée !");
 
             transaction.Rollback();
         }

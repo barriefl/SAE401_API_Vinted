@@ -76,7 +76,33 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<MatiereArticle>> PostMatiereArticle(MatiereArticleDTO matiereArticle)
+        public async Task<ActionResult<MatiereArticle>> PostMatiereArticle(MatiereArticle matiereArticle)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await dataRepository.PostAsync(matiereArticle);
+            return CreatedAtAction("GetByIds", new { matiereId = matiereArticle.MatiereId, articleId = matiereArticle.ArticleId }, matiereArticle);
+        }
+
+        /// <summary>
+        /// Créer une MatiereArticle.
+        /// </summary>
+        /// <param name="matiereArticle">L'objet MatiereArticle.</param>
+        /// <returns>Une réponse HTTP 201 Created.</returns>
+        /// <response code="201">La MatiereArticle a été créée avec succès.</response>
+        /// <response code="400">Le format du MatiereArticle est incorrect.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // POST: api/MatiereArticles/Post
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [ActionName("PostDTO")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<MatiereArticle>> PostMatiereArticleDTO(MatiereArticleDTO matiereArticle)
         {
             if (!ModelState.IsValid)
             {

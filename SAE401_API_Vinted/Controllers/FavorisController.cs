@@ -76,7 +76,34 @@ namespace SAE401_API_Vinted.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Favoris>> PostFavoris(FavorisDTO favorisDto)
+        public async Task<ActionResult<Favoris>> PostFavoris(Favoris favoris)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await dataRepository.PostAsync(favoris);
+
+            return CreatedAtAction("GetByIds", new { articleId = favoris.ArticleId, vintieId = favoris.VintieId }, favoris);
+        }
+
+        /// <summary>
+        /// Créer un Favoris.
+        /// </summary>
+        /// <param name="favoris">L'objet Favoris.</param>
+        /// <returns>Une réponse HTTP 201 Created.</returns>
+        /// <response code="201">Le Favoris a été créé avec succès.</response>
+        /// <response code="400">Le format du Favoris est incorrect.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // POST: api/Favoris/Post
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [ActionName("PostDTO")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Favoris>> PostFavorisDTO(FavorisDTO favorisDto)
         {
             if (!ModelState.IsValid)
             {

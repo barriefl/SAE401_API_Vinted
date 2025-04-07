@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -16,7 +17,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 /*
-
         public async Task PutCompteBancaireAsync(CompteBancaire entityToUpdate, CompteBancaire entity)
 */
 namespace SAE401_API_Vinted.Controllers.Tests
@@ -175,14 +175,14 @@ namespace SAE401_API_Vinted.Controllers.Tests
         public void GetVintieByPseudoTest()
         {
             //Arrange
-            var articleList = context.Vinties.Where(v =>
-            v.Pseudo.ToUpper().Contains("LULU94")).ToList();
+            var vintie = context.Vinties.Where(v =>
+            v.Pseudo.ToUpper().Contains("LULU94")).FirstOrDefault();
 
             //Act
             var result = controller.GetVintiesByPseudo("lulu94").Result;
 
             //Assert
-            CollectionAssert.AreEqual(result.Value.ToList(), articleList, "Les listes d'articles ne sont pas égales");
+            Assert.AreEqual(result.Value, vintie, "Les vinties ne sont pas égaux");
         }
 
         [TestMethod()]
@@ -768,19 +768,17 @@ namespace SAE401_API_Vinted.Controllers.Tests
                 Consentement = true,
                 Siret = null
             };
-            List<Vintie> liste = new List<Vintie>();
-            liste.Add(vintie);
-            mockVintieRepository.Setup(x => x.GetByPseudoAsync("lulu94").Result).Returns(liste);
+            mockVintieRepository.Setup(x => x.GetByPseudoAsync("lulu94").Result).Returns(vintie);
 
             // Act
             var result = mockVintieController.GetVintiesByPseudo("lulu94").Result;
 
             // Assert
             Assert.IsNotNull(result, "Aucun résultat.");
-            Assert.IsInstanceOfType(result, typeof(ActionResult<IEnumerable<Vintie>>), "Pas un ActionResult.");
+            Assert.IsInstanceOfType(result, typeof(ActionResult<Vintie>), "Pas un ActionResult.");
             Assert.IsNull(result.Result, "Il y a une erreur.");
-            Assert.IsInstanceOfType(result.Value, typeof(IEnumerable<Vintie>), "Pas un Vintie");
-            CollectionAssert.AreEqual(liste, result.Value.ToList(), "Vinties pas identiques.");
+            Assert.IsInstanceOfType(result.Value, typeof(Vintie), "Pas un Vintie");
+            Assert.AreEqual(vintie, result.Value, "Vinties pas identiques.");
         }
 
         [TestMethod]
