@@ -12,6 +12,12 @@ using SAE401_API_Vinted.Models.DataManager;
 
 namespace SAE401_API_Vinted.Controllers
 {
+    public class ImageDTO
+    {
+        public int ArticleId { get; set; }
+        public string Url { get; set; }
+
+    }
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class ImagesController : ControllerBase
@@ -134,6 +140,30 @@ namespace SAE401_API_Vinted.Controllers
             {
                 return BadRequest(ModelState);
             }
+            await dataRepositoryImage.PostAsync(image);
+            return CreatedAtAction("GetById", new { id = image.ImageId }, image);
+        }
+
+
+        // POST: api/Images/Post
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [ActionName("PostDTO")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Image>> PostImageDTO(ImageDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var image = new Image
+            {
+                ArticleId = dto.ArticleId,
+                Url = dto.Url
+            };
             await dataRepositoryImage.PostAsync(image);
             return CreatedAtAction("GetById", new { id = image.ImageId }, image);
         }
