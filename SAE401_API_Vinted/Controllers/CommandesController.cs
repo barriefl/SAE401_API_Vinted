@@ -187,13 +187,6 @@ namespace SAE401_API_Vinted.Controllers
                 TypeEnvoiId = dto.TypeEnvoiId,
                 PointRelaisID = dto.PointRelaisID,
                 MontantTotal  = dto.MontantTotal,
-                ACommeFormat = new FormatColis(),
-                ACommePointRelais = new PointRelais(),
-                ExpediteurCommande = new Expediteur(),
-                VintieCommande = new Vintie(),
-                ArticleCommande = new Article(),
-                TypeEnvoiDeCommande = new TypeEnvoi(),
-                TransactionsCommandes = new List<Transaction>()
             };
 
             await dataRepositoryCommande.PostAsync(commande);
