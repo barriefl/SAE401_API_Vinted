@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using SAE401_API_Vinted.Models.EntityFramework;
+using System.Security.Cryptography;
 
 namespace SAE401_API_Vinted.Controllers
 {
@@ -50,7 +51,7 @@ namespace SAE401_API_Vinted.Controllers
         private Vintie AuthenticateUser(VintieDTO vintie)
         {
            return _context.Vinties.SingleOrDefault(x => x.Pseudo.ToUpper() == vintie.Pseudo.ToUpper() &&
-           x.Pwd == vintie.Pwd);
+           x.Pwd == ComputeSha256Hash(vintie.Pwd));
         }
 
         private string GenerateJwtToken(Vintie userInfo)
@@ -75,6 +76,18 @@ namespace SAE401_API_Vinted.Controllers
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        static public string ComputeSha256Hash(string rawData)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                    builder.Append(b.ToString("x2"));
+                return builder.ToString();
+            }
         }
     }
 }

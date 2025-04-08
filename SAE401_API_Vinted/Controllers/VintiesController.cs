@@ -214,7 +214,7 @@ namespace SAE401_API_Vinted.Controllers
                 Prenom = dto.Prenom,
                 Civilite = dto.Civilite,
                 Mail = dto.Mail,
-                Pwd = dto.Pwd,
+                Pwd = LoginController.ComputeSha256Hash(dto.Pwd),
                 Telephone = dto.Telephone,
                 DateNaissance = dto.DateNaissance,
                 URLPhoto = dto.URLPhoto,
