@@ -318,7 +318,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
         // PUT: api/Articles/PutLike/5&5
         [HttpPut("{id}")]
-        [ActionName("PutLike")]
+        [ActionName("PutEtatVente")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> PutArticleEtatVente(int id)
