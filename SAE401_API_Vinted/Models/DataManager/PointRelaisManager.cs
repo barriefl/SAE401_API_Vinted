@@ -20,7 +20,7 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         public async Task<ActionResult<IEnumerable<PointRelais>>> GetAllAsync()
         {
-            return await vintiesDbContext.PointsRelais.ToListAsync();
+            return await vintiesDbContext.PointsRelais.Include(c => c.AdressePointRelais).ToListAsync();
         }
 
         public async Task<ActionResult<PointRelais>> GetByIdAsync(int id)

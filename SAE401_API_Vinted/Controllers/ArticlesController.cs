@@ -308,6 +308,25 @@ namespace SAE401_API_Vinted.Controllers
             return NoContent();
         }
 
+
+        /// <summary>
+        /// Modifie l'etat de vente d'un article.
+        /// </summary>
+        /// <param name="id">L'id de l'article.</param>
+        /// <returns>Une réponse HTTP 204 NoContent.</returns>
+        /// <response code="204">L'article a été modifié avec succès.</response>
+        /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
+        // PUT: api/Articles/PutLike/5&5
+        [HttpPut("{id}")]
+        [ActionName("PutLike")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> PutArticleEtatVente(int id)
+        {
+            await dataRepositoryArticle.PutEtatVente(id);
+            return NoContent();
+        }
+
         /// <summary>
         /// Récupère toutes les couleurs.
         /// </summary>

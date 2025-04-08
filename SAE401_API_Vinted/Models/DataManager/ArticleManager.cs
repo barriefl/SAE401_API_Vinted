@@ -156,6 +156,14 @@ namespace SAE401_API_Vinted.Models.DataManager
 
         }
 
+        public async Task PutEtatVente(int id)
+        {
+            Article article = GetByIdAsync(id).Result.Value;
+            article.EtatVenteArticleId = 2;
+            await vintiesDbContext.SaveChangesAsync();
+
+        }
+
 
         public async Task<ActionResult<IEnumerable<Couleur>>> GetAllCouleursAsync()
         {

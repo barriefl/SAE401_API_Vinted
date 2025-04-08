@@ -8,6 +8,7 @@ namespace SAE401_API_Vinted.Models.Repository
         Task<ActionResult<IEnumerable<Article>>> GetByStringAsync(string text);
 
         Task PutLikeAsync(int id, int compteur);
+        Task PutEtatVente(int id);
 
         Task<ActionResult<IEnumerable<Couleur>>> GetAllCouleursAsync();
         Task<ActionResult<Couleur>> GetCouleurByIdAsync(int id);
