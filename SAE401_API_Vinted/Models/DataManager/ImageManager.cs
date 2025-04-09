@@ -32,7 +32,7 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<Image>> GetByIdAsync(int id)
         {
             return await vintiesDbContext.Images
-                .Include(c => c.ArticleDeImage)
+                //.Include(c => c.ArticleDeImage)
                 .FirstOrDefaultAsync(c => c.ImageId == id);
         }
 

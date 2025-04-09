@@ -26,8 +26,8 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<TypeTaille>> GetByIdAsync(int id)
         {
             return await vintiesDbContext.TypeTailles
-                .Include(tt => tt.CategorieTypeTaille)
-                .Include(tt => tt.TaillesTypeTaille)
+                //.Include(tt => tt.CategorieTypeTaille)
+                //.Include(tt => tt.TaillesTypeTaille)
                 .FirstOrDefaultAsync(tt => tt.TypeTailleId == id);
         }
     }

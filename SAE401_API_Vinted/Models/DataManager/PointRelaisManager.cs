@@ -28,10 +28,10 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<PointRelais>> GetByIdAsync(int id)
         {
             return await vintiesDbContext.PointsRelais
-                .Include(c => c.ADesCommandes)
+                //.Include(c => c.ADesCommandes)
                 .Include(c => c.AdressePointRelais)
-                .Include(c => c.HorairesPointRelais).ThenInclude(c => c.JourOuvert)
-                .Include(c => c.PointsRelaisEnFavoris).ThenInclude(c => c.VintiePointRelais)
+                //.Include(c => c.HorairesPointRelais).ThenInclude(c => c.JourOuvert)
+                //.Include(c => c.PointsRelaisEnFavoris).ThenInclude(c => c.VintiePointRelais)
                 .FirstOrDefaultAsync(c => c.PointRelaisID == id);
         }
 

@@ -27,8 +27,8 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<Appartient>> GetByIdsAsync(int id1, int id2)
         {
             return await vintiesDbContext.Appartient
-                .Include(a => a.CompteIdNavigation)
-                .Include(a => a.VintieIdNavigation)
+                //.Include(a => a.CompteIdNavigation)
+                //.Include(a => a.VintieIdNavigation)
                 .FirstOrDefaultAsync(a => a.CompteId == id1 && a.VintieId == id2);
         }
 

@@ -27,10 +27,10 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<Categorie>> GetByIdAsync(int id)
         {
             return await vintiesDbContext.Categories
-                .Include(c => c.CategorieParentIdNavigation)
-                    .ThenInclude(c => c.CategorieParentIdNavigation)
-                .Include(c => c.TypesTaillesCategories)
-                .Include(c => c.CategoriesArticles)
+                //.Include(c => c.CategorieParentIdNavigation)
+                //    .ThenInclude(c => c.CategorieParentIdNavigation)
+                //.Include(c => c.TypesTaillesCategories)
+                //.Include(c => c.CategoriesArticles)
                 .FirstOrDefaultAsync(c => c.CategorieId == id);
         }
 
@@ -63,6 +63,5 @@ namespace SAE401_API_Vinted.Models.DataManager
 
             return tailles;
         }
-
     }
 }

@@ -44,9 +44,9 @@ namespace SAE401_API_Vinted.Models.DataManager
             return await vintiesDbContext.Adresses
                 .Include(a => a.VilleAdresse)
                 .ThenInclude(v => v.PaysVille)
-                .Include(a => a.PossedesAdresse)
-                .Include(a => a.AResidents)
-                .Include(a => a.ADesPointRelais)
+                //.Include(a => a.PossedesAdresse)
+                //.Include(a => a.AResidents)
+                //.Include(a => a.ADesPointRelais)
                 .FirstOrDefaultAsync(a => a.AdresseID == id);
         }
 

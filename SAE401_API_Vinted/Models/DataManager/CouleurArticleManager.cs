@@ -27,7 +27,7 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<CouleurArticle>> GetByIdsAsync(int id1, int id2)
         {
             return await vintiesDbContext.CouleursArticles
-                .Include(ca => ca.ArticleConcerne)
+                //.Include(ca => ca.ArticleConcerne)
                 .Include(ca => ca.CouleurConcernee)
                 .FirstOrDefaultAsync(ca => ca.ArticleId == id1 && ca.CouleurId == id2);
         }

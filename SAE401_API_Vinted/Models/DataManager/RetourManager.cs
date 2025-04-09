@@ -24,10 +24,10 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<Retour>> GetByIdAsync(int id)
         {
             return await vintedDbContext.Retours
-                .Include(r => r.TypeDuRetour)
-                .Include(r => r.ArticleRetourne)
-                .Include(r => r.VintieRetour)
-                .Include(r => r.StatusDuRetour)
+                //.Include(r => r.TypeDuRetour)
+                //.Include(r => r.ArticleRetourne)
+                //.Include(r => r.VintieRetour)
+                //.Include(r => r.StatusDuRetour)
                 .FirstOrDefaultAsync(e => e.RetourId == id);
         }
 

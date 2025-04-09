@@ -26,8 +26,8 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<Expediteur>> GetByIdAsync(int id)
         {
             return await vintiesDbContext.Expediteurs
-                .Include(e => e.PreferencesExpediteur).ThenInclude(e => e.VintieIdNavigation)
-                .Include(e => e.CommandesExpediteurs)
+                //.Include(e => e.PreferencesExpediteur).ThenInclude(e => e.VintieIdNavigation)
+                //.Include(e => e.CommandesExpediteurs)
                 .FirstOrDefaultAsync(e => e.ExpediteurId == id);
         }
     }
