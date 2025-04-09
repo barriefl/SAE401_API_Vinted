@@ -93,17 +93,17 @@ namespace SAE401_API_Vinted.Models.DataManager
                 .Include(a => a.ArticlesDuVendeur).ThenInclude(a => a.ImagesDeArticle)
                 .Include(a => a.AppartienentVintie)
                     .ThenInclude(a => a.CompteIdNavigation)
-                .Include(a => a.ADesAvisVendeur)
-                    .ThenInclude(a => a.APourTypeAvis)
-                .Include(a => a.ADesAvisAcheteur)
+               // .Include(a => a.ADesAvisVendeur)
+                    //.ThenInclude(a => a.APourTypeAvis)
+               // .Include(a => a.ADesAvisAcheteur)
                 .Include(a => a.PreferencesVintie)
                     .ThenInclude(a => a.ExpediteurIdNavigation)
-                .Include(a => a.SignalementsDeArticle)
+                //.Include(a => a.SignalementsDeArticle)
                 .Include(a => a.FavorisDeVintie).ThenInclude(a => a.EstFavoris).ThenInclude(a => a.ImagesDeArticle)
                 .Include(a => a.PointRelaisFavorisVintie)
                 .Include(a => a.CommandesVinties)
                 .Include(a => a.ConversationsAcheteur).ThenInclude(a =>a.Messages)
-                .Include(a => a.RetourDesVintie)
+                //.Include(a => a.RetourDesVintie)
                 .FirstOrDefaultAsync(u => u.VintieId == id);
         }
 
