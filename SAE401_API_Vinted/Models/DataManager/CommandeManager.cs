@@ -33,7 +33,7 @@ namespace SAE401_API_Vinted.Models.DataManager
             .Include(a => a.ACommeFormat)
             .Include(a => a.ACommePointRelais)
             .Include(a => a.ExpediteurCommande)
-            .Include(a => a.VintieCommande)
+            .Include(a => a.VintieCommande).ThenInclude(a =>a.FavorisDeVintie)
             .Include(a => a.ArticleCommande).ThenInclude(a => a.ImagesDeArticle)
             .Include(a => a.TypeEnvoiDeCommande)
             .Include(a => a.TransactionsCommandes)
