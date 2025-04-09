@@ -27,10 +27,10 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<Possede>> GetByIdsAsync(int id1, int id2)
         {
             return await vintiesDbContext.Possede
-                //.Include(p => p.APourAdresse)
-                //.ThenInclude(p => p.VilleAdresse)
-                //.ThenInclude(p => p.PaysVille)
-                //.Include(p => p.APourType)
+                .Include(p => p.APourAdresse)
+                .ThenInclude(p => p.VilleAdresse)
+                .ThenInclude(p => p.PaysVille)
+                .Include(p => p.APourType)
                 .FirstOrDefaultAsync(p => p.AdresseId == id1 && p.CodeType == id2);
         }
 

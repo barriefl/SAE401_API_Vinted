@@ -999,5 +999,11 @@ namespace SAE401_API_Vinted.Controllers.Tests
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
         }
+
+        [TestCleanup]
+        public void clean()
+        {
+            transaction.Dispose();
+        }
     }
 }

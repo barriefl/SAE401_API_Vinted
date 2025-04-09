@@ -93,7 +93,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
                 ExpediteurId = 2,
                 CodeFormat = 1,
                 ArticleId = 1,
-                TypeEnvoiId = 2,
+                TypeEnvoiId = 1,
                 PointRelaisID = 5,
                 MontantTotal = 6
             };
@@ -392,6 +392,12 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             // Assert
             Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+
+        [TestCleanup]
+        public void clean()
+        {
+            transaction.Dispose();
         }
     }
 }

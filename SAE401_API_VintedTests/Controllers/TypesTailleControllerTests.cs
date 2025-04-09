@@ -131,5 +131,11 @@ namespace SAE401_API_Vinted.Controllers.Tests
             // Assert
             Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
         }
+
+        [TestCleanup]
+        public void clean()
+        {
+            transaction.Dispose();
+        }
     }
 }

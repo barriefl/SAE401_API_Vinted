@@ -352,5 +352,11 @@ namespace SAE401_API_Vinted.Controllers.Tests
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult");
         }
+
+        [TestCleanup]
+        public void clean()
+        {
+            transaction.Dispose();
+        }
     }
 }

@@ -27,8 +27,8 @@ namespace SAE401_API_Vinted.Models.DataManager
         public async Task<ActionResult<PointRelaisFavoris>> GetByIdsAsync(int id1, int id2)
         {
             return await vintiesDbContext.PointsRelaisFavoris
-                //.Include(prf => prf.VintiePointRelais)
-                //.Include(prf => prf.FavPointRelais)
+                .Include(prf => prf.VintiePointRelais)
+                .Include(prf => prf.FavPointRelais)
                 .FirstOrDefaultAsync(prf => prf.VintieId == id1 && prf.PointRelaisId == id2);
         }
 

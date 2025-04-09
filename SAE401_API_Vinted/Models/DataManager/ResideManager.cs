@@ -28,7 +28,7 @@ namespace SAE401_API_Vinted.Models.DataManager
         {
             return await vintiesDbContext.Reside
                 .Include(r => r.ResideA)
-                //.Include(r => r.ResideVintie)
+                .Include(r => r.ResideVintie)
                 .FirstOrDefaultAsync(r => r.AdresseId == id1 && r.VintieId == id2);
         }
 

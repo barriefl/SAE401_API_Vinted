@@ -158,11 +158,11 @@ namespace SAE401_API_Vinted.Controllers.Tests
             //Arrange
 
             //Act
-            var result = controller.DeleteMatiereArticle(10, 3).Result;
+            var result = controller.DeleteMatiereArticle(6, 6).Result;
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
-            var matiereArticleSupprime = context.MatieresArticles.Find(10, 3);
+            var matiereArticleSupprime = context.MatieresArticles.Find(6, 6);
             Assert.IsNull(matiereArticleSupprime);
 
             transaction.Rollback();
@@ -243,6 +243,12 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
+        }
+
+        [TestCleanup]
+        public void clean()
+        {
+            transaction.Dispose();
         }
     }
 }

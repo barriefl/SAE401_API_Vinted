@@ -28,7 +28,7 @@ namespace SAE401_API_Vinted.Models.DataManager
         {
             return await vintiesDbContext.Favoris
                 .Include(f => f.EstFavoris)
-                //.Include(f => f.FavorisVintie)
+                .Include(f => f.FavorisVintie)
                 .FirstOrDefaultAsync(f => f.ArticleId == id1 && f.VintieId == id2);
         }
 

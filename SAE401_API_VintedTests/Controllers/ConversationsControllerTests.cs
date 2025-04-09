@@ -924,9 +924,10 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.AreEqual(offreModifiee, Result.Value as Offre, "Offre non modifiée !");
         }
 
-
+        [TestCleanup]
+        public void clean()
+        {
+            transaction.Dispose();
+        }
     }
-
-
-
 }

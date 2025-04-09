@@ -106,12 +106,12 @@ namespace SAE401_API_Vinted.Controllers.Tests
         {
             //Arrange
             var articleList = context.Articles.Where(a =>
-            a.Titre.ToUpper().Contains("BONNET LIDL") ||
-            a.Description.ToUpper().Contains("BONNET LIDL"))
+            a.Titre.ToUpper().Contains("CARTE") ||
+            a.Description.ToUpper().Contains("CARTE"))
             .ToList();
 
             //Act
-            var result = controller.GetArticleByTitreDescription("Bonnet lidl").Result;
+            var result = controller.GetArticleByTitreDescription("Carte").Result;
 
             //Assert
             CollectionAssert.AreEqual(result.Value.ToList(), articleList, "Les listes d'articles ne sont pas égales");
@@ -1059,6 +1059,12 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             // Assert
             Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        }
+
+        [TestCleanup]
+        public void clean()
+        {
+            transaction.Dispose();
         }
     }
 }

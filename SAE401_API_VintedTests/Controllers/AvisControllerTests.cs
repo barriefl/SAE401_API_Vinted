@@ -292,7 +292,10 @@ namespace SAE401_API_Vinted.Controllers.Tests
             Assert.AreEqual(avisTestExist, (Avis)result.Value, "Utilisateurs pas identiques");
         }
 
-
-
+        [TestCleanup]
+        public void clean()
+        {
+            transaction.Dispose();
+        }
     }
 }

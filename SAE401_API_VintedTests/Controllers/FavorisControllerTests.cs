@@ -87,7 +87,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             //Arrange
             Favoris favorisTest = new Favoris()
             {
-                ArticleId = 1,
+                ArticleId = 2,
                 VintieId = 1
             };
 
@@ -95,7 +95,7 @@ namespace SAE401_API_Vinted.Controllers.Tests
             var result = controller.PostFavoris(favorisTest).Result;
 
             //Assert
-            Favoris favorisToGet = context.Favoris.Where(fav => fav.ArticleId == 1 && fav.VintieId == 1).FirstOrDefault();
+            Favoris favorisToGet = context.Favoris.Where(fav => fav.ArticleId == 2 && fav.VintieId == 1).FirstOrDefault();
 
             Assert.IsInstanceOfType(result, typeof(ActionResult<Favoris>), "Result n'est pas un action result");
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult), "Result n'est pas un CreatedAtActionResult");
@@ -159,11 +159,11 @@ namespace SAE401_API_Vinted.Controllers.Tests
             //Arrange
 
             //Act
-            var result = controller.DeleteFavoris(12, 74).Result;
+            var result = controller.DeleteFavoris(6, 74).Result;
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
-            var favorisSupprime = context.MatieresArticles.Find(12, 74);
+            var favorisSupprime = context.MatieresArticles.Find(6, 74);
             Assert.IsNull(favorisSupprime);
 
             transaction.Rollback();
@@ -244,6 +244,12 @@ namespace SAE401_API_Vinted.Controllers.Tests
 
             // Assert
             Assert.IsInstanceOfType(actionResult, typeof(NoContentResult), "Pas un NoContentResult"); // Test du type de retour
+        }
+
+        [TestCleanup]
+        public void clean()
+        {
+            transaction.Dispose();
         }
     }
 }
