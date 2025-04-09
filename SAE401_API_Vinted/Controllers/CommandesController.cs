@@ -159,7 +159,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <summary>
         /// Créer une commande.
         /// </summary>
-        /// <param name="commande">L'objet commande.</param>
+        /// <param name="dto">L'objet commande.</param>
         /// <returns>Une réponse HTTP 201 Created.</returns>
         /// <response code="201">La commande a été créée avec succès.</response>
         /// <response code="400">Le format de la commande est incorrect.</response>

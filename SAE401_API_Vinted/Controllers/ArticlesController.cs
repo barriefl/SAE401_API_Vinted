@@ -316,7 +316,7 @@ namespace SAE401_API_Vinted.Controllers
         /// <returns>Une réponse HTTP 204 NoContent.</returns>
         /// <response code="204">L'article a été modifié avec succès.</response>
         /// <response code="500">Une erreur interne s'est produite sur le serveur.</response>
-        // PUT: api/Articles/PutLike/5&5
+        // PUT: api/Articles/PutEtatVente/5&5
         [HttpPut("{id}")]
         [ActionName("PutEtatVente")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
